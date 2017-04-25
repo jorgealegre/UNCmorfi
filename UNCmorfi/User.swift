@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  User.swift
 //  UNCmorfi
 //
 //  Created by George Alegre on 4/25/17.
@@ -17,7 +17,7 @@ class User {
     var image: UIImage?
     var imageCode: String
     
-    init(code:String) {
+    init(code: String) {
         self.code = code
         self.name = ""
         self.balance = 0
