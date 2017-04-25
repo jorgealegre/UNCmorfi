@@ -58,7 +58,7 @@ func getUserStatus(from code: String,
         let image = _24
         
         callback(nil, name, balance, image)
-        }.resume()
+    }.resume()
 }
 
 func getUserImage(from code: String, callback: @escaping (_ error: Any?, _ image: UIImage) -> ()) {
