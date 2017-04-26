@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import os.log
 
 class UserTableViewController: UITableViewController {
     // MARK: Properties
-    var users: [User] = [User(code: "04756A29333C62D")]
+    var users: [User] = []
     let cellID = "UserTableViewCell"
 
     override func viewDidLoad() {
@@ -20,6 +21,10 @@ class UserTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         self.navigationItem.leftBarButtonItem = editButtonItem
+        
+        if let savedUsers = loadUsers() {
+            users += savedUsers
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,7 +64,9 @@ class UserTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        
+        saveUsers()
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -75,14 +82,38 @@ class UserTableViewController: UITableViewController {
     
     // MARK: Actions
     @IBAction func unwindToUserList(sender: UIStoryboardSegue) {
-        if let svc = sender.source as? NewUserViewController, let user = svc.user {
+        if let svc = sender.source as? NewUserViewController, let user = svc.user
+        {
+            // Make sure it doesn't already exist.
+            if users.contains(user) {
+                os_log("User already exists.", log: .default, type: .debug)
+                
+                // TODO(alegre): Maybe alert the user?
+                return
+            }
+            
             // Add a new user.
             let newIndexPath = IndexPath(row: users.count, section: 0)
             
             user.update() {
                 self.users.append(user)
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+                self.saveUsers()
             }
         }
+    }
+    
+    // MARK: Methods
+    private func saveUsers() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(users, toFile: User.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Users successfully saved.", log: .default, type: .debug)
+        } else {
+            os_log("Failed to save users...", log: .default, type: .error)
+        }
+    }
+    
+    private func loadUsers() -> [User]?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? [User]
     }
 }
