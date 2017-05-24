@@ -17,7 +17,7 @@ func getUserStatus(from code: String,
     var request = URLRequest(url: baseDataURL!)
     request.httpMethod = "POST"
     
-    let requestData = "accion=4&responseHandler=setDatos&codigo=\(code)"
+    let requestData = "accion=4&responseHandler=''&codigo=\(code)"
     request.httpBody = requestData.data(using: .utf8)
     
     URLSession(configuration: .default).dataTask(with: request) { data, res, error in

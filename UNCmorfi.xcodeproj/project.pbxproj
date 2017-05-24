@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5E0D6CDB1EAF9D900055B84F /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0D6CDA1EAF9D900055B84F /* NewUserViewController.swift */; };
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
+		5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */; };
 		5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */; };
 		5EC4CBDA1E91F4DA00E0BE71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD81E91F4DA00E0BE71 /* Main.storyboard */; };
 		5EC4CBDF1E91F4DA00E0BE71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC4CBDD1E91F4DA00E0BE71 /* LaunchScreen.storyboard */; };
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		5E0D6CDA1EAF9D900055B84F /* NewUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
+		5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCmorfi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC4CBD91E91F4DA00E0BE71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				5ECD1FB11EAF028900508A16 /* User.swift */,
 				5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */,
 				5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */,
+				5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */,
 				5E0D6CDA1EAF9D900055B84F /* NewUserViewController.swift */,
 				5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */,
 				5EC4CBD81E91F4DA00E0BE71 /* Main.storyboard */,
@@ -155,6 +158,7 @@
 				TargetAttributes = {
 					5EC4CBCE1E91F4DA00E0BE71 = {
 						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = MCQUU65FS6;
 						ProvisioningStyle = Automatic;
 					};
 					5EC4CBE41E91F4DA00E0BE71 = {
@@ -213,6 +217,7 @@
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E0D6CDB1EAF9D900055B84F /* NewUserViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
+				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,11 +356,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = MCQUU65FS6;
 				INFOPLIST_FILE = UNCmorfi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -363,11 +371,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = MCQUU65FS6;
 				INFOPLIST_FILE = UNCmorfi/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

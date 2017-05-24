@@ -52,14 +52,24 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
     
         // Configure the destination view controller only when the save button is pressed.
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
-            os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            if #available(iOS 10.0, *) {
+                os_log("The save button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            } else {
+                // Fallback on earlier versions
+            }
             return
         }
         
-        let code = codeTextField.text!
+        let code = codeTextField.text!.uppercased()
         
         // Create the new user to be added to the user table view.
         user = User(code: code)
+        
+        DispatchQueue.main.async {
+            self.user!.update {
+                
+            }
+        }
     }
     
     // MARK: Private methods

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -49,28 +48,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Nk-KS-kUD">
-                                            <rect key="frame" x="98" y="8" width="269" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jorge Facundo Alegre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="0Nk-KS-kUD">
+                                            <rect key="frame" x="98" y="8" width="209" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Balance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcM-hK-S96">
-                                            <rect key="frame" x="98" y="46" width="66" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0q-N4-P9R">
-                                            <rect key="frame" x="269" y="46" width="98" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E0q-N4-P9R">
+                                            <rect key="frame" x="315" y="32" width="52" height="25.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="E0q-N4-P9R" firstAttribute="centerY" secondItem="2xf-Gp-Osi" secondAttribute="centerY" id="6TX-Dg-2xm"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="E0q-N4-P9R" secondAttribute="trailing" id="ZMt-0A-oCA"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="balanceLabel" destination="E0q-N4-P9R" id="cYE-Uz-bqf"/>
@@ -91,13 +86,21 @@
                                     <segue destination="7DO-ia-wMd" kind="presentation" identifier="AddUser" id="ex8-tf-JsO"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="camera" id="xS5-0y-vwa"/>
+                            <barButtonItem systemItem="camera" id="xS5-0y-vwa">
+                                <connections>
+                                    <segue destination="B36-T3-mHy" kind="presentation" identifier="" id="qVS-se-1eP"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="4vx-pL-R9q">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZu-b8-xXW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="518" y="1033"/>
+            <point key="canvasLocation" x="517.60000000000002" y="1032.2338830584708"/>
         </scene>
         <!--Nuevo Usuario-->
         <scene sceneID="dEn-OB-yyz">
@@ -198,6 +201,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zfl-AQ-xAa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1327" y="1033"/>
+        </scene>
+        <!--Barcode Scanner View Controller-->
+        <scene sceneID="FEy-NW-oG8">
+            <objects>
+                <viewController id="B36-T3-mHy" customClass="BarcodeScannerViewController" customModule="UNCmorfi" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8T5-Kp-vke"/>
+                        <viewControllerLayoutGuide type="bottom" id="ayU-hz-RsL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="npe-UY-cfc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J1D-KL-Gjj">
+                                <rect key="frame" x="16" y="20" width="90" height="89"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <state key="normal" title="⌫">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="close:" destination="B36-T3-mHy" eventType="touchUpInside" id="gpn-OP-7Ix"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="J1D-KL-Gjj" id="miR-Nu-cMO"/>
+                        <segue destination="2MX-bf-UNp" kind="unwind" identifier="unwindToUserList" unwindAction="unwindToUserListWithSender:" id="pjD-sZ-fiQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tfG-p6-duT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2MX-bf-UNp" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1325.5999999999999" y="1893.1034482758623"/>
         </scene>
     </scenes>
 </document>

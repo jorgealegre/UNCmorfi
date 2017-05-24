@@ -64,7 +64,11 @@ class User: NSObject, NSCoding {
             let code = aDecoder.decodeObject(forKey: PropertyKey.code) as? String,
             let imageCode = aDecoder.decodeObject(forKey: PropertyKey.imageCode) as? String
         else {
-            os_log("Unable to decode User data.", log: .default, type: .debug)
+            if #available(iOS 10.0, *) {
+                os_log("Unable to decode User data.", log: .default, type: .debug)
+            } else {
+                // Fallback on earlier versions
+            }
             return nil
         }
 
