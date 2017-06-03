@@ -27,7 +27,7 @@ class User: NSObject, NSCoding {
     var imageCode: String
     
     init(code: String) {
-        self.code = code
+        self.code = code.uppercased()
         self.name = ""
         self.balance = 0
         self.imageCode = ""
