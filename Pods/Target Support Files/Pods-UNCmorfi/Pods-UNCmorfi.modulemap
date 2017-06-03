@@ -1,0 +1,6 @@
+framework module Pods_UNCmorfi {
+  umbrella header "Pods-UNCmorfi-umbrella.h"
+
+  export *
+  module * { export * }
+}

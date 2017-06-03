@@ -66,9 +66,7 @@ class NewUserViewController: UIViewController, UITextFieldDelegate {
         user = User(code: code)
         
         DispatchQueue.main.async {
-            self.user!.update {
-                
-            }
+            self.user!.update { }
         }
     }
     

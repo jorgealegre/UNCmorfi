@@ -10,17 +10,23 @@ import UIKit
 import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    // MARK: Properties
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var barcodeFrameView: UIView?
+    @IBOutlet weak var closeButton: UIButton!
     
     // MARK: Model
     var user: User?
     
     // MARK: Actions
-    @IBOutlet weak var closeButton: UIButton!
     @IBAction func close(_ sender: UIButton) {
         self.performSegue(withIdentifier: "unwindToUserList", sender: self)
+    }
+    
+    // Make status bar visible.
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidLoad() {
@@ -28,7 +34,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         // Camera starts on top of views.
         closeButton.layer.zPosition = 1
-        
         
         /* Prepare camera related stuff.
          */
@@ -62,22 +67,17 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     // Video capture delegate.
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
-        if metadataObjects == nil || metadataObjects.count == 0 {
-            return
-        }
+        if metadataObjects == nil || metadataObjects.count == 0 { return }
         
         // Get the metadata object.
         let metadata = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         
         if metadata.type == AVMetadataObjectTypeCode39Code {
-            
-            if metadata.stringValue != nil {
-                user = User(code: metadata.stringValue)
+            if let code = metadata.stringValue {
+                user = User(code: code)
                 
                 DispatchQueue.main.async {
-                    self.user!.update {
-                        
-                    }
+                    self.user!.update { }
                 }
                 
                 self.performSegue(withIdentifier: "unwindToUserList", sender: self)

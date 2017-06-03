@@ -36,15 +36,29 @@ class User: NSObject, NSCoding {
     
     // MARK: Methods
     func update(callback: @escaping () -> ()) {
-        getUserStatus(from: code) { error, name, balance, imageCode in
-            self.name = name
-            self.balance = balance
-            self.imageCode = imageCode
+        UNCComedor.getUserStatus(from: code) { error, name, balance, imageCode in
+            guard error == nil else {
+                callback()
+                return
+            }
             
-            if self.image == nil {
-                getUserImage(from: imageCode) { error, image in
-                    self.image = image
-                    
+            if let name = name, let balance = balance, let imageCode = imageCode {
+                self.name = name
+                self.balance = balance
+                self.imageCode = imageCode
+                
+                if self.image == nil {
+                    UNCComedor.getUserImage(from: imageCode) { error, image in
+                        guard error == nil else {
+                            callback()
+                            return
+                        }
+                        
+                        self.image = image
+
+                        callback()
+                    }
+                } else {
                     callback()
                 }
             } else {
