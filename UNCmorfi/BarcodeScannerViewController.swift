@@ -74,7 +74,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         if metadata.type == AVMetadataObjectTypeCode39Code {
             if let code = metadata.stringValue {
-                user = User(code: code)
+                user = User(fromCode: code)
                 
                 DispatchQueue.main.async {
                     self.user!.update { }

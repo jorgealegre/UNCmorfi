@@ -11,55 +11,40 @@ import os.log
 
 class UserTableViewController: UITableViewController {
     // MARK: Properties
-    var users: [User] = [ User(code: "04756A29333c62D") ]
-    private let cellID = "UserTableViewCell"
+    var users: [User] = []
+    let cellID = "UserTableViewCell"
 
     // MARK: MVC life cycle.
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Register cell
-        tableView.register(UserCell.self, forCellReuseIdentifier: cellID)
-        
-        // Navigation setup
-        title = "Balance"
         self.navigationItem.leftBarButtonItem = editButtonItem
         
-        // Load saved users
-        if let savedUsers = loadUsers() {
-            users += savedUsers
-            refreshData()
-        }
+        if let savedUsers = loadUsers() { users += savedUsers }
         
-        // Allow pull-to-refresh
+        refreshData()
+        
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
     }
-    
-    // MARK: Table view data source
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
+    // MARK: Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? UserCell else {
-//            fatalError("The dequeued cell is not an instance of UserCell.")
-//        }
-//
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? UserTableViewCell else {
+            fatalError("The dequeued cell is not an instance of UserTableViewCell.")
+        }
+
         let user = users[indexPath.row]
-//
-//        cell.selectionStyle = .none
-//        cell.balanceLabel.text = "$\(user.balance)"
-//        cell.nameLabel.text = user.name
-//        cell.photoImageView.image = user.image
-//        cell.photoImageView.layer.cornerRadius = 10
         
-        let cell = UserCell(style: .default, reuseIdentifier: cellID)
-        cell.imageView?.image = user.image
+        cell.selectionStyle = .none
+        cell.balanceLabel.text = "$\(user.balance)"
+        cell.nameLabel.text = user.name
+        cell.photoImageView.image = user.image
+        cell.photoImageView.layer.cornerRadius = 10
         
         return cell
     }
@@ -78,7 +63,6 @@ class UserTableViewController: UITableViewController {
         return true
     }
 
-    // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         let user = users[fromIndexPath.row]
         users.remove(at: fromIndexPath.row)
@@ -86,36 +70,53 @@ class UserTableViewController: UITableViewController {
     }
     
     // MARK: Actions
-    @IBAction func unwindToUserList(sender: UIStoryboardSegue) {
-        func add(user: User) {
-            // Make sure it doesn't already exist.
-            if users.contains(user) {
-                if #available(iOS 10.0, *) {
-                    os_log("User already exists.", log: .default, type: .debug)
-                } else {
-                    // Fallback on earlier versions
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        let ac = UIAlertController(title: "Add new user", message: "Type the barcode", preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
+            guard let text = ac.textFields!.first!.text else { return }
+            
+            DispatchQueue.global(qos: .userInteractive).async {
+                let user = User(fromCode: text)
+                user.update {
+                    self.add(user: user)
                 }
-                
-                // TODO(alegre): Maybe alert the user?
-                return
             }
-            
-            // Add a new user.
-            let newIndexPath = IndexPath(row: users.count, section: 0)
-            
-            self.users.append(user)
-            self.tableView.insertRows(at: [newIndexPath], with: .automatic)
-            self.refreshData()
-        }
-        
-        if let svc = sender.source as? NewUserViewController, let user = svc.user {
-            add(user: user)
-        } else if let svc = sender.source as? BarcodeScannerViewController, let user = svc.user {
+        })
+        present(ac, animated: true)
+    }
+    
+    @IBAction func unwindToUserList(sender: UIStoryboardSegue) {
+        if let svc = sender.source as? BarcodeScannerViewController, let user = svc.user {
             add(user: user)
         }
     }
     
     // MARK: Methods
+    private func add(user: User) {
+        // Make sure it doesn't already exist.
+        if users.contains(user) {
+            if #available(iOS 10.0, *) {
+                os_log("User already exists.", log: .default, type: .debug)
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            // TODO(alegre): Maybe alert the user?
+            return
+        }
+        
+        // Add a new user.
+        DispatchQueue.main.async {
+            let newIndexPath = IndexPath(row: self.users.count, section: 0)
+            
+            self.users.append(user)
+            self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+            self.refreshData()
+        }
+    }
+    
     private func saveUsers() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(users, toFile: User.ArchiveURL.path)
         if isSuccessfulSave {
@@ -141,7 +142,7 @@ class UserTableViewController: UITableViewController {
         let queue = DispatchQueue(label: "usersRefreshing", attributes: .concurrent, target: .main)
         let group = DispatchGroup()
         
-        users.forEach { user in
+        for user in users {
             group.enter()
             queue.async(group: group) { user.update { group.leave() } }
         }

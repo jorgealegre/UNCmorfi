@@ -19,7 +19,7 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         UNCComedor.getMenu { (error: Error?, menu: [Date : [String]]?) in
             guard error == nil else {
                 print("OMG there's an error.")

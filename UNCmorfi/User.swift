@@ -26,8 +26,8 @@ class User: NSObject, NSCoding {
     var image: UIImage?
     var imageCode: String
     
-    init(code: String) {
-        self.code = code.uppercased()
+    init(fromCode code: String) {
+        self.code = code
         self.name = ""
         self.balance = 0
         self.imageCode = ""
@@ -90,7 +90,7 @@ class User: NSObject, NSCoding {
         let image = aDecoder.decodeObject(forKey: PropertyKey.image) as? UIImage
         
         // Must call designated initializer.
-        self.init(code: code)
+        self.init(fromCode: code)
         self.image = image
         self.imageCode = imageCode
         self.balance = balance
