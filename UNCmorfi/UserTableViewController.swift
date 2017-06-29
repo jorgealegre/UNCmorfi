@@ -17,7 +17,7 @@ class UserTableViewController: UITableViewController {
     // MARK: MVC life cycle.
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationItem.leftBarButtonItem = editButtonItem
         
         if let savedUsers = loadUsers() { users += savedUsers }
@@ -44,7 +44,7 @@ class UserTableViewController: UITableViewController {
         cell.balanceLabel.text = "$\(user.balance)"
         cell.nameLabel.text = user.name
         cell.photoImageView.image = user.image
-        cell.photoImageView.layer.cornerRadius = 10
+        cell.photoImageView.layer.cornerRadius = cell.photoImageView.bounds.size.width / 2
         
         return cell
     }

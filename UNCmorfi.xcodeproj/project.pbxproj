@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
+		5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C11C1F05114F00B0813F /* MapViewController.swift */; };
+		5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C11E1F05123900B0813F /* MapKit.framework */; };
+		5E80C1211F0515EC00B0813F /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C1201F0515EC00B0813F /* Comedor.swift */; };
 		5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */; };
 		5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */; };
 		5EC4CBDA1E91F4DA00E0BE71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD81E91F4DA00E0BE71 /* Main.storyboard */; };
@@ -35,6 +38,9 @@
 		42A909CDE6636EDFC28C2EBB /* Pods-UNCmorfi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.release.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.release.xcconfig"; sourceTree = "<group>"; };
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
 		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		5E80C1201F0515EC00B0813F /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comedor.swift; sourceTree = "<group>"; };
 		5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCmorfi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */,
 				B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +109,7 @@
 				5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */,
 				5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */,
 				5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */,
+				5E80C11C1F05114F00B0813F /* MapViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -110,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				5ECD1FB11EAF028900508A16 /* User.swift */,
+				5E80C1201F0515EC00B0813F /* Comedor.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -167,6 +176,7 @@
 		CD922E469514090919B9E750 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E80C11E1F05123900B0813F /* MapKit.framework */,
 				96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */,
 			);
 			name = Frameworks;
@@ -227,6 +237,11 @@
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = MCQUU65FS6;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					5EC4CBE41E91F4DA00E0BE71 = {
 						CreatedOnToolsVersion = 8.3;
@@ -328,11 +343,13 @@
 			files = (
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
+				5E80C1211F0515EC00B0813F /* Comedor.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserTableViewCell.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
 				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
+				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

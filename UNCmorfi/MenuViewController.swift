@@ -9,40 +9,40 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-    let menuText: UITextView = {
-        let textView = UITextView()
-        textView.isEditable = false
-        return textView
-    }()
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var menuLabel: UILabel!
     
-    var menu : [Date:[String]]? = nil
+   var menu : [Date: [String]]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "El menú es:"
+        menuLabel.text = ""
+        activityIndicator.startAnimating()
+        
         UNCComedor.getMenu { (error: Error?, menu: [Date : [String]]?) in
             guard error == nil else {
-                print("OMG there's an error.")
+                // TODO this is temporary
+                self.menuLabel.text = "Hubo un problema. Intente de nuevo."
                 return
             }
             
             self.menu = menu
-            
-            DispatchQueue.main.async {
-                self.setupViews()
-            }
+            DispatchQueue.main.async { self.setupViews() }
         }
     }
     
     func setupViews() {
-        menuText.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(menuText)
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": menuText]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": menuText]))
+        activityIndicator.stopAnimating()
         
-        menuText.text = menu?.keys.sorted().reduce("El menú es:\n") { (text: String, date: Date) -> String in
+        menuLabel.text = menu?.keys.sorted().reduce("") { (text: String, date: Date) -> String in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE d"
+            
+            let dateDescription = dateFormatter.string(from: date)
             let foodDescription = menu?[date]!.joined(separator: "\n") ?? ""
-            return text.appending("\(date.description): \(foodDescription)\n")
+            return text.appending("\(dateDescription): \(foodDescription)\n")
         }
     }
 }
