@@ -12,7 +12,6 @@ import os.log
 class UserTableViewController: UITableViewController {
     // MARK: Properties
     var users: [User] = []
-    let cellID = "UserTableViewCell"
 
     // MARK: MVC life cycle.
     override func viewDidLoad() {
@@ -20,21 +19,33 @@ class UserTableViewController: UITableViewController {
         
         self.navigationItem.leftBarButtonItem = editButtonItem
         
-        if let savedUsers = loadUsers() { users += savedUsers }
+        // Load saved users.
+        if let savedUsers = loadUsers() {
+            users += savedUsers
+        }
         
+        // Update all data.
         refreshData()
         
+        // Allow updating data.
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        
+        // Cell setup.
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.reuseIdentifier)
     }
 
     // MARK: Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
-
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? UserTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else {
             fatalError("The dequeued cell is not an instance of UserTableViewCell.")
         }
 
