@@ -11,17 +11,17 @@ import os.log
 
 class UserTableViewController: UITableViewController {
     // MARK: Properties
-    var users: [User] = []
+    private var users: [User] = []
 
-    // MARK: MVC life cycle.
+    // MARK: Setup.
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = editButtonItem
-        
+        setupNavigationBarButtons()
+    
         // Load saved users.
-        if let savedUsers = loadUsers() {
-            users += savedUsers
+        if let savedUsers = savedUsers() {
+            users = savedUsers
         }
         
         // Update all data.
@@ -34,14 +34,23 @@ class UserTableViewController: UITableViewController {
         // Cell setup.
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.reuseIdentifier)
     }
+    
+    private func setupNavigationBarButtons() {
+        self.navigationItem.leftBarButtonItem = editButtonItem
+        
+        let addViaCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addViaCameraButtonTapped(_:)))
+        let addViaTextButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addViaTextButtonTapped(_:)))
+        self.navigationItem.rightBarButtonItems = [addViaTextButton, addViaCameraButton]
+    }
 
-    // MARK: Table view data source
+    // MARK: UITableViewDelegate
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72 // 11 for margin, 50 for image, 10.5 for margin and 0.5 for table separator
+    }
+
+    // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,11 +60,9 @@ class UserTableViewController: UITableViewController {
 
         let user = users[indexPath.row]
         
-        cell.selectionStyle = .none
         cell.balanceLabel.text = "$\(user.balance)"
         cell.nameLabel.text = user.name
         cell.photoImageView.image = user.image
-        cell.photoImageView.layer.cornerRadius = cell.photoImageView.bounds.size.width / 2
         
         return cell
     }
@@ -64,7 +71,6 @@ class UserTableViewController: UITableViewController {
         if editingStyle == .delete {
             users.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
         }
         
         saveUsers()
@@ -81,12 +87,15 @@ class UserTableViewController: UITableViewController {
     }
     
     // MARK: Actions
-    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func addViaTextButtonTapped(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "Add new user", message: "Type the barcode", preferredStyle: .alert)
-        ac.addTextField()
+        ac.addTextField { textField in
+            textField.enablesReturnKeyAutomatically = true
+            textField.autocapitalizationType = .allCharacters
+        }
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
-            guard let text = ac.textFields!.first!.text else { return }
+            guard let text = ac.textFields!.first!.text?.uppercased() else { return }
             
             DispatchQueue.global(qos: .userInteractive).async {
                 let user = User(fromCode: text)
@@ -98,16 +107,18 @@ class UserTableViewController: UITableViewController {
         present(ac, animated: true)
     }
     
-    @IBAction func unwindToUserList(sender: UIStoryboardSegue) {
-        if let svc = sender.source as? BarcodeScannerViewController, let user = svc.user {
-            add(user: user)
-        }
+    @objc private func addViaCameraButtonTapped(_ sender: UIBarButtonItem) {
+        let bsvc = BarcodeScannerViewController()
+        bsvc.delegate = self
+        // Maybe make a AddUserProtocol or something
+        
+        present(bsvc, animated: true)
     }
     
     // MARK: Methods
-    private func add(user: User) {
+    func add(user: User) {
         // Make sure it doesn't already exist.
-        if users.contains(user) {
+        guard !users.contains(user) else {
             if #available(iOS 10.0, *) {
                 os_log("User already exists.", log: .default, type: .debug)
             } else {
@@ -129,8 +140,8 @@ class UserTableViewController: UITableViewController {
     }
     
     private func saveUsers() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(users, toFile: User.ArchiveURL.path)
-        if isSuccessfulSave {
+        let savedSuccessfully = NSKeyedArchiver.archiveRootObject(users, toFile: User.ArchiveURL.path)
+        if savedSuccessfully {
             if #available(iOS 10.0, *) {
                 os_log("Users successfully saved.", log: .default, type: .debug)
             } else {
@@ -145,7 +156,7 @@ class UserTableViewController: UITableViewController {
         }
     }
     
-    private func loadUsers() -> [User]? {
+    private func savedUsers() -> [User]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? [User]
     }
     

@@ -11,76 +11,74 @@ import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     // MARK: Properties
-    var captureSession: AVCaptureSession?
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    var barcodeFrameView: UIView?
-    @IBOutlet weak var closeButton: UIButton!
-    
-    // MARK: Model
-    var user: User?
-    
-    // MARK: Actions
-    @IBAction func close(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "unwindToUserList", sender: self)
-    }
+    public var delegate: UserTableViewController?
+    private let closeButton: UIButton = {
+        let button = UIButton()
+        return button
+    }()
     
     // Make status bar visible.
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func loadView() {
+        view = UIView(frame: UIScreen.main.bounds)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Camera starts on top of views.
-        closeButton.layer.zPosition = 1
-        
-        /* Prepare camera related stuff.
-         */
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            
-            captureSession = AVCaptureSession()
-            captureSession?.addInput(input)
-            
-            let captureMetadataOutput = AVCaptureMetadataOutput()
-            captureSession?.addOutput(captureMetadataOutput)
-            
-            captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeCode39Code]
-            
-            // Add video preview.
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            videoPreviewLayer?.frame = view.layer.bounds
-            view.layer.addSublayer(videoPreviewLayer!)
-            
-            captureSession?.startRunning()
-        } catch {
-            print(error)
+        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {
             return
         }
+        
+        let captureSession = AVCaptureSession()
+        captureSession.addInput(input)
+        
+        let captureMetadataOutput = AVCaptureMetadataOutput()
+        captureSession.addOutput(captureMetadataOutput)
+        
+        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+        captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeCode39Code]
+        
+        // Add video preview.
+        let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)!
+        videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        videoPreviewLayer.frame = view.layer.bounds
+        view.layer.addSublayer(videoPreviewLayer)
+        
+        captureSession.startRunning()
+        
+        // Camera starts on top of views.
+//        closeButton.layer.zPosition = 1
+        
     }
     
     // Video capture delegate.
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
-        
-        if metadataObjects == nil || metadataObjects.count == 0 { return }
-        
-        // Get the metadata object.
-        let metadata = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+        guard metadataObjects != nil && metadataObjects.count != 0 else { return }
+        guard let metadata = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         
         if metadata.type == AVMetadataObjectTypeCode39Code {
             if let code = metadata.stringValue {
-                user = User(fromCode: code)
+                let user = User(fromCode: code)
                 
                 DispatchQueue.main.async {
-                    self.user!.update { }
+                    user.update { }
                 }
-                
-                self.performSegue(withIdentifier: "unwindToUserList", sender: self)
+                delegate?.add(user: user)
+                dismiss(animated: true, completion: nil)
             }
         }
     }
