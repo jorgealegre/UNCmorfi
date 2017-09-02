@@ -3,7 +3,8 @@
 //  UNCmorfi
 //
 //  Created by George Alegre on 6/29/17.
-//  Copyright © 2017 George Alegre. All rights reserved.
+//
+//  LICENSE is at the root of this project's repository.
 //
 
 import UIKit

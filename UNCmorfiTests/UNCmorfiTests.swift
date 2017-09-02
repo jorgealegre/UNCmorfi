@@ -3,7 +3,8 @@
 //  UNCmorfiTests
 //
 //  Created by George Alegre on 4/3/17.
-//  Copyright © 2017 George Alegre. All rights reserved.
+//
+//  LICENSE is at the root of this project's repository.
 //
 
 import XCTest
