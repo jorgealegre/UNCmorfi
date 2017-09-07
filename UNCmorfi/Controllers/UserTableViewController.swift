@@ -113,7 +113,8 @@ class UserTableViewController: UITableViewController {
         bsvc.delegate = self
         // Maybe make a AddUserProtocol or something
         
-        present(bsvc, animated: true)
+        navigationController?.pushViewController(bsvc, animated: true)
+//        present(bsvc, animated: true)
     }
     
     // MARK: Methods
@@ -133,7 +134,8 @@ class UserTableViewController: UITableViewController {
         // Add a new user.
         DispatchQueue.main.async {
             let newIndexPath = IndexPath(row: self.users.count, section: 0)
-            
+
+            user.update()
             self.users.append(user)
             self.tableView.insertRows(at: [newIndexPath], with: .automatic)
             self.refreshData()

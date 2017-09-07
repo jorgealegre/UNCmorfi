@@ -9,14 +9,32 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate {
-    @IBOutlet weak var mapView: MKMapView!
-    let viewID = "viewID"
-    
+class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+    var mapView: MKMapView! = {
+        let mapView = MKMapView(frame: UIScreen.main.bounds)
+        mapView.showsPointsOfInterest = true
+        return mapView
+    }()
+
+    private let locationManager: CLLocationManager! = {
+        let locationManager = CLLocationManager()
+        return locationManager
+    }()
+
+    private let viewID = "viewID"
+
+    override func loadView() {
+        view = mapView
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+
         mapView.delegate = self
         
         let uni = Comedor(title: "Ciudad Universitaria", subtitle: "Comedor en la ciudad universitaria.", coordinate: CLLocationCoordinate2D(latitude: -31.439734, longitude: -64.189293))
@@ -26,7 +44,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.addAnnotations(annotations)
         mapView.showAnnotations(annotations, animated: true)
     }
-    
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            mapView.showsUserLocation = true
+        }
+    }
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is Comedor else { return nil }
         

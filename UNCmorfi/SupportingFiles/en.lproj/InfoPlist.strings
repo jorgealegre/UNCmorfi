@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  UNCmorfi
+
+  Created by George Alegre on 9/6/17.
+  Copyright © 2017 George Alegre. All rights reserved.
+*/
+
+NSCameraUsageDescription = "Access to the camera is required for scanning the card's barcode.";
+NSLocationWhenInUseUsageDescription = "Your location is optional, in case you want to see how far you are from a lunch hall.";

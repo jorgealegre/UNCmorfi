@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
+		5E6957011F60E5D100713CDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957031F60E5D100713CDA /* Localizable.strings */; };
+		5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957061F60E5D800713CDA /* InfoPlist.strings */; };
 		5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C11C1F05114F00B0813F /* MapViewController.swift */; };
 		5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C11E1F05123900B0813F /* MapKit.framework */; };
 		5E9679521F533B1C0059F754 /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9679511F533B1C0059F754 /* Comedor.swift */; };
-		5E96795A1F533F270059F754 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E96795C1F533F270059F754 /* Localizable.strings */; };
 		5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E96795E1F5345FD0059F754 /* TabBarController.swift */; };
 		5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */; };
 		5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */; };
@@ -38,16 +39,18 @@
 		42A909CDE6636EDFC28C2EBB /* Pods-UNCmorfi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.release.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.release.xcconfig"; sourceTree = "<group>"; };
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNCComedor.swift; path = Services/UNCComedor.swift; sourceTree = "<group>"; };
 		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Controllers/MenuViewController.swift; sourceTree = "<group>"; };
+		5E6956F21F60CCD700713CDA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
+		5E6957021F60E5D100713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5E6957051F60E5D800713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5E6957071F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		5E6957081F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Controllers/MapViewController.swift; sourceTree = "<group>"; };
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comedor.swift; path = Models/Comedor.swift; sourceTree = "<group>"; };
-		5E96795B1F533F270059F754 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		5E96795D1F533F3E0059F754 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5E96795E1F5345FD0059F754 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = Controllers/TabBarController.swift; sourceTree = "<group>"; };
 		5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeScannerViewController.swift; path = Controllers/BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCmorfi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SupportingFiles/AppDelegate.swift; sourceTree = "<group>"; };
-		5EC4CBE01E91F4DA00E0BE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
 		5EC4CBE51E91F4DA00E0BE71 /* UNCmorfiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UNCmorfiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4CBE91E91F4DA00E0BE71 /* UNCmorfiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNCmorfiTests.swift; sourceTree = "<group>"; };
 		5EC4CBEB1E91F4DA00E0BE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,9 +99,10 @@
 		5E3D55A81EFEBB0100BCA877 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				5E96795C1F533F270059F754 /* Localizable.strings */,
+				5E6956F21F60CCD700713CDA /* Info.plist */,
+				5E6957031F60E5D100713CDA /* Localizable.strings */,
+				5E6957061F60E5D800713CDA /* InfoPlist.strings */,
 				5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */,
-				5EC4CBE01E91F4DA00E0BE71 /* Info.plist */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -257,7 +261,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				"es-419",
 			);
 			mainGroup = 5EC4CBC61E91F4D900E0BE71;
@@ -276,7 +279,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E96795A1F533F270059F754 /* Localizable.strings in Resources */,
+				5E6957011F60E5D100713CDA /* Localizable.strings in Resources */,
+				5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,14 +384,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		5E96795C1F533F270059F754 /* Localizable.strings */ = {
+		5E6957031F60E5D100713CDA /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				5E96795B1F533F270059F754 /* Base */,
-				5E96795D1F533F3E0059F754 /* es-419 */,
+				5E6957021F60E5D100713CDA /* en */,
+				5E6957071F60E5E200713CDA /* es-419 */,
 			);
 			name = Localizable.strings;
-			path = SupportingFiles/i18n;
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		5E6957061F60E5D800713CDA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5E6957051F60E5D800713CDA /* en */,
+				5E6957081F60E5E200713CDA /* es-419 */,
+			);
+			name = InfoPlist.strings;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

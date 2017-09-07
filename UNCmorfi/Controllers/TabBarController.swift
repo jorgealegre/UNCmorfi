@@ -15,7 +15,7 @@ class TabBarController: UITabBarController {
         
         // Create all the view controllers for the tab bar controller.
         let balance = UINavigationController(rootViewController: UserTableViewController())
-        balance.tabBarItem = UITabBarItem(title: "Balance", image: nil, selectedImage: nil)
+        balance.tabBarItem = UITabBarItem(title: NSLocalizedString("Balance.label", comment: "Balance"), image: nil, selectedImage: nil)
         
         let menu = UINavigationController(rootViewController: MenuViewController())
         menu.tabBarItem = UITabBarItem(title: "Menu", image: nil, selectedImage: nil)
@@ -25,5 +25,11 @@ class TabBarController: UITabBarController {
         
         // Add the view controllers to the tab bar controller view controllers.
         viewControllers = [balance, menu, map]
+
+        // Preload all view controllers when launching app.
+        viewControllers!
+            .map { ($0 as! UINavigationController).viewControllers.first! }
+            .filter { !($0 is MapViewController) }
+            .forEach { viewController in let _ = viewController.view }
     }
 }

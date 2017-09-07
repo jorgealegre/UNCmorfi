@@ -13,10 +13,6 @@ import AVFoundation
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     // MARK: Properties
     public var delegate: UserTableViewController?
-    private let closeButton: UIButton = {
-        let button = UIButton()
-        return button
-    }()
     
     // Make status bar visible.
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -60,10 +56,6 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         view.layer.addSublayer(videoPreviewLayer)
         
         captureSession.startRunning()
-        
-        // Camera starts on top of views.
-//        closeButton.layer.zPosition = 1
-        
     }
     
     // Video capture delegate.
@@ -71,16 +63,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         guard metadataObjects != nil && metadataObjects.count != 0 else { return }
         guard let metadata = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         
-        if metadata.type == AVMetadataObjectTypeCode39Code {
-            if let code = metadata.stringValue {
-                let user = User(fromCode: code)
-                
-                DispatchQueue.main.async {
-                    user.update { }
-                }
-                delegate?.add(user: user)
-                dismiss(animated: true, completion: nil)
-            }
+        if metadata.type == AVMetadataObjectTypeCode39Code, let code = metadata.stringValue {
+            let user = User(fromCode: code)
+            delegate?.add(user: user)
+            navigationController?.popViewController(animated: true)
         }
     }
 }
