@@ -1,12 +1,15 @@
 PODS:
+  - FontAwesome.swift (1.2.0)
   - Kanna (2.2.1)
 
 DEPENDENCIES:
+  - FontAwesome.swift
   - Kanna
 
 SPEC CHECKSUMS:
+  FontAwesome.swift: 60063e3f19ba4801155d4b0f2334ab7585763ab3
   Kanna: 182789ab065e8f9a6ccc2a74ce6283d3401c0c4a
 
-PODFILE CHECKSUM: da789c89d452b2ebc8d480f006724019f86fd8b3
+PODFILE CHECKSUM: 2a139ea3bdde250604fb63ddfca9fa7eb17f61ce
 
 COCOAPODS: 1.3.1

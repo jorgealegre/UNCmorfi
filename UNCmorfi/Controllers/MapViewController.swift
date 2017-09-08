@@ -37,12 +37,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         mapView.delegate = self
         
-        let uni = Comedor(title: "Ciudad Universitaria", subtitle: "Comedor en la ciudad universitaria.", coordinate: CLLocationCoordinate2D(latitude: -31.439734, longitude: -64.189293))
-        let downtown = Comedor(title: "Centro", subtitle: "Comedor universitario en el centro.", coordinate: CLLocationCoordinate2D(latitude: -31.416686, longitude: -64.189000))
+        let uni = Comedor(
+            title: "Ciudad Universitaria",
+            subtitle: "Comedor en la ciudad universitaria.",
+            coordinate: CLLocationCoordinate2D(latitude: -31.439734, longitude: -64.189293))
+
+        let downtown = Comedor(
+            title: "Centro",
+            subtitle: "Comedor universitario en el centro.",
+            coordinate: CLLocationCoordinate2D(latitude: -31.416686, longitude: -64.189000))
+
         let annotations = [uni, downtown]
         
         mapView.addAnnotations(annotations)
         mapView.showAnnotations(annotations, animated: true)
+
+        // Annotations appear hidden under navigation and tab bar controllers.
+        // The view covers the whole screen so annotations DO appear but under these menues.
+        // Increase viewing region by 30%.
+        let zoomMultiplier = 1.3
+        let region = MKCoordinateRegion(
+            center: mapView.region.center,
+            span: MKCoordinateSpan(
+                latitudeDelta: mapView.region.span.latitudeDelta * zoomMultiplier,
+                longitudeDelta: mapView.region.span.longitudeDelta * zoomMultiplier)
+        )
+        mapView.setRegion(region, animated: true)
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

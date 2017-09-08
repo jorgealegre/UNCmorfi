@@ -8,23 +8,53 @@
 //
 
 import UIKit
+import FontAwesome_swift
 
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Create all the view controllers for the tab bar controller.
+        // Standard tab bar item image size.
+        let size = CGSize(width: 30, height: 30)
+
         let balance = UINavigationController(rootViewController: UserTableViewController())
-        balance.tabBarItem = UITabBarItem(title: NSLocalizedString("Balance.label", comment: "Balance"), image: nil, selectedImage: nil)
+        let balanceImage = UIImage.fontAwesomeIcon(name: .idCardO, textColor: .black, size: size)
+        balance.tabBarItem = UITabBarItem(
+            title: NSLocalizedString("balance.label", comment: "Balance"),
+            image: balanceImage,
+            selectedImage: nil)
         
         let menu = UINavigationController(rootViewController: MenuViewController())
-        menu.tabBarItem = UITabBarItem(title: "Menu", image: nil, selectedImage: nil)
+        let menuImage = UIImage.fontAwesomeIcon(name: .cutlery, textColor: .black, size: size)
+        menu.tabBarItem = UITabBarItem(
+            title: "Menu",
+            image: menuImage,
+            selectedImage: nil)
         
         let map = UINavigationController(rootViewController: MapViewController())
-        map.tabBarItem = UITabBarItem(title: "Comedores", image: nil, selectedImage: nil)
+        let mapImage = UIImage.fontAwesomeIcon(name: .mapO, textColor: .black, size: size)
+        map.tabBarItem = UITabBarItem(
+            title: "Comedores",
+            image: mapImage,
+            selectedImage: nil)
+
+        let meter = UINavigationController(rootViewController: UIViewController())
+        let meterImage = UIImage.fontAwesomeIcon(name: .lineChart, textColor: .black, size: size)
+        meter.tabBarItem = UITabBarItem(
+            title: "Raciones",
+            image: meterImage,
+            selectedImage: nil)
+
+        let info = UINavigationController(rootViewController: UIViewController())
+        let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, textColor: .black, size: size)
+        info.tabBarItem = UITabBarItem(
+            title: "Información",
+            image: infoImage,
+            selectedImage: nil)
         
         // Add the view controllers to the tab bar controller view controllers.
-        viewControllers = [balance, menu, map]
+        viewControllers = [balance, menu, meter, map, info]
 
         // Preload all view controllers when launching app.
         viewControllers!
