@@ -3,7 +3,8 @@
   UNCmorfi
 
   Created by George Alegre on 9/6/17.
-  Copyright © 2017 George Alegre. All rights reserved.
+  
+  LICENSE is at the root of this project's repository.
 */
 
 NSCameraUsageDescription = "El uso de la cámara es requerido para poder escanear el código de barras de su tarjeta.";
