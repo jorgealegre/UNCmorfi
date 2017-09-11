@@ -39,14 +39,14 @@ class TabBarController: UITabBarController {
             image: mapImage,
             selectedImage: nil)
 
-        let meter = UINavigationController(rootViewController: UIViewController())
-        let meterImage = UIImage.fontAwesomeIcon(name: .lineChart, textColor: .black, size: size)
-        meter.tabBarItem = UITabBarItem(
+        let counter = UINavigationController(rootViewController: CounterViewController())
+        let counterImage = UIImage.fontAwesomeIcon(name: .lineChart, textColor: .black, size: size)
+        counter.tabBarItem = UITabBarItem(
             title: "Raciones",
-            image: meterImage,
+            image: counterImage,
             selectedImage: nil)
 
-        let info = UINavigationController(rootViewController: UIViewController())
+        let info = UINavigationController(rootViewController: InfoViewController())
         let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, textColor: .black, size: size)
         info.tabBarItem = UITabBarItem(
             title: "Información",
@@ -54,7 +54,7 @@ class TabBarController: UITabBarController {
             selectedImage: nil)
         
         // Add the view controllers to the tab bar controller view controllers.
-        viewControllers = [balance, menu, meter, map, info]
+        viewControllers = [balance, menu, counter, map, info]
 
         // Preload all view controllers when launching app.
         viewControllers!

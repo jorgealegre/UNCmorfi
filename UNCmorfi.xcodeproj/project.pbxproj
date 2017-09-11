@@ -11,6 +11,8 @@
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
 		5E6957011F60E5D100713CDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957031F60E5D100713CDA /* Localizable.strings */; };
 		5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957061F60E5D800713CDA /* InfoPlist.strings */; };
+		5E69570A1F660E5500713CDA /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6957091F660E5500713CDA /* CounterViewController.swift */; };
+		5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E69570B1F660EA300713CDA /* InfoViewController.swift */; };
 		5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C11C1F05114F00B0813F /* MapViewController.swift */; };
 		5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C11E1F05123900B0813F /* MapKit.framework */; };
 		5E9679521F533B1C0059F754 /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9679511F533B1C0059F754 /* Comedor.swift */; };
@@ -44,6 +46,8 @@
 		5E6957051F60E5D800713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E6957071F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5E6957081F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		5E6957091F660E5500713CDA /* CounterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CounterViewController.swift; path = Controllers/CounterViewController.swift; sourceTree = "<group>"; };
+		5E69570B1F660EA300713CDA /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Controllers/InfoViewController.swift; sourceTree = "<group>"; };
 		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Controllers/MapViewController.swift; sourceTree = "<group>"; };
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comedor.swift; path = Models/Comedor.swift; sourceTree = "<group>"; };
@@ -114,7 +118,9 @@
 				5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */,
 				5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */,
 				5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */,
+				5E6957091F660E5500713CDA /* CounterViewController.swift */,
 				5E80C11C1F05114F00B0813F /* MapViewController.swift */,
+				5E69570B1F660EA300713CDA /* InfoViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E69570A1F660E5500713CDA /* CounterViewController.swift in Sources */,
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
@@ -363,6 +370,7 @@
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
 				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
+				5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */,
 				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
