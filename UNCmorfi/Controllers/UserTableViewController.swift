@@ -17,7 +17,9 @@ class UserTableViewController: UITableViewController {
     // MARK: Setup.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        navigationItem.title = NSLocalizedString("balance.nav.label", comment: "Balance")
+
         setupNavigationBarButtons()
     
         // Load saved users.
@@ -89,13 +91,16 @@ class UserTableViewController: UITableViewController {
     
     // MARK: Actions
     @objc private func addViaTextButtonTapped(_ sender: UIBarButtonItem) {
-        let ac = UIAlertController(title: "Add new user", message: "Type the barcode", preferredStyle: .alert)
+        let ac = UIAlertController(title: NSLocalizedString("balance.add.user.text.title", comment: "Add new user"),
+                                   message: NSLocalizedString("balance.add.user.text.description", comment: "Type the barcode"),
+                                   preferredStyle: .alert)
+
         ac.addTextField { textField in
             textField.enablesReturnKeyAutomatically = true
             textField.autocapitalizationType = .allCharacters
         }
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self, ac] _ in
+        ac.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Cancel"), style: .cancel))
+        ac.addAction(UIAlertAction(title: NSLocalizedString("balance.add.user.text.confirm", comment: "Add"), style: .default) { [unowned self, ac] _ in
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
             
             DispatchQueue.global(qos: .userInteractive).async {
@@ -111,10 +116,8 @@ class UserTableViewController: UITableViewController {
     @objc private func addViaCameraButtonTapped(_ sender: UIBarButtonItem) {
         let bsvc = BarcodeScannerViewController()
         bsvc.delegate = self
-        // Maybe make a AddUserProtocol or something
-        
+
         navigationController?.pushViewController(bsvc, animated: true)
-//        present(bsvc, animated: true)
     }
     
     // MARK: Methods

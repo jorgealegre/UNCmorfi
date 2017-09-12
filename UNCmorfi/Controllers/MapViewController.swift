@@ -32,19 +32,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = NSLocalizedString("map.nav.label", comment: "Map")
+
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
 
         mapView.delegate = self
         
         let uni = Comedor(
-            title: "Ciudad Universitaria",
-            subtitle: "Comedor en la ciudad universitaria.",
+            title: NSLocalizedString("university.annotation.title", comment: "University Title"),
+            subtitle: nil,
             coordinate: CLLocationCoordinate2D(latitude: -31.439734, longitude: -64.189293))
 
         let downtown = Comedor(
-            title: "Centro",
-            subtitle: "Comedor universitario en el centro.",
+            title: NSLocalizedString("downtown.annotation.title", comment: "Downtown Title"),
+            subtitle: nil,
             coordinate: CLLocationCoordinate2D(latitude: -31.416686, longitude: -64.189000))
 
         let annotations = [uni, downtown]

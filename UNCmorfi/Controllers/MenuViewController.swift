@@ -27,12 +27,10 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.title = NSLocalizedString("menu.nav.label", comment: "Menu")
 
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
-
-        navigationItem.title = "El menú es:"
-        menuLabel.text = ""
         activityIndicator.startAnimating()
 
         UNCComedor.getMenu { (error: Error?, menu: [Date : [String]]?) in

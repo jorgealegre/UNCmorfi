@@ -27,12 +27,10 @@ class CounterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.title = NSLocalizedString("counter.nav.label", comment: "Counter")
 
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
-
-        navigationItem.title = "Raciones"
-        servingsLabel.text = ""
         activityIndicator.startAnimating()
 
         UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in

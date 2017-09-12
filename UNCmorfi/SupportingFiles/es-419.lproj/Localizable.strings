@@ -7,4 +7,30 @@
   LICENSE is at the root of this project's repository.
 */
 
-"balance.label" = "Balance";
+// TabBarItem Titles
+"balance.tab.label" = "Saldo";
+"menu.tab.label" = "Menú";
+"counter.tab.label" = "Raciones";
+"map.tab.label" = "Comedores";
+"info.tab.label" = "Información";
+
+// Navigation Titles
+"balance.nav.label" = "Saldo";
+"menu.nav.label" = "Menú de la Semana";
+"counter.nav.label" = "Raciones Disponibles";
+"map.nav.label" = "Comedores";
+"info.nav.label" = "Información";
+"barcodescanner.nav.label" = "Escaneando…";
+
+// Map Annotations
+"university.annotation.title" = "Ciudad Universitaria";
+"downtown.annotation.title" = "Centro";
+
+// Basic
+"cancel" = "Cancelar";
+
+// #  Balance:
+// ## Add User via AlertController
+"balance.add.user.text.title" = "Agregar una persona nueva";
+"balance.add.user.text.description" = "Escriba el código de barras…";
+"balance.add.user.text.confirm" = "Agregar";

@@ -33,7 +33,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        navigationItem.title = NSLocalizedString("barcodescanner.nav.label", comment: "Barcode Scanner")
+
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {

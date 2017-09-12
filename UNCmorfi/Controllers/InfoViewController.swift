@@ -10,5 +10,9 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        navigationItem.title = NSLocalizedString("info.nav.label", comment: "Information")
+    }
 }

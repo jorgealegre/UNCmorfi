@@ -16,40 +16,40 @@ class TabBarController: UITabBarController {
         
         // Create all the view controllers for the tab bar controller.
         // Standard tab bar item image size.
-        let size = CGSize(width: 30, height: 30)
+        let size = CGSize(width: 25, height: 25)
 
         let balance = UINavigationController(rootViewController: UserTableViewController())
         let balanceImage = UIImage.fontAwesomeIcon(name: .idCardO, textColor: .black, size: size)
         balance.tabBarItem = UITabBarItem(
-            title: NSLocalizedString("balance.label", comment: "Balance"),
+            title: NSLocalizedString("balance.tab.label", comment: "Balance"),
             image: balanceImage,
             selectedImage: nil)
         
         let menu = UINavigationController(rootViewController: MenuViewController())
         let menuImage = UIImage.fontAwesomeIcon(name: .cutlery, textColor: .black, size: size)
         menu.tabBarItem = UITabBarItem(
-            title: "Menu",
+            title: NSLocalizedString("menu.tab.label", comment: "Menu"),
             image: menuImage,
             selectedImage: nil)
         
         let map = UINavigationController(rootViewController: MapViewController())
         let mapImage = UIImage.fontAwesomeIcon(name: .mapO, textColor: .black, size: size)
         map.tabBarItem = UITabBarItem(
-            title: "Comedores",
+            title: NSLocalizedString("map.tab.label", comment: "Map"),
             image: mapImage,
             selectedImage: nil)
 
         let counter = UINavigationController(rootViewController: CounterViewController())
         let counterImage = UIImage.fontAwesomeIcon(name: .lineChart, textColor: .black, size: size)
         counter.tabBarItem = UITabBarItem(
-            title: "Raciones",
+            title: NSLocalizedString("counter.tab.label", comment: "Counter"),
             image: counterImage,
             selectedImage: nil)
 
         let info = UINavigationController(rootViewController: InfoViewController())
         let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, textColor: .black, size: size)
         info.tabBarItem = UITabBarItem(
-            title: "Información",
+            title: NSLocalizedString("info.tab.label", comment: "Info"),
             image: infoImage,
             selectedImage: nil)
         

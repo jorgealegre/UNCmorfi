@@ -26,12 +26,14 @@ class UserTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "AvenirNext-Medium", size: 20)
         return label
     }()
 
     let balanceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Avenir-Black", size: 16)
         return label
     }()
     
