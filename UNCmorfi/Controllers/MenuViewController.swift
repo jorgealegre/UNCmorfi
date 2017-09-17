@@ -9,59 +9,73 @@
 
 import UIKit
 
-class MenuViewController: UIViewController {
-    private var activityIndicator: UIActivityIndicatorView! = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        return view
-    }()
-    private var menuLabel: UILabel! = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(14)
-        label.numberOfLines = 0
-        return label
-    }()
-    
+class MenuViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private var menu: [Date: [String]]? = nil
+
+    convenience init() {
+        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+
         navigationItem.title = NSLocalizedString("menu.nav.label", comment: "Menu")
 
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
+        collectionView?.backgroundColor = .white
+        collectionView?.register(FoodCell.self, forCellWithReuseIdentifier: FoodCell.reuseIdentifier)
 
-        UNCComedor.getMenu { (error: Error?, menu: [Date : [String]]?) in
+        UNCComedor.getMenu { error, menu in
             guard error == nil else {
-                // TODO this is temporary
-                self.menuLabel.text = "Hubo un problema. Intente de nuevo."
                 return
             }
             
             self.menu = menu
-            DispatchQueue.main.async { self.setupViews() }
+            self.collectionView?.reloadData()
         }
     }
-    
-    private func setupViews() {
-        view.addSubview(menuLabel)
-        menuLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        menuLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-        let standardSpacing: CGFloat = 8.0
-        menuLabel.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing).isActive = true
-        menuLabel.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -standardSpacing).isActive = true
 
-        activityIndicator.stopAnimating()
-
-        menuLabel.text = menu?.keys.sorted().reduce("") { (text: String, date: Date) -> String in
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEEE d"
-            
-            let dateDescription = dateFormatter.string(from: date)
-            let foodDescription = menu?[date]!.joined(separator: "\n") ?? ""
-            return text.appending("\(dateDescription):\n\(foodDescription)\n\n")
-            }.trimmingCharacters(in: .whitespaces)
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return menu?.keys.count ?? 0
     }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodCell.reuseIdentifier, for: indexPath) as? FoodCell else {
+            fatalError("Dequeued cell is not a FoodCell.")
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE d"
+
+        let date = menu!.keys.sorted()[indexPath.row]
+        cell.dateLabel.text = dateFormatter.string(from: date)
+
+        menu![date]!.enumerated().forEach{ index, meal in
+            guard let label = cell.mealsStackView.arrangedSubviews[index] as? UILabel else {
+                fatalError("Todo mal")
+            }
+
+            label.text = meal
+        }
+
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIScreen.main.bounds.width, height: 130)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+//    private func setupViews() {
+//        menu?.keys.sorted().reduce("") { (text: String, date: Date) -> String in
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateFormat = "EEEE d"
+//            
+//            let dateDescription = dateFormatter.string(from: date)
+//            let foodDescription = menu?[date]!.joined(separator: "\n") ?? ""
+//            return text.appending("\(dateDescription):\n\(foodDescription)\n\n")
+//        }.trimmingCharacters(in: .whitespaces)
+//    }
 }

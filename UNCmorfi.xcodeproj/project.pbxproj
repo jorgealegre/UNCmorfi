@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
+		5E4962321F68AE2300568648 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4962311F68AE2300568648 /* FoodCell.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
 		5E6957011F60E5D100713CDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957031F60E5D100713CDA /* Localizable.strings */; };
 		5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957061F60E5D800713CDA /* InfoPlist.strings */; };
@@ -23,6 +24,8 @@
 		5ECD1FAE1EAF001100508A16 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */; };
 		5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */; };
 		5ECD1FB21EAF028900508A16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FB11EAF028900508A16 /* User.swift */; };
+		5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */; };
+		5ECE14DF1F6F0A7F0093E84E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DE1F6F0A7F0093E84E /* Assets.xcassets */; };
 		B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +43,7 @@
 		143F0DA34D8F5FAAFE73DECB /* Pods-UNCmorfi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.debug.xcconfig"; sourceTree = "<group>"; };
 		42A909CDE6636EDFC28C2EBB /* Pods-UNCmorfi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.release.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.release.xcconfig"; sourceTree = "<group>"; };
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNCComedor.swift; path = Services/UNCComedor.swift; sourceTree = "<group>"; };
+		5E4962311F68AE2300568648 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodCell.swift; path = Views/FoodCell.swift; sourceTree = "<group>"; };
 		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Controllers/MenuViewController.swift; sourceTree = "<group>"; };
 		5E6956F21F60CCD700713CDA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
 		5E6957021F60E5D100713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -61,6 +65,8 @@
 		5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewCell.swift; path = Views/UserTableViewCell.swift; sourceTree = "<group>"; };
 		5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewController.swift; path = Controllers/UserTableViewController.swift; sourceTree = "<group>"; };
 		5ECD1FB11EAF028900508A16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
+		5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SupportingFiles/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5ECE14DE1F6F0A7F0093E84E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = SupportingFiles/Assets.xcassets; sourceTree = "<group>"; };
 		96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNCmorfi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */,
+				5E4962311F68AE2300568648 /* FoodCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -103,6 +110,8 @@
 		5E3D55A81EFEBB0100BCA877 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */,
+				5ECE14DE1F6F0A7F0093E84E /* Assets.xcassets */,
 				5E6956F21F60CCD700713CDA /* Info.plist */,
 				5E6957031F60E5D100713CDA /* Localizable.strings */,
 				5E6957061F60E5D800713CDA /* InfoPlist.strings */,
@@ -285,7 +294,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */,
 				5E6957011F60E5D100713CDA /* Localizable.strings in Resources */,
+				5ECE14DF1F6F0A7F0093E84E /* Assets.xcassets in Resources */,
 				5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,6 +375,7 @@
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
+				5E4962321F68AE2300568648 /* FoodCell.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserTableViewCell.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
