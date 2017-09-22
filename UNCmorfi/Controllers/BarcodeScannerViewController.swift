@@ -36,9 +36,9 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
         navigationItem.title = NSLocalizedString("barcodescanner.nav.label", comment: "Barcode Scanner")
 
-        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
-        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {
+        guard let input = try? AVCaptureDeviceInput(device: captureDevice!) else {
             return
         }
         
@@ -49,11 +49,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         captureSession.addOutput(captureMetadataOutput)
         
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeCode39Code]
+        captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.code39]
         
         // Add video preview.
-        let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)!
-        videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoPreviewLayer.frame = view.layer.bounds
         view.layer.addSublayer(videoPreviewLayer)
         
@@ -61,11 +61,11 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
     // Video capture delegate.
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
-        guard metadataObjects != nil && metadataObjects.count != 0 else { return }
+    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard metadataObjects.count != 0 else { return }
         guard let metadata = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         
-        if metadata.type == AVMetadataObjectTypeCode39Code, let code = metadata.stringValue {
+        if metadata.type == AVMetadataObject.ObjectType.code39, let code = metadata.stringValue {
             let user = User(fromCode: code)
             delegate?.add(user: user)
             navigationController?.popViewController(animated: true)

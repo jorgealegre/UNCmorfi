@@ -48,16 +48,16 @@ struct UNCComedor {
             let components = response[preffixIndex..<suffixIndex].components(separatedBy: "},{")
             
             var _16 = components[16]
-            _16 = _16[_16.index(_16.startIndex, offsetBy: 4)..._16.index(_16.startIndex, offsetBy: _16.characters.count - 2)]
+            _16 = String(_16[_16.index(_16.startIndex, offsetBy: 4)..._16.index(_16.startIndex, offsetBy: _16.characters.count - 2)])
             
             var _17 = components[17]
-            _17 = _17[_17.index(_17.startIndex, offsetBy: 4)..._17.index(_17.startIndex, offsetBy: _17.characters.count - 2)]
+            _17 = String(_17[_17.index(_17.startIndex, offsetBy: 4)..._17.index(_17.startIndex, offsetBy: _17.characters.count - 2)])
             
             var _5 = components[5]
-            _5 = _5[_5.index(_5.startIndex, offsetBy: 3)..._5.index(_5.startIndex, offsetBy: _5.characters.count - 1)]
+            _5 = String(_5[_5.index(_5.startIndex, offsetBy: 3)..._5.index(_5.startIndex, offsetBy: _5.characters.count - 1)])
             
             var _24 = components[24]
-            _24 = _24[_24.index(_24.startIndex, offsetBy: 4)..._24.index(_24.startIndex, offsetBy: _24.characters.count - 2)]
+            _24 = String(_24[_24.index(_24.startIndex, offsetBy: 4)..._24.index(_24.startIndex, offsetBy: _24.characters.count - 2)])
             
             let name = "\(_16) \(_17)"
             let balance = Int(_5)!
@@ -106,7 +106,7 @@ struct UNCComedor {
             let response = String(data: data, encoding: .utf8)!
             
             // Try to parse HTML
-            guard let doc = HTML(html: response, encoding: .utf8) else {
+            guard let doc = try? HTML(html: response, encoding: .utf8) else {
                 print("can't parse HTML response.")
                 // TODO(alegre): should create error
                 callback(NSError(), nil)

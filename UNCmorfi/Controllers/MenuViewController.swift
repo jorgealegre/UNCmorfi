@@ -30,7 +30,9 @@ class MenuViewController: UICollectionViewController, UICollectionViewDelegateFl
             }
             
             self.menu = menu
-            self.collectionView?.reloadData()
+            DispatchQueue.main.async {
+                self.collectionView?.reloadData()
+            }
         }
     }
 
