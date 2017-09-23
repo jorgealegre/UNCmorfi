@@ -26,8 +26,12 @@ class CounterViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .white
         navigationItem.title = NSLocalizedString("counter.nav.label", comment: "Counter")
+        if #available(iOS 11.0, *) {
+            navigationController!.navigationBar.prefersLargeTitles = true
+        }
 
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)

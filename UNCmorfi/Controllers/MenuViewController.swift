@@ -20,6 +20,9 @@ class MenuViewController: UICollectionViewController, UICollectionViewDelegateFl
         super.viewDidLoad()
 
         navigationItem.title = NSLocalizedString("menu.nav.label", comment: "Menu")
+        if #available(iOS 11.0, *) {
+            navigationController!.navigationBar.prefersLargeTitles = true
+        }
 
         collectionView?.backgroundColor = .white
         collectionView?.register(FoodCell.self, forCellWithReuseIdentifier: FoodCell.reuseIdentifier)

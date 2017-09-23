@@ -33,6 +33,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         super.viewDidLoad()
 
         navigationItem.title = NSLocalizedString("map.nav.label", comment: "Map")
+        if #available(iOS 11.0, *) {
+            navigationController!.navigationBar.prefersLargeTitles = true
+        }
 
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()

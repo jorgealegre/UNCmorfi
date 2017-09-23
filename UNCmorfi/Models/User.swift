@@ -11,22 +11,14 @@ import Foundation
 import UIKit
 import os.log
 
-struct PropertyKey {
-    static let name = "name"
-    static let code = "code"
-    static let balance = "balance"
-    static let image = "image"
-    static let imageCode = "imageCode"
-}
-
-class User: NSObject, NSCoding {
+class User: Codable {
     // MARK: Properties
     var name: String
     let code: String
     var balance: Int
     var image: UIImage?
     var imageCode: String
-    
+
     init(fromCode code: String) {
         self.code = code.uppercased()
         self.name = ""
@@ -79,49 +71,50 @@ class User: NSObject, NSCoding {
         }
     }
 
-    // MARK: Archiving Paths
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    // MARK: Codable
+    private static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("users")
-    
-    // MARK: NSCoding
-    required convenience init?(coder aDecoder: NSCoder) {
-        guard
-            let name = aDecoder.decodeObject(forKey: PropertyKey.name) as? String,
-            let code = aDecoder.decodeObject(forKey: PropertyKey.code) as? String,
-            let imageCode = aDecoder.decodeObject(forKey: PropertyKey.imageCode) as? String
-        else {
-            if #available(iOS 10.0, *) {
-                os_log("Unable to decode User data.", log: .default, type: .debug)
-            } else {
-                // Fallback on earlier versions
-            }
-            return nil
-        }
 
-        let balance = aDecoder.decodeInteger(forKey: PropertyKey.balance)
-        let image = aDecoder.decodeObject(forKey: PropertyKey.image) as? UIImage
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case balance
+        case code
+        case imageCode
         
-        // Must call designated initializer.
-        self.init(fromCode: code)
-        self.image = image
-        self.imageCode = imageCode
-        self.balance = balance
-        self.name = name
+        // Image is gonna be encoded as data and an image will be obtained from this data when decoding.
+        case image
     }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: PropertyKey.name)
-        aCoder.encode(code, forKey: PropertyKey.code)
-        aCoder.encode(balance, forKey: PropertyKey.balance)
-        aCoder.encode(image, forKey: PropertyKey.image)
-        aCoder.encode(imageCode, forKey: PropertyKey.imageCode)
-    }
-    
-    override func isEqual(_ object: Any?) -> Bool {
-        if let user = object as? User {
-            return code == user.code
+
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        name = try values.decode(String.self, forKey: .name)
+        balance = try values.decode(Int.self, forKey: .balance)
+        code = try values.decode(String.self, forKey: .code)
+        imageCode = try values.decode(String.self, forKey: .imageCode)
+
+        if let imageData = try values.decodeIfPresent(Data.self, forKey: .image) {
+            image = NSKeyedUnarchiver.unarchiveObject(with: imageData) as? UIImage
+        } else {
+            image = nil
         }
-        
-        return false
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(balance, forKey: .balance)
+        try container.encode(code, forKey: .code)
+        try container.encode(imageCode, forKey: .imageCode)
+
+        if let image = image {
+            let imageData = NSKeyedArchiver.archivedData(withRootObject: image)
+            try container.encode(imageData, forKey: .image)
+        }
+    }
+}
+
+extension User: Equatable {
+    static func ==(lhs: User, rhs: User) -> Bool {
+        return lhs.code == rhs.code
     }
 }

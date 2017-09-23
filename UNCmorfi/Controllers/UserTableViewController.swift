@@ -19,6 +19,9 @@ class UserTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = NSLocalizedString("balance.nav.label", comment: "Balance")
+        if #available(iOS 11.0, *) {
+            navigationController!.navigationBar.prefersLargeTitles = true
+        }
 
         setupNavigationBarButtons()
     

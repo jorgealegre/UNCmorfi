@@ -35,7 +35,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         super.viewDidLoad()
 
         navigationItem.title = NSLocalizedString("barcodescanner.nav.label", comment: "Barcode Scanner")
-
+        if #available(iOS 11.0, *) {
+            navigationController!.navigationBar.prefersLargeTitles = true
+        }
+        
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
         guard let input = try? AVCaptureDeviceInput(device: captureDevice!) else {
