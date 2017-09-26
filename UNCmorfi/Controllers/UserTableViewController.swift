@@ -51,7 +51,7 @@ class UserTableViewController: UITableViewController {
 
     // MARK: UITableViewDelegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72 // 11 for margin, 50 for image, 10.5 for margin and 0.5 for table separator
+        return 66.5 // 8 for margin, 50 for image, 8 for margin and 0.5 for table separator
     }
 
     // MARK: UITableViewDataSource
@@ -149,16 +149,19 @@ class UserTableViewController: UITableViewController {
     }
     
     private func saveUsers() {
-        let savedSuccessfully = NSKeyedArchiver.archiveRootObject(users, toFile: User.ArchiveURL.path)
-        if savedSuccessfully {
+        let jsonEncoder = JSONEncoder()
+        do {
+            let data = try jsonEncoder.encode(users)
+            try data.write(to: User.ArchiveURL)
             if #available(iOS 10.0, *) {
                 os_log("Users successfully saved.", log: .default, type: .debug)
             } else {
                 // Fallback on earlier versions
             }
-        } else {
+        } catch {
             if #available(iOS 10.0, *) {
                 os_log("Failed to save users...", log: .default, type: .error)
+                print("Error: \(error).")
             } else {
                 // Fallback on earlier versions
             }
@@ -166,7 +169,20 @@ class UserTableViewController: UITableViewController {
     }
     
     private func savedUsers() -> [User]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? [User]
+        let jsonDecoder = JSONDecoder()
+        do {
+            let data = try Data(contentsOf: User.ArchiveURL)
+            let users = try jsonDecoder.decode([User].self, from: data)
+            return users
+        } catch {
+            if #available(iOS 10.0, *) {
+                os_log("Failed to load users...", log: .default, type: .error)
+                print("Error: \(error).")
+            } else {
+                // Fallback on earlier versions
+            }
+            return nil
+        }
     }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {

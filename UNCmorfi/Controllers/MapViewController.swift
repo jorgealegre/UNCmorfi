@@ -59,14 +59,28 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
         // Annotations appear hidden under navigation and tab bar controllers.
         // The view covers the whole screen so annotations DO appear but under these menues.
-        // Increase viewing region by 30%.
-        let zoomMultiplier = 1.3
-        let region = MKCoordinateRegion(
-            center: mapView.region.center,
-            span: MKCoordinateSpan(
-                latitudeDelta: mapView.region.span.latitudeDelta * zoomMultiplier,
-                longitudeDelta: mapView.region.span.longitudeDelta * zoomMultiplier)
-        )
+        let region: MKCoordinateRegion
+        if #available(iOS 11.0, *) {
+            // Increase viewing region by 50% (titles are bigger).
+            // Shift map downwards just a bit.
+            let zoomMultiplier = 1.5
+            let center = mapView.region.center
+            region = MKCoordinateRegion(
+                center: CLLocationCoordinate2DMake(center.latitude + 0.002, center.longitude),
+                span: MKCoordinateSpan(
+                    latitudeDelta: mapView.region.span.latitudeDelta * zoomMultiplier,
+                    longitudeDelta: mapView.region.span.longitudeDelta * zoomMultiplier)
+            )
+        } else {
+            // Increase viewing region by 30%.
+            let zoomMultiplier = 1.3
+            region = MKCoordinateRegion(
+                center: mapView.region.center,
+                span: MKCoordinateSpan(
+                    latitudeDelta: mapView.region.span.latitudeDelta * zoomMultiplier,
+                    longitudeDelta: mapView.region.span.longitudeDelta * zoomMultiplier)
+            )
+        }
         mapView.setRegion(region, animated: true)
     }
 

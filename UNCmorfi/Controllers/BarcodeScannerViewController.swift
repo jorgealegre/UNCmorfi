@@ -18,15 +18,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func loadView() {
         view = UIView(frame: UIScreen.main.bounds)
     }
@@ -50,7 +42,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         
         let captureMetadataOutput = AVCaptureMetadataOutput()
         captureSession.addOutput(captureMetadataOutput)
-        
+
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.code39]
         
@@ -64,7 +56,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     }
     
     // Video capture delegate.
-    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         guard metadataObjects.count != 0 else { return }
         guard let metadata = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         

@@ -80,7 +80,7 @@ class User: Codable {
         case balance
         case code
         case imageCode
-        
+
         // Image is gonna be encoded as data and an image will be obtained from this data when decoding.
         case image
     }
@@ -92,8 +92,9 @@ class User: Codable {
         code = try values.decode(String.self, forKey: .code)
         imageCode = try values.decode(String.self, forKey: .imageCode)
 
-        if let imageData = try values.decodeIfPresent(Data.self, forKey: .image) {
-            image = NSKeyedUnarchiver.unarchiveObject(with: imageData) as? UIImage
+        if let imageBase64 = try values.decodeIfPresent(String.self, forKey: .image),
+            let imageData = Data(base64Encoded: imageBase64) {
+            image = UIImage(data: imageData)
         } else {
             image = nil
         }
@@ -106,9 +107,9 @@ class User: Codable {
         try container.encode(code, forKey: .code)
         try container.encode(imageCode, forKey: .imageCode)
 
-        if let image = image {
-            let imageData = NSKeyedArchiver.archivedData(withRootObject: image)
-            try container.encode(imageData, forKey: .image)
+        if let image = image,
+            let imageData = UIImagePNGRepresentation(image) {
+            try container.encode(imageData.base64EncodedString(), forKey: .image)
         }
     }
 }

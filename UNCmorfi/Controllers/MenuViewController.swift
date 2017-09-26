@@ -12,6 +12,12 @@ import UIKit
 class MenuViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     private var menu: [Date: [String]]? = nil
 
+    private let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE d"
+        return dateFormatter
+    }()
+
     convenience init() {
         self.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -47,9 +53,6 @@ class MenuViewController: UICollectionViewController, UICollectionViewDelegateFl
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FoodCell.reuseIdentifier, for: indexPath) as? FoodCell else {
             fatalError("Dequeued cell is not a FoodCell.")
         }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE d"
 
         let date = menu!.keys.sorted()[indexPath.row]
         cell.dateLabel.text = dateFormatter.string(from: date)
