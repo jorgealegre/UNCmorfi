@@ -10,57 +10,66 @@
 import UIKit
 
 class CounterViewController: UIViewController {
-    private var activityIndicator: UIActivityIndicatorView! = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    // MARK: Views
+    private let counterView: CounterView = {
+        let view = CounterView(frame: CGRect.zero)
         return view
     }()
-    private var servingsLabel: UILabel! = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(14)
-        label.numberOfLines = 0
-        return label
-    }()
 
-    private var servings: [Date: Int]? = nil
+    // MARK: Properties
+    private var servings: [Date: Int]? = nil {
+        didSet {
+            guard let servings = servings else { return }
 
+            let servingsCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
+                return count + servings[date]!
+            }
+            counterView.currentValue = servingsCount
+        }
+    }
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = .white
-        navigationItem.title = NSLocalizedString("counter.nav.label", comment: "Counter")
+        navigationItem.title = "counter.nav.label".localized()
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
-
-        activityIndicator.center = view.center
-        view.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
+        
+        setupCounter()
 
         UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
             guard error == nil else {
-                // TODO this is temporary
-                self.servingsLabel.text = "Hubo un problema. Intente de nuevo."
+                // TODO this is temporary // Has to be in main queue
                 return
             }
 
-            self.servings = servings
-            DispatchQueue.main.async { self.setupViews() }
+            DispatchQueue.main.async {
+                self.servings = servings
+                self.prepareTimer()
+            }
+        }
+    }
+    
+    private func prepareTimer() {
+        if #available(iOS 10.0, *) {
+            Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { (timer: Timer) in
+                self.counterView.currentValue += 17
+            }
+        } else {
+            // Fallback on earlier versions
         }
     }
 
-    private func setupViews() {
-        view.addSubview(servingsLabel)
-        servingsLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
-        servingsLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
-        let standardSpacing: CGFloat = 8.0
-        servingsLabel.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: standardSpacing).isActive = true
-        servingsLabel.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor, constant: -standardSpacing).isActive = true
-
-        activityIndicator.stopAnimating()
-
-        servingsLabel.text = servings!.keys.sorted().reduce(0) { (count, date) -> Int in
-            return count + servings![date]!
-        }.description
+    private func setupCounter() {
+        // Add counter view and layout
+        view.addSubview(counterView)
+        counterView.widthAnchor.constraint(equalToConstant: 260).isActive = true
+        counterView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        counterView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        counterView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
+        counterView.startAnimating()
     }
 }

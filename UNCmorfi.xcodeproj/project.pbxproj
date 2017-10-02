@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
+		5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */; };
 		5E4962321F68AE2300568648 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4962311F68AE2300568648 /* FoodCell.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
 		5E6957011F60E5D100713CDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957031F60E5D100713CDA /* Localizable.strings */; };
@@ -21,11 +22,12 @@
 		5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */; };
 		5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */; };
 		5EC4CBEA1E91F4DA00E0BE71 /* UNCmorfiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBE91E91F4DA00E0BE71 /* UNCmorfiTests.swift */; };
-		5ECD1FAE1EAF001100508A16 /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */; };
+		5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAD1EAF001100508A16 /* UserCell.swift */; };
 		5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */; };
 		5ECD1FB21EAF028900508A16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FB11EAF028900508A16 /* User.swift */; };
 		5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */; };
 		5ECE14DF1F6F0A7F0093E84E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DE1F6F0A7F0093E84E /* Assets.xcassets */; };
+		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
 		B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,31 +44,33 @@
 /* Begin PBXFileReference section */
 		143F0DA34D8F5FAAFE73DECB /* Pods-UNCmorfi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.debug.xcconfig"; sourceTree = "<group>"; };
 		42A909CDE6636EDFC28C2EBB /* Pods-UNCmorfi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.release.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.release.xcconfig"; sourceTree = "<group>"; };
-		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UNCComedor.swift; path = Services/UNCComedor.swift; sourceTree = "<group>"; };
-		5E4962311F68AE2300568648 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FoodCell.swift; path = Views/FoodCell.swift; sourceTree = "<group>"; };
-		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuViewController.swift; path = Controllers/MenuViewController.swift; sourceTree = "<group>"; };
-		5E6956F21F60CCD700713CDA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SupportingFiles/Info.plist; sourceTree = "<group>"; };
+		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
+		5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		5E4962311F68AE2300568648 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
+		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		5E6956F21F60CCD700713CDA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6957021F60E5D100713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5E6957051F60E5D800713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5E6957071F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		5E6957081F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		5E6957091F660E5500713CDA /* CounterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CounterViewController.swift; path = Controllers/CounterViewController.swift; sourceTree = "<group>"; };
-		5E69570B1F660EA300713CDA /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = Controllers/InfoViewController.swift; sourceTree = "<group>"; };
-		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = Controllers/MapViewController.swift; sourceTree = "<group>"; };
+		5E6957091F660E5500713CDA /* CounterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
+		5E69570B1F660EA300713CDA /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Comedor.swift; path = Models/Comedor.swift; sourceTree = "<group>"; };
-		5E96795E1F5345FD0059F754 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = Controllers/TabBarController.swift; sourceTree = "<group>"; };
-		5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeScannerViewController.swift; path = Controllers/BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comedor.swift; sourceTree = "<group>"; };
+		5E96795E1F5345FD0059F754 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCmorfi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SupportingFiles/AppDelegate.swift; sourceTree = "<group>"; };
+		5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC4CBE51E91F4DA00E0BE71 /* UNCmorfiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UNCmorfiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4CBE91E91F4DA00E0BE71 /* UNCmorfiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNCmorfiTests.swift; sourceTree = "<group>"; };
 		5EC4CBEB1E91F4DA00E0BE71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewCell.swift; path = Views/UserTableViewCell.swift; sourceTree = "<group>"; };
-		5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTableViewController.swift; path = Controllers/UserTableViewController.swift; sourceTree = "<group>"; };
-		5ECD1FB11EAF028900508A16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
-		5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = SupportingFiles/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		5ECE14DE1F6F0A7F0093E84E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = SupportingFiles/Assets.xcassets; sourceTree = "<group>"; };
+		5ECD1FAD1EAF001100508A16 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
+		5ECD1FB11EAF028900508A16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5ECE14DE1F6F0A7F0093E84E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5EF2A7511F7E635200742BFB /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNCmorfi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -95,16 +99,17 @@
 			children = (
 				5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */,
 			);
-			name = Services;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		5E3D55A71EFEBAEE00BCA877 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5ECD1FAD1EAF001100508A16 /* UserTableViewCell.swift */,
+				5ECD1FAD1EAF001100508A16 /* UserCell.swift */,
 				5E4962311F68AE2300568648 /* FoodCell.swift */,
+				5EF2A7511F7E635200742BFB /* CounterView.swift */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5E3D55A81EFEBB0100BCA877 /* SupportingFiles */ = {
@@ -117,7 +122,15 @@
 				5E6957061F60E5D800713CDA /* InfoPlist.strings */,
 				5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */,
 			);
-			name = SupportingFiles;
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		5E45C98B1F7DBBC400FA35A2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		5E60DE0E1ED5C7E100DAA93F /* Controllers */ = {
@@ -131,7 +144,7 @@
 				5E80C11C1F05114F00B0813F /* MapViewController.swift */,
 				5E69570B1F660EA300713CDA /* InfoViewController.swift */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		5EA6DEEF1EE33C7300D6E750 /* Models */ = {
@@ -140,7 +153,7 @@
 				5ECD1FB11EAF028900508A16 /* User.swift */,
 				5E9679511F533B1C0059F754 /* Comedor.swift */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		5EC4CBC61E91F4D900E0BE71 = {
@@ -166,6 +179,7 @@
 		5EC4CBD11E91F4DA00E0BE71 /* UNCmorfi */ = {
 			isa = PBXGroup;
 			children = (
+				5E45C98B1F7DBBC400FA35A2 /* Extensions */,
 				5EA6DEEF1EE33C7300D6E750 /* Models */,
 				5E60DE0E1ED5C7E100DAA93F /* Controllers */,
 				5E3D55A71EFEBAEE00BCA877 /* Views */,
@@ -377,15 +391,17 @@
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
+				5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */,
 				5E4962321F68AE2300568648 /* FoodCell.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
-				5ECD1FAE1EAF001100508A16 /* UserTableViewCell.swift in Sources */,
+				5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
 				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
 				5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */,
 				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,
+				5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -415,7 +431,6 @@
 				5E6957071F60E5E200713CDA /* es-419 */,
 			);
 			name = Localizable.strings;
-			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		5E6957061F60E5D800713CDA /* InfoPlist.strings */ = {
@@ -425,7 +440,6 @@
 				5E6957081F60E5E200713CDA /* es-419 */,
 			);
 			name = InfoPlist.strings;
-			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -9,9 +9,9 @@
 
 import UIKit
 
-class UserTableViewCell: UITableViewCell {
+class UserCell: UITableViewCell {
     // MARK: Properties
-    static let reuseIdentifier = "UserTableViewCell"
+    static let reuseIdentifier = "UserCell"
     
     let photoImageView: UIImageView = {
         let imageView = UIImageView()

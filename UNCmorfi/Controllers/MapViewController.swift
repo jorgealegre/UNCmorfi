@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    var mapView: MKMapView! = {
+    var mapView: MKMapView = {
         let mapView = MKMapView(frame: UIScreen.main.bounds)
         mapView.showsPointsOfInterest = true
         return mapView
@@ -32,7 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = NSLocalizedString("map.nav.label", comment: "Map")
+        navigationItem.title = "map.nav.label".localized()
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
@@ -43,12 +43,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.delegate = self
         
         let uni = Comedor(
-            title: NSLocalizedString("university.annotation.title", comment: "University Title"),
+            title: "university.annotation.title".localized(),
             subtitle: nil,
             coordinate: CLLocationCoordinate2D(latitude: -31.439734, longitude: -64.189293))
 
         let downtown = Comedor(
-            title: NSLocalizedString("downtown.annotation.title", comment: "Downtown Title"),
+            title: "downtown.annotation.title".localized(),
             subtitle: nil,
             coordinate: CLLocationCoordinate2D(latitude: -31.416686, longitude: -64.189000))
 

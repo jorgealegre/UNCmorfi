@@ -25,7 +25,7 @@ class MenuViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = NSLocalizedString("menu.nav.label", comment: "Menu")
+        navigationItem.title = "menu.nav.label".localized()
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }

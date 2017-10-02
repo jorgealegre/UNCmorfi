@@ -18,7 +18,7 @@ class UserTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = NSLocalizedString("balance.nav.label", comment: "Balance")
+        navigationItem.title = "balance.nav.label".localized()
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
@@ -38,7 +38,7 @@ class UserTableViewController: UITableViewController {
         refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         
         // Cell setup.
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: UserTableViewCell.reuseIdentifier)
+        tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
     }
     
     private func setupNavigationBarButtons() {
@@ -60,7 +60,7 @@ class UserTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as? UserTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as? UserCell else {
             fatalError("The dequeued cell is not an instance of UserTableViewCell.")
         }
 
@@ -94,16 +94,16 @@ class UserTableViewController: UITableViewController {
     
     // MARK: Actions
     @objc private func addViaTextButtonTapped(_ sender: UIBarButtonItem) {
-        let ac = UIAlertController(title: NSLocalizedString("balance.add.user.text.title", comment: "Add new user"),
-                                   message: NSLocalizedString("balance.add.user.text.description", comment: "Type the barcode"),
+        let ac = UIAlertController(title: "balance.add.user.text.title".localized(),
+                                   message: "balance.add.user.text.description".localized(),
                                    preferredStyle: .alert)
 
         ac.addTextField { textField in
             textField.enablesReturnKeyAutomatically = true
             textField.autocapitalizationType = .allCharacters
         }
-        ac.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Cancel"), style: .cancel))
-        ac.addAction(UIAlertAction(title: NSLocalizedString("balance.add.user.text.confirm", comment: "Add"), style: .default) { [unowned self, ac] _ in
+        ac.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
+        ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [unowned self, ac] _ in
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
             
             DispatchQueue.global(qos: .userInteractive).async {

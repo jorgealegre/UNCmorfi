@@ -19,14 +19,10 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         return .lightContent
     }
 
-    override func loadView() {
-        view = UIView(frame: UIScreen.main.bounds)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = NSLocalizedString("barcodescanner.nav.label", comment: "Barcode Scanner")
+        navigationItem.title = "barcodescanner.nav.label".localized()
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
