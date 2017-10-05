@@ -10,30 +10,40 @@
 import UIKit
 
 class CounterView: UIView, CAAnimationDelegate {
+    // MARK: - Subviews and layers.
     private let circlePathLayer = CAShapeLayer()
-    
+    private let progressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.opacity = 0
+        return label
+    }()
+
+    // MARK: - Circle path properties.
     private var lineWidth: CGFloat = 3
     private var arcWidth: CGFloat = 15
     private var arcBackgroundColor: UIColor = .orange
     private var arcOutlineColor: UIColor = .red
 
+    // MARK: - View model.
+    private var isIndeterminate = true
     var maxValue = 1500
     var currentValue = 0 {
         didSet {
-            currentValue = currentValue > maxValue ? maxValue : currentValue // Enforce the max value.
+            currentValue = min(maxValue, currentValue) // Enforce the max value.
 
             // Wait until stroke animations are done, if they aren't already.
-            shouldStopAnimating = true
+            shouldTransitionFromIndeterminateToDeterminate = true
 
             // Animate stroke end to reflect progress.
-            if !isAnimating {
+            if !isIndeterminate {
                 animateProgressUpdate()
             }
         }
     }
 
-    private var shouldStopAnimating = false
-    private var isAnimating = true
+    // MARK: - Animations.
+    private var shouldTransitionFromIndeterminateToDeterminate = false
 
     private let strokeStartAnimation: CAAnimation = {
         let animation = CABasicAnimation(keyPath: "strokeStart")
@@ -49,7 +59,7 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.toValue = 1
         animation.duration = 1
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        // The model is set to 0, I'm animating towards 1. When this is done, strokeStart is still being animated.
+        // The model is set to 0, I'm animating towards 1. When this is done, strokeStart is still being animated (catching up with me with 0.5s delay).
         // I don't want this to jump to 0 until strokeStart animation finishes (animationGroup finishes).
         animation.fillMode = kCAFillModeForwards
         return animation
@@ -84,10 +94,13 @@ class CounterView: UIView, CAAnimationDelegate {
      */
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
+        progressLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        progressLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+
+        // Setup the main circular layer.
         let center = CGPoint(x: bounds.width/2, y: bounds.height/2)
         let radius: CGFloat = min(bounds.width, bounds.height) / 2
-
         let path = UIBezierPath(arcCenter: center,
                                 radius: radius - arcWidth/2,
                                 startAngle: (3/4) * .pi,
@@ -102,7 +115,10 @@ class CounterView: UIView, CAAnimationDelegate {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        
+
+        // Add the progress label to the hierarchy.
+        addSubview(progressLabel)
+
         circlePathLayer.lineWidth = arcWidth
         circlePathLayer.strokeColor = arcBackgroundColor.cgColor
         circlePathLayer.fillColor = UIColor.clear.cgColor
@@ -110,30 +126,55 @@ class CounterView: UIView, CAAnimationDelegate {
         layer.addSublayer(circlePathLayer)
     }
 
-    private var isInReverse = false
     func startAnimating() {
         circlePathLayer.add(createStrokeAnimationGroup(), forKey: "strokeAnimationGroup")
         circlePathLayer.add(rotationAnimation, forKey: "rotationAnimation")
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        if !shouldStopAnimating {
+        /* This delegate method allows us to stop repeating the indeterminate animation.
+         * At any time, the current value of this view could be set.
+         * If it's set in the middle of an animation, we don't want to stop it completely.
+         * Flag that we should stop animating (i.e. wait for the current animation
+         * but don't keep adding new ones).
+         */
+        if !shouldTransitionFromIndeterminateToDeterminate {
             // Continue animating until the value is set.
+
+            // TODO maybe we should do the same thing with the rotation.
             circlePathLayer.add(createStrokeAnimationGroup(), forKey: "strokeAnimationGroup")
         } else {
+            // Prepare the view for the new state (determinate progress with label).
+            // We remove any old indeterminate progress animations.
             circlePathLayer.removeAllAnimations()
+
+            // Show the label.
+            let labelAnimation = CABasicAnimation(keyPath: "opacity")
+            labelAnimation.duration = 0.5
+            progressLabel.layer.opacity = 1
+            progressLabel.layer.add(labelAnimation, forKey: "opacity")
+
+            // Animate the stroke to indicate the current value.
             animateProgressUpdate()
-            isAnimating = false // If too many threads access this variable, there might be problems.
+
+            // We went from indeterminate to determinate progress.
+            isIndeterminate = false // If too many threads access this variable, there might be problems.
         }
     }
 
     private func animateProgressUpdate() {
+        // Add a new animation for the end of the stroke.
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         // Stroke until a 75% of the path to look like a speedometer.
         circlePathLayer.strokeEnd = CGFloat(currentValue)/CGFloat(maxValue) * 0.75
         animation.duration = 0.5
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
+
+        // Add a new animation for the progress indicator label.
+        UIView.animate(withDuration: 0.5) {
+            self.progressLabel.text = "\(self.currentValue)"
+        }
     }
     
     override init(frame: CGRect) {

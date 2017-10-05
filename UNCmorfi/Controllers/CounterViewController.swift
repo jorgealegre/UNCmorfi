@@ -24,9 +24,12 @@ class CounterViewController: UIViewController {
             let servingsCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
                 return count + servings[date]!
             }
-            counterView.currentValue = 23
+            counterView.currentValue = servingsCount
+            print("Servings count updated to \(servingsCount).")
         }
     }
+
+    private var timer: Timer!
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -55,8 +58,17 @@ class CounterViewController: UIViewController {
     
     private func prepareTimer() {
         if #available(iOS 10.0, *) {
-            Timer.scheduledTimer(withTimeInterval: 4, repeats: true) { (timer: Timer) in
-                self.counterView.currentValue += 17
+            timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { (timer: Timer) in
+                UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
+                    guard error == nil else {
+                        // TODO this is temporary // Has to be in main queue
+                        return
+                    }
+
+                    DispatchQueue.main.async {
+                        self.servings = servings
+                    }
+                }
             }
         } else {
             // Fallback on earlier versions
