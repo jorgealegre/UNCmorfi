@@ -18,33 +18,59 @@ class CounterView: UIView, CAAnimationDelegate {
     private var arcOutlineColor: UIColor = .red
 
     var maxValue = 1500
-    var currentValue = 0
+    var currentValue = 0 {
+        didSet {
+            currentValue = currentValue > maxValue ? maxValue : currentValue // Enforce the max value.
 
-    private var isAnimating = false
-    private let inAnimation: CAAnimation = {
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        animation.fromValue = 0
-        animation.toValue = 1
-        animation.duration = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        return animation
-    }()
+            // Wait until stroke animations are done, if they aren't already.
+            shouldStopAnimating = true
 
-    private let outAnimation: CAAnimation = {
+            // Animate stroke end to reflect progress.
+            if !isAnimating {
+                animateProgressUpdate()
+            }
+        }
+    }
+
+    private var shouldStopAnimating = false
+    private var isAnimating = true
+
+    private let strokeStartAnimation: CAAnimation = {
         let animation = CABasicAnimation(keyPath: "strokeStart")
         animation.beginTime = 0.5
-        animation.fromValue = 0
         animation.toValue = 1
         animation.duration = 1
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         return animation
     }()
 
+    private let strokeEndAnimation: CAAnimation  = {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.toValue = 1
+        animation.duration = 1
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        // The model is set to 0, I'm animating towards 1. When this is done, strokeStart is still being animated.
+        // I don't want this to jump to 0 until strokeStart animation finishes (animationGroup finishes).
+        animation.fillMode = kCAFillModeForwards
+        return animation
+    }()
+
+    private func createStrokeAnimationGroup() -> CAAnimationGroup {
+        let strokeAnimationGroup = CAAnimationGroup()
+        strokeAnimationGroup.duration = 1.5
+        strokeAnimationGroup.animations = [strokeStartAnimation, strokeEndAnimation]
+        strokeAnimationGroup.delegate = self
+        strokeAnimationGroup.isRemovedOnCompletion = false
+        return strokeAnimationGroup
+    }
+
     private let rotationAnimation: CAAnimation = {
-        let animation = CABasicAnimation(keyPath: "transform")
-        let transform = CATransform3DMakeRotation(2 * .pi, 0, 0, 1)
-        animation.toValue = transform
+        let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+        animation.fromValue = 0
+        animation.toValue = 2 * Float.pi
         animation.duration = 1.5
+        animation.repeatCount = .infinity
+        animation.isRemovedOnCompletion = false
         return animation
     }()
 
@@ -61,10 +87,7 @@ class CounterView: UIView, CAAnimationDelegate {
         
         let center = CGPoint(x: bounds.width/2, y: bounds.height/2)
         let radius: CGFloat = min(bounds.width, bounds.height) / 2
-        
-//        let startAngle: CGFloat = (3/4) * .pi
-//        let endAngle: CGFloat = (1/4) * .pi
-        
+
         let path = UIBezierPath(arcCenter: center,
                                 radius: radius - arcWidth/2,
                                 startAngle: (3/4) * .pi,
@@ -73,6 +96,8 @@ class CounterView: UIView, CAAnimationDelegate {
 
         circlePathLayer.frame = bounds
         circlePathLayer.path = path.cgPath
+        // Initially the path will be hidden, except when indeterminate animation is on.
+        circlePathLayer.strokeEnd = 0
     }
     
     private func configure() {
@@ -84,22 +109,31 @@ class CounterView: UIView, CAAnimationDelegate {
         
         layer.addSublayer(circlePathLayer)
     }
-    
+
+    private var isInReverse = false
     func startAnimating() {
-        let animation = CABasicAnimation(keyPath: "transform")
-        let transform = CATransform3DMakeRotation(2 * .pi, 0, 0, 1)
-        animation.fromValue = circlePathLayer.transform
-        animation.toValue = transform
-        animation.duration = 1.5
+        circlePathLayer.add(createStrokeAnimationGroup(), forKey: "strokeAnimationGroup")
+        circlePathLayer.add(rotationAnimation, forKey: "rotationAnimation")
+    }
 
-        let strokeAnimationGroup = CAAnimationGroup()
-        strokeAnimationGroup.duration = inAnimation.duration + outAnimation.beginTime
-        strokeAnimationGroup.isRemovedOnCompletion = false
-        strokeAnimationGroup.repeatCount = .infinity
-        strokeAnimationGroup.animations = [inAnimation, outAnimation, animation]
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if !shouldStopAnimating {
+            // Continue animating until the value is set.
+            circlePathLayer.add(createStrokeAnimationGroup(), forKey: "strokeAnimationGroup")
+        } else {
+            circlePathLayer.removeAllAnimations()
+            animateProgressUpdate()
+            isAnimating = false // If too many threads access this variable, there might be problems.
+        }
+    }
 
-        circlePathLayer.add(strokeAnimationGroup, forKey: "strokeAnimation")
-//        circlePathLayer.add(rotationAnimation, forKey: "rotationAnimation")
+    private func animateProgressUpdate() {
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        // Stroke until a 75% of the path to look like a speedometer.
+        circlePathLayer.strokeEnd = CGFloat(currentValue)/CGFloat(maxValue) * 0.75
+        animation.duration = 0.5
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        circlePathLayer.add(animation, forKey: "strokeEnd")
     }
     
     override init(frame: CGRect) {

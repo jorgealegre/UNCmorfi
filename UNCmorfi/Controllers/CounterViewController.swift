@@ -24,7 +24,7 @@ class CounterViewController: UIViewController {
             let servingsCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
                 return count + servings[date]!
             }
-            counterView.currentValue = servingsCount
+            counterView.currentValue = 23
         }
     }
 
