@@ -28,6 +28,7 @@
 
 // Basic
 "cancel" = "Cancelar";
+"loading" = "Cargando...";
 
 // #  Balance:
 // ## Add User via AlertController

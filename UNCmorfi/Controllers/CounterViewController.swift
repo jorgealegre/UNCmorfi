@@ -15,6 +15,13 @@ class CounterViewController: UIViewController {
         let view = CounterView(frame: CGRect.zero)
         return view
     }()
+    private let progressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = label.font.withSize(34)
+        label.alpha = 0
+        return label
+    }()
 
     // MARK: Properties
     private var servings: [Date: Int]? = nil {
@@ -24,7 +31,8 @@ class CounterViewController: UIViewController {
             let servingsCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
                 return count + servings[date]!
             }
-            counterView.currentValue = servingsCount
+            counterView.currentValue += 67
+
             print("Servings count updated to \(servingsCount).")
         }
     }
@@ -42,23 +50,38 @@ class CounterViewController: UIViewController {
         }
         
         setupCounter()
-
-        UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
-            guard error == nil else {
-                // TODO this is temporary // Has to be in main queue
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.servings = servings
-                self.prepareTimer()
-            }
-        }
+        setupLabel()
+        prepareTimer()
     }
-    
+
+    private func setupCounter() {
+        // Add counter view and layout
+        view.addSubview(counterView)
+        counterView.delegate = self
+
+        NSLayoutConstraint.activate([
+            counterView.widthAnchor.constraint(equalToConstant: 260),
+            counterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            counterView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            counterView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            ])
+
+        counterView.startAnimating()
+    }
+
+    private func setupLabel() {
+        view.addSubview(progressLabel)
+
+        NSLayoutConstraint.activate([
+            progressLabel.centerXAnchor.constraint(equalTo: counterView.centerXAnchor),
+            progressLabel.centerYAnchor.constraint(equalTo: counterView.centerYAnchor),
+            ])
+    }
+
     private func prepareTimer() {
         if #available(iOS 10.0, *) {
-            timer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { (timer: Timer) in
+            // TODO set to 60 seconds.
+            timer = Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer: Timer) in
                 UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
                     guard error == nil else {
                         // TODO this is temporary // Has to be in main queue
@@ -75,13 +98,13 @@ class CounterViewController: UIViewController {
         }
     }
 
-    private func setupCounter() {
-        // Add counter view and layout
-        view.addSubview(counterView)
-        counterView.widthAnchor.constraint(equalToConstant: 260).isActive = true
-        counterView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        counterView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        counterView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
-        counterView.startAnimating()
+    func shouldUpdateLabel() {
+        if (progressLabel.alpha == 0) {
+            UIView.animate(withDuration: 0.5) {
+                self.progressLabel.alpha = 1
+            }
+        }
+
+        progressLabel.text = "\(counterView.currentValue)"
     }
 }

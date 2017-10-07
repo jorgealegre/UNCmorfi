@@ -10,14 +10,10 @@
 import UIKit
 
 class CounterView: UIView, CAAnimationDelegate {
-    // MARK: - Subviews and layers.
+    // MARK: - Layers.
     private let circlePathLayer = CAShapeLayer()
-    private let progressLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.opacity = 0
-        return label
-    }()
+
+    var delegate: CounterViewController!
 
     // MARK: - Circle path properties.
     private var lineWidth: CGFloat = 3
@@ -95,9 +91,6 @@ class CounterView: UIView, CAAnimationDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        progressLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        progressLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-
         // Setup the main circular layer.
         let center = CGPoint(x: bounds.width/2, y: bounds.height/2)
         let radius: CGFloat = min(bounds.width, bounds.height) / 2
@@ -116,13 +109,10 @@ class CounterView: UIView, CAAnimationDelegate {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
 
-        // Add the progress label to the hierarchy.
-        addSubview(progressLabel)
-
         circlePathLayer.lineWidth = arcWidth
         circlePathLayer.strokeColor = arcBackgroundColor.cgColor
         circlePathLayer.fillColor = UIColor.clear.cgColor
-        
+
         layer.addSublayer(circlePathLayer)
     }
 
@@ -148,12 +138,6 @@ class CounterView: UIView, CAAnimationDelegate {
             // We remove any old indeterminate progress animations.
             circlePathLayer.removeAllAnimations()
 
-            // Show the label.
-            let labelAnimation = CABasicAnimation(keyPath: "opacity")
-            labelAnimation.duration = 0.5
-            progressLabel.layer.opacity = 1
-            progressLabel.layer.add(labelAnimation, forKey: "opacity")
-
             // Animate the stroke to indicate the current value.
             animateProgressUpdate()
 
@@ -171,10 +155,8 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
 
-        // Add a new animation for the progress indicator label.
-        UIView.animate(withDuration: 0.5) {
-            self.progressLabel.text = "\(self.currentValue)"
-        }
+        delegate.shouldUpdateLabel()
+
     }
     
     override init(frame: CGRect) {
