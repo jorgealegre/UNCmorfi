@@ -130,8 +130,7 @@ class CounterView: UIView, CAAnimationDelegate {
          */
         if !shouldTransitionFromIndeterminateToDeterminate {
             // Continue animating until the value is set.
-
-            // TODO maybe we should do the same thing with the rotation.
+            circlePathLayer.add(rotationAnimation, forKey: "rotationAnimation")
             circlePathLayer.add(createStrokeAnimationGroup(), forKey: "strokeAnimationGroup")
         } else {
             // Prepare the view for the new state (determinate progress with label).
