@@ -61,7 +61,5 @@ class TabBarController: UITabBarController {
             .map { ($0 as! UINavigationController).viewControllers.first! }
             .filter { !($0 is MapViewController) }
             .forEach { viewController in let _ = viewController.view }
-        
-        selectedViewController = counter
     }
 }

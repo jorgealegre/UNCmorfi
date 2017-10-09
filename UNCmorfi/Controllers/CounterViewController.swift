@@ -31,7 +31,7 @@ class CounterViewController: UIViewController {
             let servingsCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
                 return count + servings[date]!
             }
-            counterView.currentValue += 67
+            counterView.currentValue = servingsCount
 
             print("Servings count updated to \(servingsCount).")
         }
@@ -81,7 +81,7 @@ class CounterViewController: UIViewController {
     private func prepareTimer() {
         if #available(iOS 10.0, *) {
             // TODO set to 60 seconds.
-            timer = Timer.scheduledTimer(withTimeInterval: 6, repeats: true) { (timer: Timer) in
+            timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer: Timer) in
                 UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
                     guard error == nil else {
                         // TODO this is temporary // Has to be in main queue
