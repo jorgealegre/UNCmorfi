@@ -63,4 +63,10 @@ class UserCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    func configureFor(user: User) {
+        balanceLabel.text = "$\(user.balance)"
+        nameLabel.text = user.name
+        photoImageView.image = user.image
+    }
 }

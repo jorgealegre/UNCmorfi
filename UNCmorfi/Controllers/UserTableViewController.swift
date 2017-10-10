@@ -61,14 +61,12 @@ class UserTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as? UserCell else {
-            fatalError("The dequeued cell is not an instance of UserTableViewCell.")
+            fatalError("The dequeued cell is not an instance of UserCell.")
         }
 
         let user = users[indexPath.row]
         
-        cell.balanceLabel.text = "$\(user.balance)"
-        cell.nameLabel.text = user.name
-        cell.photoImageView.image = user.image
+        cell.configureFor(user: user)
         
         return cell
     }

@@ -55,11 +55,5 @@ class TabBarController: UITabBarController {
         
         // Add the view controllers to the tab bar controller view controllers.
         viewControllers = [balance, menu, counter, map, info]
-
-        // Preload all view controllers when launching app.
-        viewControllers!
-            .map { ($0 as! UINavigationController).viewControllers.first! }
-            .filter { !($0 is MapViewController) }
-            .forEach { viewController in let _ = viewController.view }
     }
 }

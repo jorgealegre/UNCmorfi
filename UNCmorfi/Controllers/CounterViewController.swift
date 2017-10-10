@@ -81,18 +81,18 @@ class CounterViewController: UIViewController {
     private func prepareTimer() {
         if #available(iOS 10.0, *) {
             // TODO set to 60 seconds.
-            timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer: Timer) in
-                UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
-                    guard error == nil else {
-                        // TODO this is temporary // Has to be in main queue
-                        return
-                    }
-
-                    DispatchQueue.main.async {
-                        self.servings = servings
-                    }
-                }
-            }
+//            timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer: Timer) in
+//                UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
+//                    guard error == nil else {
+//                        // TODO this is temporary // Has to be in main queue
+//                        return
+//                    }
+//
+//                    DispatchQueue.main.async {
+//                        self.servings = servings
+//                    }
+//                }
+//            }
         } else {
             // Fallback on earlier versions
         }
