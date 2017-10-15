@@ -28,10 +28,33 @@
 
 // Basic
 "cancel" = "Cancelar";
-"loading" = "Cargando...";
+"loading" = "Cargando…";
 
 // #  Balance:
 // ## Add User via AlertController
 "balance.add.user.text.title" = "Agregar una persona nueva";
 "balance.add.user.text.description" = "Escriba el código de barras…";
 "balance.add.user.text.confirm" = "Agregar";
+
+// # Information
+"development" = "Desarrollo";
+"development.body" = "Mi nombre es Jorge Facundo Alegre.
+Soy un estudiante de Ciencias de la Computación en FaMAF - UNC.
+Desde que comencé mi carrera he querido desarrollar software en las plataformas de Apple. Cuando se lanzó Swift al público, pense que era la oportunidad perfecta para comenzar. Un amigo mio desarrolló esta aplicación para Android como para meterse en el mundo de Java y Android y pensé que sería buena idea producir el mismo proyecto en Swift para iOS.
+La app no hace mucho, simplemente hace de cliente para los datos obtenidos de los servidores de la Universidad. Es una forma cómoda de obtener estos datos útiles sin tener que buscar los sitios e ingresar los caracteres de la tarjeta a mano.";
+"design" = "Diseño";
+"design.body" = "La app es diseñada por Nicolas Bacile.
+Es un estudiante de diseño gráfico apasionado con crear arte digital. Además, tiene extensa experiencia creando y diseñando interfaces de usuario.
+Uno se puede dar una idea de su calidad visitando su |[perfil en Behance](https://www.behance.net/nicobacile)|.";
+"balance.menu.servings.source" = "Fuentes de datos";
+"balance.menu.servings.source.body" = "Obtenemos todos los datos de servidores administrados por la UNC. Nosotros no controlamos la fuente de los datos.";
+"camera.location.permissions" = "Permisos de cámara y ubicación";
+"camera.location.permissions.body" = "Permisos para la cámara son requeridos si se desea escanear la tarjeta del comedor sin ingresar caracter por caracter.
+Permisos de su ubicación son requeridos si desea saber qué tan lejos o cerca se encuentra de alguno de los dos comedores.
+Ambos permisos son completamente opcionales y pueden ser deshabilitados desde Ajustes.";
+"colaborate" = "Colaborar";
+"colaborate.body" = "Si sabes programar o te interesa aprender, podes ver el código de la aplicación en el |[repositorio](https://github.com/georgealegre/UNCmorfi)|. Si se te ocurre algo para mejorar, dale para adelante, estoy abierto a suferencias.";
+"get.in.touch" = "Contacto";
+"get.in.touch.body" = "Mi dirección de email es |[facu.alegre@gmail.com](mailto:facu.alegre@gmail.com)|.";
+"android" = "Versión en Android";
+"android.body" = "La versión en Android de esta app (detalles en la sección de Desarrollo) se llama igual que esta, UNCmorfi. La podes encontrar buscando en el Play Store. También puedes ver el |[código fuente](https://github.com/AIDEA775/UNCmorfi)|.";

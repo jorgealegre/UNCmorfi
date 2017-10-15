@@ -42,4 +42,8 @@ class InfoCellHeader: UIView {
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
             ])
     }
+
+    func configureFor(info: Information) {
+        label.text = info.rawValue.localized()
+    }
 }

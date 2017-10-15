@@ -9,7 +9,7 @@
 
 import UIKit
 
-class InfoCell: UITableViewCell {
+class InfoCell: UITableViewCell, UITextViewDelegate {
     // MARK: Properties
     static let reuseIdentifier = "InfoCell"
 
@@ -22,12 +22,13 @@ class InfoCell: UITableViewCell {
         view.isEditable = false
         // This allows the UITextView to set its intrinsicContentSize.
         view.isScrollEnabled = false
+        view.dataDetectorTypes = .link
+        view.isUserInteractionEnabled = true
         return view
     }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
         selectionStyle = .none
 
         let margin = contentView.layoutMarginsGuide
@@ -45,6 +46,30 @@ class InfoCell: UITableViewCell {
     }
 
     func configureFor(info: Information) {
-        textView.attributedText = NSAttributedString(string: info.rawValue.localized() + "jajajaja")
+        let string = info.rawValue.appending(".body").localized()
+        let components = string.components(separatedBy: "|")
+        let attributedString = NSMutableAttributedString()
+
+        components.enumerated().forEach { (index: Int, element: String) in
+            if (index % 2 == 1) {
+                // Element is a link with Markdown syntax ([name](link)).
+                let visibleName = element[element.index(element.index(of: "[")!, offsetBy: 1)..<element.index(of: "]")!]
+                let urlString = element[element.index(element.index(of: "(")!, offsetBy: 1)..<element.index(of: ")")!]
+
+                let url = NSMutableAttributedString(string: String(visibleName))
+                url.addAttribute(.link, value: urlString, range: NSRange(location: 0, length: visibleName.count))
+
+                attributedString.append(url)
+            } else {
+                attributedString.append(NSAttributedString(string: element))
+            }
+        }
+
+        textView.attributedText = attributedString
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
+        print(URL)
+        return false
     }
 }

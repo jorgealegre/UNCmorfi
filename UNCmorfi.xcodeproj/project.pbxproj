@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
-		5E33B6ED1F8AD78F00640CD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E33B6EC1F8AC33900640CD9 /* Assets.xcassets */; };
 		5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */; };
 		5E4962321F68AE2300568648 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4962311F68AE2300568648 /* FoodCell.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
@@ -16,6 +15,7 @@
 		5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957061F60E5D800713CDA /* InfoPlist.strings */; };
 		5E69570A1F660E5500713CDA /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6957091F660E5500713CDA /* CounterViewController.swift */; };
 		5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E69570B1F660EA300713CDA /* InfoViewController.swift */; };
+		5E6FAF591F94614A00FFBC12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6FAF581F94614A00FFBC12 /* Assets.xcassets */; };
 		5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C11C1F05114F00B0813F /* MapViewController.swift */; };
 		5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C11E1F05123900B0813F /* MapKit.framework */; };
 		5E9679521F533B1C0059F754 /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9679511F533B1C0059F754 /* Comedor.swift */; };
@@ -27,6 +27,9 @@
 		5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */; };
 		5ECD1FB21EAF028900508A16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FB11EAF028900508A16 /* User.swift */; };
 		5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */; };
+		5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */; };
+		5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B91F8CE1B200D18449 /* Information.swift */; };
+		5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */; };
 		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
 		B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */; };
 /* End PBXBuildFile section */
@@ -45,7 +48,6 @@
 		143F0DA34D8F5FAAFE73DECB /* Pods-UNCmorfi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.debug.xcconfig"; sourceTree = "<group>"; };
 		42A909CDE6636EDFC28C2EBB /* Pods-UNCmorfi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UNCmorfi.release.xcconfig"; path = "Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi.release.xcconfig"; sourceTree = "<group>"; };
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
-		5E33B6EC1F8AC33900640CD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5E4962311F68AE2300568648 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		5E6957081F60E5E200713CDA /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		5E6957091F660E5500713CDA /* CounterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
 		5E69570B1F660EA300713CDA /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		5E6FAF581F94614A00FFBC12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comedor.swift; sourceTree = "<group>"; };
@@ -70,6 +73,9 @@
 		5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		5ECD1FB11EAF028900508A16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellHeader.swift; sourceTree = "<group>"; };
+		5EE8D7B91F8CE1B200D18449 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
+		5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		5EF2A7511F7E635200742BFB /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNCmorfi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,6 +114,8 @@
 				5ECD1FAD1EAF001100508A16 /* UserCell.swift */,
 				5E4962311F68AE2300568648 /* FoodCell.swift */,
 				5EF2A7511F7E635200742BFB /* CounterView.swift */,
+				5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */,
+				5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,8 +123,8 @@
 		5E3D55A81EFEBB0100BCA877 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				5E33B6EC1F8AC33900640CD9 /* Assets.xcassets */,
 				5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */,
+				5E6FAF581F94614A00FFBC12 /* Assets.xcassets */,
 				5E6956F21F60CCD700713CDA /* Info.plist */,
 				5E6957031F60E5D100713CDA /* Localizable.strings */,
 				5E6957061F60E5D800713CDA /* InfoPlist.strings */,
@@ -152,6 +160,7 @@
 			children = (
 				5ECD1FB11EAF028900508A16 /* User.swift */,
 				5E9679511F533B1C0059F754 /* Comedor.swift */,
+				5EE8D7B91F8CE1B200D18449 /* Information.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -315,7 +324,7 @@
 			files = (
 				5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */,
 				5E6957011F60E5D100713CDA /* Localizable.strings in Resources */,
-				5E33B6ED1F8AD78F00640CD9 /* Assets.xcassets in Resources */,
+				5E6FAF591F94614A00FFBC12 /* Assets.xcassets in Resources */,
 				5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,11 +399,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */,
 				5E69570A1F660E5500713CDA /* CounterViewController.swift in Sources */,
+				5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */,
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
 				5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */,
+				5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */,
 				5E4962321F68AE2300568648 /* FoodCell.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */,
@@ -502,6 +514,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -551,6 +564,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -606,7 +620,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UNCmorfi.app/UNCmorfi";
 			};
@@ -621,7 +635,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UNCmorfi.app/UNCmorfi";
 			};

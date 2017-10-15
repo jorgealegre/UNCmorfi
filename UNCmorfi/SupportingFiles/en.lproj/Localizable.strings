@@ -28,10 +28,33 @@
 
 // Basic
 "cancel" = "Cancel";
-"loading" = "Loading...";
+"loading" = "Loading…";
 
-// #  Balance:
+// #  Balance
 // ## Add User via AlertController
 "balance.add.user.text.title" = "Add a new person";
 "balance.add.user.text.description" = "Type the barcode…";
 "balance.add.user.text.confirm" = "Done";
+
+// # Information
+"development" = "Development";
+"development.body" = "My name is Jorge Alegre.
+I'm a Computer Science Student from FaMAF - UNC from Argentina.
+I've been wanting to get into development in Apple platforms ever since I started studying. When Swift came out, I thought it was the perfect opportunity for me to get started. A friend of mine developed this same app for Android as a way to get started with Java and Android and I thought it was the perfect moment for me to learn Swift and develop an iOS version.
+The app doesn't do much, it just serves as a client for data provided by the lunch hall of the University. It's just a convenient way to get this data from your pocket withoug having to search for various websites and typing in barcodes.";
+"design" = "Design";
+"design.body" = "The app is designed by Nicolas Bacile.
+He's a graphic design student with a lot of experience with mobile application design although his strengths are photo and video editing and 3D design.
+You can get an idea of his work by viewing his |[Behance profile](https://www.behance.net/nicobacile)|.";
+"balance.menu.servings.source" = "Data sources";
+"balance.menu.servings.source.body" = "We get all the information displayed on this app from servers managed by the UNC (National University of Córdoba). We don't control the source of the information.";
+"camera.location.permissions" = "Camera and location permissions";
+"camera.location.permissions.body" = "Camera permissions are required if you want to be able to scan the barcode in your lunch hall credentials without having to type character by character.
+Location permissions are required if you wish to see your location in the map where the lunch halls are located.
+Both permissions are completely optional and can be disabled from the Settings app.";
+"colaborate" = "Colaborate";
+"colaborate.body" = "If you wish to colaborate in any way, you are free to do so. The app is open source, you can view the code in the |[repository](https://github.com/georgealegre/UNCmorfi)|.";
+"get.in.touch" = "Say HI!";
+"get.in.touch.body" = "My email address is |[facu.alegre@gmail.com](mailto:facu.alegre@gmail.com)|. Feel free to say hello!";
+"android" = "Android App";
+"android.body" = "The Android version of this app (details in the Development section) is called the same as this app, UNCmorfi. You can search for it in the Google Play Store. You can also view the |[source code](https://github.com/AIDEA775/UNCmorfi)|.";

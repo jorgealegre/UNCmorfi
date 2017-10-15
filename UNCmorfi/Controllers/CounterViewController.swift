@@ -48,10 +48,11 @@ class CounterViewController: UIViewController {
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
-        
+
         setupCounter()
-        setupLabel()
+        updateServings()
         prepareTimer()
+        setupLabel()
     }
 
     private func setupCounter() {
@@ -69,6 +70,30 @@ class CounterViewController: UIViewController {
         counterView.startAnimating()
     }
 
+    private func updateServings() {
+        UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
+            guard error == nil else {
+                // TODO this is temporary // Has to be in main queue
+                return
+            }
+
+            DispatchQueue.main.async {
+                self.servings = servings
+            }
+        }
+    }
+
+    private func prepareTimer() {
+        if #available(iOS 10.0, *) {
+            // TODO set to 60 seconds.
+            timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer: Timer) in
+                self.updateServings()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+
     private func setupLabel() {
         view.addSubview(progressLabel)
 
@@ -76,26 +101,6 @@ class CounterViewController: UIViewController {
             progressLabel.centerXAnchor.constraint(equalTo: counterView.centerXAnchor),
             progressLabel.centerYAnchor.constraint(equalTo: counterView.centerYAnchor),
             ])
-    }
-
-    private func prepareTimer() {
-        if #available(iOS 10.0, *) {
-            // TODO set to 60 seconds.
-//            timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true) { (timer: Timer) in
-//                UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
-//                    guard error == nil else {
-//                        // TODO this is temporary // Has to be in main queue
-//                        return
-//                    }
-//
-//                    DispatchQueue.main.async {
-//                        self.servings = servings
-//                    }
-//                }
-//            }
-        } else {
-            // Fallback on earlier versions
-        }
     }
 
     func shouldUpdateLabel() {
