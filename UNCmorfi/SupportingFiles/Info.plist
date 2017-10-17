@@ -15,24 +15,24 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.4</string>
+	<string>0.5</string>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-            <key>comedor.unc.edu.ar</key>
-            <dict>
-                <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-                <true/>
-            </dict>
-        </dict>
+			<key>comedor.unc.edu.ar</key>
+			<dict>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Access to the camera is required for scanning the card&apos;s barcode.</string>
+	<string>Access to the camera is required for scanning the card's barcode.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is optional, in case you want to see how far you are from a lunch hall.</string>
 	<key>UILaunchStoryboardName</key>
