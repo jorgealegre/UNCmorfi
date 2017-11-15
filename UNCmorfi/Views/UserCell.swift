@@ -29,11 +29,18 @@ class UserCell: UITableViewCell {
         label.font = UIFont(name: "AvenirNext-Medium", size: 20)
         return label
     }()
+    
+    let barcodeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "AvenirNext-Regular", size: 14)
+        return label
+    }()
 
     let balanceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Black", size: 16)
+        label.font = UIFont(name: "AvenirNext-Bold", size: 16)
         return label
     }()
     
@@ -45,21 +52,25 @@ class UserCell: UITableViewCell {
         let margin = contentView.layoutMarginsGuide
         
         contentView.addSubview(nameLabel)
+        contentView.addSubview(barcodeLabel)
         contentView.addSubview(balanceLabel)
         contentView.addSubview(photoImageView)
         
-        photoImageView.leadingAnchor.constraint(equalTo: margin.leadingAnchor).isActive = true
-        photoImageView.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
-        photoImageView.bottomAnchor.constraint(equalTo: margin.bottomAnchor).isActive = true
-        
-        nameLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 5).isActive = true
-        nameLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: margin.topAnchor).isActive = true
-        
-        balanceLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor).isActive = true
-        balanceLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            photoImageView.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
+            photoImageView.topAnchor.constraint(equalTo: margin.topAnchor),
+            photoImageView.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 5),
+            nameLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
+            nameLabel.topAnchor.constraint(equalTo: margin.topAnchor),
+            barcodeLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            barcodeLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor),
+            barcodeLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
+            balanceLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
+            balanceLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
+        ])
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -68,5 +79,6 @@ class UserCell: UITableViewCell {
         balanceLabel.text = "$\(user.balance)"
         nameLabel.text = user.name
         photoImageView.image = user.image
+        barcodeLabel.text = user.code
     }
 }
