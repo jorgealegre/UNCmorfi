@@ -18,23 +18,23 @@ struct UNCComedor {
     static private let baseMenuURL = URL(string: "https://www.unc.edu.ar/vida-estudiantil/men%C3%BA-de-la-semana")!
     static private let baseServingsURL = URL(string: "http://comedor.unc.edu.ar/gv-ds_test.php?json=true&accion=1&sede=0475")!
 
-    static func getUserStatus(from code: String, callback: @escaping (_ error: Error?, _ name: String?, _ balance: Int?, _ image: String?) -> ()) {
+    static func getUsers(from codes: String..., callback: @escaping (_ error: Error?, _ users: [User]?) -> ()) {
         var request = URLRequest(url: baseDataURL)
         request.httpMethod = "POST"
         
-        let requestData = "accion=4&responseHandler=''&codigo=\(code)"
+        let requestData = "json=true&accion=4&responseHandler=''&codigo=\(codes.joined(separator: "|"))"
         request.httpBody = requestData.data(using: .utf8)
         
         URLSession(configuration: .default).dataTask(with: request) { data, res, error in
             guard let data = data, error == nil else {
-                callback(error, nil, nil, nil)
+                callback(error, nil)
                 return
             }
             
             if let status = res as? HTTPURLResponse, status.statusCode != 200 {
                 print("statusCode should be 200, but is \(status.statusCode)")
                 print("response = \(res!)")
-                callback(error, nil, nil, nil)
+                callback(error, nil)
                 return
             }
             
