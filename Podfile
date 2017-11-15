@@ -4,6 +4,7 @@ platform :ios, '9.0'
 
 target 'UNCmorfi' do
     use_frameworks!
-    pod 'FontAwesome.swift', :git => 'https://github.com/thii/FontAwesome.swift', :branch  => 'swift-4.0'
-    pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna', :branch => 'feature/v4.0.0'
+    pod 'FontAwesome.swift'
+    pod 'SwiftSoup'
+    #pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna.git', :branch => 'feature/v4.0.0'
 end

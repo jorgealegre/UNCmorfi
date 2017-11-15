@@ -99,6 +99,7 @@ class UserTableViewController: UITableViewController {
         ac.addTextField { textField in
             textField.enablesReturnKeyAutomatically = true
             textField.autocapitalizationType = .allCharacters
+            textField.clearButtonMode = .whileEditing
         }
         ac.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
         ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [unowned self, ac] _ in

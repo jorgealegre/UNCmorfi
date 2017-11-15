@@ -33,6 +33,9 @@ class InfoViewController: UITableViewController {
 
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 150
+        
+        // Remove empty row separators below the table view.
+        tableView.tableFooterView = UIView()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
