@@ -105,12 +105,8 @@ class UserTableViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [unowned self, ac] _ in
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
             
-            DispatchQueue.global(qos: .userInteractive).async {
-                let user = User(fromCode: text)
-                user.update {
-                    self.add(user: user)
-                }
-            }
+            let user = User(fromCode: text)
+            self.add(user: user)
         })
         present(ac, animated: true)
     }
@@ -118,7 +114,6 @@ class UserTableViewController: UITableViewController {
     @objc private func addViaCameraButtonTapped(_ sender: UIBarButtonItem) {
         let bsvc = BarcodeScannerViewController()
         bsvc.delegate = self
-
         navigationController?.pushViewController(bsvc, animated: true)
     }
     
@@ -137,13 +132,13 @@ class UserTableViewController: UITableViewController {
         }
         
         // Add a new user.
-        DispatchQueue.main.async {
-            let newIndexPath = IndexPath(row: self.users.count, section: 0)
-
-            user.update()
-            self.users.append(user)
-            self.tableView.insertRows(at: [newIndexPath], with: .automatic)
-            self.refreshData()
+        [user].update { users in
+            DispatchQueue.main.async {
+                let newIndexPath = IndexPath(row: self.users.count, section: 0)
+                
+                self.users.append(users.first!)
+                self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+            }
         }
     }
     
@@ -185,18 +180,13 @@ class UserTableViewController: UITableViewController {
     }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
-        let queue = DispatchQueue(label: "usersRefreshing", attributes: .concurrent, target: .main)
-        let group = DispatchGroup()
-        
-        for user in users {
-            group.enter()
-            queue.async(group: group) { user.update { group.leave() } }
-        }
-        
-        group.notify(queue: queue) {
-            self.tableView.reloadData()
-            self.saveUsers()
-            refreshControl?.endRefreshing()
+        users.update { (users) in
+            DispatchQueue.main.async {
+                self.users = users
+                self.saveUsers()
+                self.tableView.reloadData()
+                refreshControl?.endRefreshing()
+            }
         }
     }
 }
