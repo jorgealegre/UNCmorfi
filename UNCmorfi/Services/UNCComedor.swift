@@ -12,12 +12,31 @@ import UIKit
 
 import SwiftSoup
 
-struct UNCComedor {
-    static private let baseImageURL = URL(string: "https://asiruws.unc.edu.ar/foto/")!
-    static private let baseDataURL = "http://comedor.unc.edu.ar/gv-ds_test.php"
-    static private let baseMenuURL = URL(string: "https://www.unc.edu.ar/vida-estudiantil/men%C3%BA-de-la-semana")!
-    static private let baseServingsURL = URL(string: "http://comedor.unc.edu.ar/gv-ds_test.php?json=true&accion=1&sede=0475")!
+public enum Result<A> {
+    case success(A)
+    case failure(Error)
+}
+
+final class UNCComedor {
+    // MARK: Singleton
+    static let api = UNCComedor()
+    private init() {}
     
+    // MARK: URLSession
+    private let session = URLSession.shared
+    
+    // MARK: API endpoints
+    private static let baseImageURL = URL(string: "https://asiruws.unc.edu.ar/foto/")!
+    private static let baseDataURL = "http://comedor.unc.edu.ar/gv-ds_test.php"
+    private static let baseMenuURL = URL(string: "https://www.unc.edu.ar/vida-estudiantil/men%C3%BA-de-la-semana")!
+    private static let baseServingsURL = URL(string: "http://comedor.unc.edu.ar/gv-ds_test.php?json=true&accion=1&sede=0475")!
+    
+    // MARK: Errors
+    enum UNCComedorError: Error {
+        case servingDateUnparseable
+    }
+    
+    // MARK: Response data wrappers
     private struct UserData: Decodable {
         let saldo: String
         let nombre: String
@@ -27,14 +46,50 @@ struct UNCComedor {
         let fecha_hasta: Date
     }
     
-    static func getUsers(from codes: [String], callback: @escaping (_ error: Error?, _ users: [User]?) -> ()) {
-        if codes.isEmpty {
-            callback(nil, [])
+    private struct Serving: Decodable {
+        let count: Int
+        let date: Date
+        
+        private enum CodingKeys: CodingKey {
+            case count
+            case date
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.count = try container.decode(Int.self, forKey: .count)
+            
+            // The server only gave us a time in timezone GMT-3 (e.g. 12:09:00)
+            // We need to add the current date and timezone data. (e.g. 2017-09-10 15:09:00 +0000)
+            // Start off by getting the current date.
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'"
+            
+            let todaysDate = dateFormatter.string(from: Date())
+            
+            // Join today's date, the time and the timezone into one string in ISO format.
+            let timeString = try container.decode(String.self, forKey: .date)
+            let timestamp = "\(todaysDate)\(timeString)-0300"
+            
+            dateFormatter.dateFormat.append("HH:mm:ssZ")
+            
+            guard let date = dateFormatter.date(from: timestamp) else {
+                throw UNCComedorError.servingDateUnparseable
+            }
+            
+            self.date = date
+        }
+    }
+    
+    // MARK: - Public API methods
+    func getUsers(from codes: [String], callback: @escaping (_ result: Result<[User]>) -> Void) {
+        guard !codes.isEmpty else {
+            callback(.success([]))
             return
         }
         
         // Prepare the request and its parameters.
-        var request = URLComponents(string: baseDataURL)!
+        var request = URLComponents(string: UNCComedor.baseDataURL)!
         request.queryItems = [
             URLQueryItem(name: "json", value: "true"),
             URLQueryItem(name: "accion", value: "4"),
@@ -42,16 +97,28 @@ struct UNCComedor {
         ]
         
         // Send the request and setup the callback.
-        URLSession(configuration: .default).dataTask(with: request.url!) { data, res, error in
+        let task: URLSessionDataTask  = session.dataTask(with: request.url!) { data, res, error in
             // Check for errors and exit early.
-            guard let data = data, error == nil else {
-                callback(error, nil)
+            guard error == nil else {
+                // Client error
+                callback(.failure(error!))
                 return
             }
-            if let status = res as? HTTPURLResponse, status.statusCode != 200 {
-                print("statusCode should be 200, but is \(status.statusCode)")
+            guard let httpResponse = res as? HTTPURLResponse else {
                 print("response = \(res!)")
-                callback(error, nil)
+                callback(.failure(NSError()))
+                // TODO: create my own errors
+                return
+            }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
+                callback(.failure(NSError()))
+                // TODO: create my own errors
+                return
+            }
+            guard let data = data else {
+                callback(.failure(NSError()))
+                // TODO: create my own errors
                 return
             }
             
@@ -65,76 +132,101 @@ struct UNCComedor {
             do {
                 userData = try decoder.decode([UserData].self, from: data)
             } catch {
-                callback(NSError(), nil)
+                callback(.failure(NSError()))
                 return
             }
             
             let users = userData.map { (userData: UserData) -> User in
                 let user = User(fromCode: userData.codigo)
-                user.balance = Int(userData.saldo)!
+                user.balance = Int(userData.saldo) ?? 0
                 user.imageCode = userData.foto
                 user.name = "\(userData.nombre) \(userData.apellido)"
-                
                 user.expiryDate = userData.fecha_hasta
                 
                 return user
             }
             
-            callback(nil, users)
-        }.resume()
+            callback(.success(users))
+        }
+        
+        task.resume()
     }
     
-    static func getUserImage(from code: String, callback: @escaping (_ error: Error?, _ image: UIImage?) -> ()) {
-        URLSession(configuration: .default).dataTask(with: baseImageURL.appendingPathComponent(code)) { data, res, error in
-            guard let data = data, error == nil else {
-                print("error: \(error!)")
-                callback(error, nil)
+    func getUserImage(from code: String, callback: @escaping (_ result: Result<UIImage>) -> Void) {
+        let url = UNCComedor.baseImageURL.appendingPathComponent(code)
+        let task: URLSessionDataTask = session.dataTask(with: url) { data, res, error in
+            // Check for errors and exit early.
+            guard error == nil else {
+                // Client error
+                callback(.failure(error!))
                 return
             }
-            
-            if let status = res as? HTTPURLResponse, status.statusCode != 200 {
-                print("statusCode should be 200, but is \(status.statusCode)")
+            guard let httpResponse = res as? HTTPURLResponse else {
                 print("response = \(res!)")
-                callback(error, nil)
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
+            }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
+            }
+            guard let data = data else {
+                callback(.failure(NSError()))
+                // TODO create my own errors
                 return
             }
             
             guard let image = UIImage(data: data) else {
-                callback(error, nil)
+                callback(.failure(NSError()))
                 return
             }
             
-            callback(nil, image)
-            }.resume()
+            callback(.success(image))
+        }
+        
+        task.resume()
     }
     
-    static func getMenu(callback: @escaping (_ error: Error?, _ menu: [Date:[String]]?) -> ()) {
-        URLSession(configuration: .default).dataTask(with: baseMenuURL) { data, res, error in
-            guard let data = data, error == nil else {
-                print("error: \(error!)")
-                callback(error, nil)
+    func getMenu(callback: @escaping (_ result: Result<[Date:[String]]>) -> Void) {
+        let task: URLSessionDataTask = session.dataTask(with: UNCComedor.baseMenuURL) { data, res, error in
+            // Check for errors and exit early.
+            guard error == nil else {
+                // Client error
+                callback(.failure(error!))
                 return
             }
-            
-            if let status = res as? HTTPURLResponse, status.statusCode != 200 {
-                print("statusCode should be 200, but is \(status.statusCode)")
+            guard let httpResponse = res as? HTTPURLResponse else {
                 print("response = \(res!)")
-                callback(error, nil)
+                callback(.failure(NSError()))
+                // TODO create my own errors
                 return
             }
-            
-            let response = String(data: data, encoding: .utf8)!
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
+            }
+            guard let data = data,
+                let dataString = String(data: data, encoding: .utf8) else {
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
+            }
             
             // Try to parse HTML
-            guard let doc: Document = try? SwiftSoup.parse(response) else {
+            guard let doc: Document = try? SwiftSoup.parse(dataString) else {
                 print("can't parse HTML response.")
-                // TODO(alegre): should create error
-                callback(NSError(), nil)
+                // TODO: should create error
+                callback(.failure(NSError()))
                 return
             }
             // Find the week's menu.
             guard let elements = try? doc.select("div[class='field-item even']").select("ul") else {
-                callback(NSError(), nil)
+                callback(.failure(NSError()))
                 return
             }
             
@@ -149,80 +241,72 @@ struct UNCComedor {
                 for (index, element) in elements.enumerated() {
                     let listItems: [Element] = try element.select("li").array()
                     
-                    let foodList = listItems.map { try? $0.text() }.flatMap { $0 }.filter { !$0.isEmpty }
+                    let foodList = listItems
+                        .map { try? $0.text() }
+                        .flatMap { $0 }
+                        .filter { !$0.isEmpty }
                     
                     let day = monday.addingTimeInterval(TimeInterval(index * 24 * 60 * 60))
                     menu[day] = foodList
                 }
             } catch {
-                callback(NSError(), nil)
+                callback(.failure(NSError()))
                 return
             }
             
-            
-            callback(nil, menu)
-            }.resume()
+            callback(.success(menu))
+        }
+        
+        task.resume()
     }
     
-    static func getServings(callback: @escaping (_ error: Error?, _ servings: [Date: Int]?) -> ()) {
-        URLSession(configuration: .default).dataTask(with: baseServingsURL) { (data, res, error) in
-            guard let data = data, error == nil else {
-                print("error: \(error!)")
-                callback(error, nil)
+    func getServings(callback: @escaping (_ result: Result<[Date: Int]>) -> Void) {
+        let task: URLSessionDataTask = session.dataTask(with: UNCComedor.baseServingsURL) { data, res, error in
+            // Check for errors and exit early.
+            guard error == nil else {
+                // Client error
+                callback(.failure(error!))
+                return
+            }
+            guard let httpResponse = res as? HTTPURLResponse else {
+                print("response = \(res!)")
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
+            }
+            guard (200...299).contains(httpResponse.statusCode) else {
+                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
+            }
+            guard let data = data else {
+                callback(.failure(NSError()))
+                // TODO create my own errors
                 return
             }
             
-            guard let status = res as? HTTPURLResponse, status.statusCode == 200 else {
-                print("statusCode should be 200.")
-                callback(error, nil)
+            // Parse received data.
+            let servingData: [Serving]
+            do {
+                let jsonDecoder = JSONDecoder()
+                servingData = try jsonDecoder.decode([Serving].self, from: data)
+            } catch UNCComedorError.servingDateUnparseable {
+                callback(.failure(UNCComedorError.servingDateUnparseable))
+                return
+            } catch {
+                callback(.failure(NSError()))
                 return
             }
             
-            guard let json = try? JSONSerialization.jsonObject(with: data) as? [[String: String]] else {
-                print("Could not parse response into JSON.")
-                callback(error, nil)
-                return
+            // Transform data into expected output type.
+            let servings = servingData.reduce(into: [Date: Int]()) { ( result: inout [Date: Int], serving) in
+                result[serving.date, default: 0] += serving.count
             }
             
-            let result = json?.reduce([Date: Int]()) { (result, row) -> [Date: Int] in
-                // 'result' parameter is constant, can't be changed :|
-                var result = result
-                
-                // The server only gave us a time in timezone GMT-3 (e.g. 12:09:00)
-                // We need to add the current date and timezone data. (e.g. 2017-09-10 15:09:00 +0000)
-                // Start off by getting the current date.
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'"
-                
-                let todaysDate = dateFormatter.string(from: Date())
-                
-                // Join today's date, the time from the row and the timezone into one string in ISO format.
-                guard let time = row["fecha"] else {
-                    return result
-                }
-                let dateString = "\(todaysDate)\(time)-0300"
-                
-                // Add time and timezone support to the parser.
-                let timeFormat = "HH:mm:ssZ"
-                dateFormatter.dateFormat = dateFormatter.dateFormat + timeFormat
-                
-                // Get a Date object from the resulting string.
-                guard let date = dateFormatter.date(from: dateString) else {
-                    return result
-                }
-                
-                // Get food count from row.
-                guard let count = Int(row["raciones"] ?? "0") else {
-                    return result
-                }
-                
-                // Add data to the dictionary.
-                result[date] = count
-                
-                return result
-            }
+            callback(.success(servings))
+        }
             
-            callback(nil, result)
-            }.resume()
+        task.resume()
     }
 }

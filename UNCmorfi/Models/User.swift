@@ -102,9 +102,9 @@ extension Array where Element == User {
     
     /**
      Updates a collection of users.
-     - callback: handler to be called with updated users.
+     - Parameter callback: handler to be called with updated users as argument.
      */
-    func update(callback: @escaping (([User]) -> ())) {
+    func update(callback: @escaping (([User]) -> Void)) {
         // Create a queue for parallel jobs.
         let queue = DispatchQueue.global(qos: .userInitiated)
         let group = DispatchGroup()
@@ -121,32 +121,34 @@ extension Array where Element == User {
         
         // Get the updated users from the API.
         group.enter()
-        UNCComedor.getUsers(from: userCodes) { (error, users) in
+        UNCComedor.api.getUsers(from: userCodes) { (apiResult) in
             // Notify that this task is done.
             defer { group.leave() }
             
-            guard error == nil, let users = users else {
+            switch apiResult {
+            case .failure(let error):
+                // TODO: handle error
                 updateFailed = true
                 return
-            }
-            
-            result = users
-            
-            // Get the updated user images from the API.
-            users.forEach { (user) in
-                group.enter()
-                UNCComedor.getUserImage(from: user.imageCode) { (error, image: UIImage?) in
-                    // Notify that this task is done.
-                    defer { group.leave() }
+            case .success(let users):
+                result = users
+                
+                // Get the updated user images from the API.
+                users.forEach { (user) in
+                    group.enter()
                     
-                    guard error == nil else {
-                        updateFailed = true
-                        return
-                    }
-                    
-                    // Maybe the user doesn't have an image.
-                    if let image = image {
-                        user.image = image
+                    UNCComedor.api.getUserImage(from: user.imageCode) { imageResult in
+                        // Notify that this task is done.
+                        defer { group.leave() }
+                        
+                        switch imageResult {
+                        case .failure(let error):
+                            // TODO: handle error
+                            updateFailed = true
+                            return
+                        case .success(let image):
+                            user.image = image
+                        }
                     }
                 }
             }

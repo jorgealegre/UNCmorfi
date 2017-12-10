@@ -71,21 +71,21 @@ class CounterViewController: UIViewController {
     }
 
     private func updateServings() {
-        UNCComedor.getServings { (error: Error?, servings: [Date : Int]?) in
-            guard error == nil else {
-                // TODO this is temporary // Has to be in main queue
+        UNCComedor.api.getServings { result in
+            switch result {
+            case .failure(let error):
                 return
-            }
-
-            DispatchQueue.main.async {
-                self.servings = servings
+            case .success(let servings):
+                DispatchQueue.main.async {
+                    self.servings = servings
+                }
             }
         }
     }
 
     private func prepareTimer() {
         if #available(iOS 10.0, *) {
-            // TODO set to 60 seconds.
+            // TODO: set to 60 seconds.
             timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer: Timer) in
                 self.updateServings()
             }
@@ -110,6 +110,6 @@ class CounterViewController: UIViewController {
             }
         }
 
-        progressLabel.text = "\(counterView.currentValue)"
+        progressLabel.text = String(counterView.currentValue)
     }
 }

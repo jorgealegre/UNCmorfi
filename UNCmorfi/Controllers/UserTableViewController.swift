@@ -127,7 +127,7 @@ class UserTableViewController: UITableViewController {
                 // Fallback on earlier versions
             }
             
-            // TODO(alegre): Maybe alert the user?
+            // TODO: Maybe alert the user?
             return
         }
         

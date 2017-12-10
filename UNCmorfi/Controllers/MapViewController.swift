@@ -12,19 +12,19 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    var mapView: MKMapView = {
+    // MARK: Properties
+    private let mapView: MKMapView = {
         let mapView = MKMapView(frame: UIScreen.main.bounds)
+        mapView.showsUserLocation = true
         mapView.showsPointsOfInterest = true
         return mapView
     }()
 
-    private let locationManager: CLLocationManager! = {
-        let locationManager = CLLocationManager()
-        return locationManager
-    }()
+    private let locationManager = CLLocationManager()
 
     private let viewID = "viewID"
 
+    // MARK: MVC lifecycle
     override func loadView() {
         view = mapView
     }
@@ -58,7 +58,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.showAnnotations(annotations, animated: true)
 
         // Annotations appear hidden under navigation and tab bar controllers.
-        // The view covers the whole screen so annotations DO appear but under these menues.
+        // The view covers the whole screen so annotations DO appear but under these elements.
         let region: MKCoordinateRegion
         if #available(iOS 11.0, *) {
             // Increase viewing region by 50% (titles are bigger).

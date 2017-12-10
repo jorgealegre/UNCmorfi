@@ -33,14 +33,15 @@ class MenuViewController: UICollectionViewController, UICollectionViewDelegateFl
         collectionView?.backgroundColor = .white
         collectionView?.register(FoodCell.self, forCellWithReuseIdentifier: FoodCell.reuseIdentifier)
 
-        UNCComedor.getMenu { error, menu in
-            guard error == nil else {
+        UNCComedor.api.getMenu { apiResult in
+            switch apiResult {
+            case .failure(let error):
                 return
-            }
-            
-            self.menu = menu
-            DispatchQueue.main.async {
-                self.collectionView?.reloadData()
+            case .success(let menu):
+                self.menu = menu
+                DispatchQueue.main.async {
+                    self.collectionView?.reloadData()
+                }
             }
         }
     }
