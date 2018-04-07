@@ -225,10 +225,12 @@ public final class UNCComedor {
             
             // Should handle parsing lightly, don't completely know server's behaviour.
             // Prefer to not show anything or parse wrongly than to crash.
-            var menu: [Date:[String]] = [:]
+            var menu: [Date: [String]] = [:]
             
             // Whatever week we're in, find monday.
-            let monday = Calendar(identifier: .iso8601).date(from: Calendar(identifier: .iso8601).dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
+            var startingDay = Calendar(identifier: .iso8601)
+                    .date(from: Calendar(identifier: .iso8601)
+                    .dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
             
             // For each day, parse the menu.
             do {
@@ -239,7 +241,7 @@ public final class UNCComedor {
                         .compactMap { try? $0.text() }
                         .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                     
-                    let day = monday.addingTimeInterval(TimeInterval(index * 24 * 60 * 60))
+                    let day = startingDay.addingTimeInterval(TimeInterval(index * 24 * 60 * 60))
                     menu[day] = foodList
                 }
             } catch {

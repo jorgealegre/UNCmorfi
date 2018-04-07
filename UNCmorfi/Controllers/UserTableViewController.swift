@@ -22,7 +22,7 @@ class UserTableViewController: UITableViewController {
         if #available(iOS 11.0, *) {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
-
+        
         setupNavigationBarButtons()
     
         // Load saved users.
@@ -125,14 +125,15 @@ class UserTableViewController: UITableViewController {
             // TODO: Maybe alert the user?
             return
         }
+        users.append(user)
+        os_log("User added successfully.", log: .default, type: .debug)
         
         // Add a new user.
-        [user].update { users in
-            DispatchQueue.main.async {
-                let newIndexPath = IndexPath(row: self.users.count, section: 0)
-                
-                self.users.append(users.first!)
-                self.tableView.insertRows(at: [newIndexPath], with: .automatic)
+        users.update { users in
+            DispatchQueue.main.async { [unowned self] in
+                self.users = users
+                self.tableView.reloadData()
+                self.saveUsers()
             }
         }
     }

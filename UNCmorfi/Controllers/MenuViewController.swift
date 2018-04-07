@@ -18,6 +18,11 @@ class MenuViewController: UITableViewController {
         return dateFormatter
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,12 +31,15 @@ class MenuViewController: UITableViewController {
             navigationController!.navigationBar.prefersLargeTitles = true
         }
         
+        tableView.backgroundView = activityIndicator
+        activityIndicator.startAnimating()
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
     
         UNCComedor.api.getMenu { apiResult in
             DispatchQueue.main.async { [unowned self] in
+                self.activityIndicator.stopAnimating()
                 switch apiResult {
                 case .failure(_):
                     return
