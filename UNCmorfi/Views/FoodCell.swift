@@ -21,9 +21,9 @@ class FoodCell: UITableViewCell {
 
         view.layer.cornerRadius = 3
 
-        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.borderColor = #colorLiteral(red: 0.9921568627, green: 0.2823529412, blue: 0.3215686275, alpha: 1).cgColor
         view.layer.borderWidth = 1
-
+        
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOpacity = 0.4
         view.layer.shadowOffset = CGSize(width: 0, height: 0)

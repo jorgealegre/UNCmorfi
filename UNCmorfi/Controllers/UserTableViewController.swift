@@ -121,12 +121,7 @@ class UserTableViewController: UITableViewController {
     func add(user: User) {
         // Make sure it doesn't already exist.
         guard !users.contains(user) else {
-            if #available(iOS 10.0, *) {
-                os_log("User already exists.", log: .default, type: .debug)
-            } else {
-                // Fallback on earlier versions
-            }
-            
+            os_log("User already exists.", log: .default, type: .debug)
             // TODO: Maybe alert the user?
             return
         }
@@ -147,18 +142,10 @@ class UserTableViewController: UITableViewController {
         do {
             let data = try jsonEncoder.encode(users)
             try data.write(to: User.ArchiveURL)
-            if #available(iOS 10.0, *) {
-                os_log("Users successfully saved.", log: .default, type: .debug)
-            } else {
-                // Fallback on earlier versions
-            }
+            os_log("Users successfully saved.", log: .default, type: .debug)
         } catch {
-            if #available(iOS 10.0, *) {
-                os_log("Failed to save users...", log: .default, type: .error)
-                print("Error: \(error).")
-            } else {
-                // Fallback on earlier versions
-            }
+            os_log("Failed to save users...", log: .default, type: .error)
+            print("Error: \(error).")
         }
     }
     
@@ -169,12 +156,8 @@ class UserTableViewController: UITableViewController {
             let users = try jsonDecoder.decode([User].self, from: data)
             return users
         } catch {
-            if #available(iOS 10.0, *) {
-                os_log("Failed to load users...", log: .default, type: .error)
-                print("Error: \(error).")
-            } else {
-                // Fallback on earlier versions
-            }
+            os_log("Failed to load users...", log: .default, type: .error)
+            print("Error: \(error).")
             return nil
         }
     }

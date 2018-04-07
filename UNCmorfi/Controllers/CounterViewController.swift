@@ -78,7 +78,7 @@ class CounterViewController: UIViewController {
     private func updateServings() {
         UNCComedor.api.getServings { result in
             switch result {
-            case .failure(let error):
+            case .failure(_):
                 return
             case .success(let servings):
                 DispatchQueue.main.async {

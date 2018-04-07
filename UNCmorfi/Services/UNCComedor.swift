@@ -236,7 +236,7 @@ public final class UNCComedor {
                     let listItems: [Element] = try element.select("li").array()
                     
                     let foodList = listItems
-                        .flatMap { try? $0.text() }
+                        .compactMap { try? $0.text() }
                         .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                     
                     let day = monday.addingTimeInterval(TimeInterval(index * 24 * 60 * 60))
