@@ -9,7 +9,7 @@
 
 import UIKit
 
-class FoodCell: UICollectionViewCell {
+class FoodCell: UITableViewCell {
     static let reuseIdentifier = "FoodCell"
 
     let containerView: UIView = {
@@ -56,9 +56,11 @@ class FoodCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        
+        selectionStyle = .none
+        
         let margin = contentView.layoutMarginsGuide
 
         contentView.addSubview(containerView)

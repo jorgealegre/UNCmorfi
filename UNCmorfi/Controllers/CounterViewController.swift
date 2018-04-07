@@ -11,10 +11,8 @@ import UIKit
 
 class CounterViewController: UIViewController {
     // MARK: Views
-    private let counterView: CounterView = {
-        let view = CounterView(frame: CGRect.zero)
-        return view
-    }()
+    private let counterView = CounterView(frame: CGRect.zero)
+    
     private let progressLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,12 +26,20 @@ class CounterViewController: UIViewController {
         didSet {
             guard let servings = servings else { return }
 
-            let servingsCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
+            // Calculate the current count based on the model.
+            let currentCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
                 return count + servings[date]!
             }
-            counterView.currentValue = servingsCount
-
-            print("Servings count updated to \(servingsCount).")
+            
+            // Update UI.
+            counterView.currentValue = currentCount
+            
+            if (progressLabel.alpha == 0) {
+                UIView.animate(withDuration: 0.5) {
+                    self.progressLabel.alpha = 1
+                }
+            }
+            progressLabel.text = String(currentCount)
         }
     }
 
@@ -58,7 +64,6 @@ class CounterViewController: UIViewController {
     private func setupCounter() {
         // Add counter view and layout
         view.addSubview(counterView)
-        counterView.delegate = self
 
         NSLayoutConstraint.activate([
             counterView.widthAnchor.constraint(equalToConstant: 260),
@@ -84,14 +89,7 @@ class CounterViewController: UIViewController {
     }
 
     private func prepareTimer() {
-        if #available(iOS 10.0, *) {
-            // TODO: set to 60 seconds.
-            timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { (timer: Timer) in
-                self.updateServings()
-            }
-        } else {
-            // Fallback on earlier versions
-        }
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in self.updateServings() }
     }
 
     private func setupLabel() {
@@ -101,15 +99,5 @@ class CounterViewController: UIViewController {
             progressLabel.centerXAnchor.constraint(equalTo: counterView.centerXAnchor),
             progressLabel.centerYAnchor.constraint(equalTo: counterView.centerYAnchor),
             ])
-    }
-
-    func shouldUpdateLabel() {
-        if (progressLabel.alpha == 0) {
-            UIView.animate(withDuration: 0.5) {
-                self.progressLabel.alpha = 1
-            }
-        }
-
-        progressLabel.text = String(counterView.currentValue)
     }
 }

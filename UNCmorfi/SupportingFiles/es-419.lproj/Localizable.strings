@@ -1,9 +1,9 @@
-/* 
+/*
   Localizable.strings
   UNCmorfi
 
   Created by George Alegre on 9/6/17.
-  
+
   LICENSE is at the root of this project's repository.
 */
 
@@ -17,7 +17,7 @@
 // Navigation Titles
 "balance.nav.label" = "Saldo";
 "menu.nav.label" = "Menú de la Semana";
-"counter.nav.label" = "Raciones Disponibles";
+"counter.nav.label" = "Menús Servidos";
 "map.nav.label" = "Comedores";
 "info.nav.label" = "Información";
 "barcodescanner.nav.label" = "Escaneando…";

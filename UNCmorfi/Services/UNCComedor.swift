@@ -17,9 +17,9 @@ public enum Result<A> {
     case failure(Error)
 }
 
-final class UNCComedor {
+public final class UNCComedor {
     // MARK: Singleton
-    static let api = UNCComedor()
+    public static let api = UNCComedor()
     private init() {}
     
     // MARK: URLSession
@@ -32,7 +32,7 @@ final class UNCComedor {
     private static let baseServingsURL = URL(string: "http://comedor.unc.edu.ar/gv-ds_test.php?json=true&accion=1&sede=0475")!
     
     // MARK: Errors
-    enum UNCComedorError: Error {
+    public enum UNCComedorError: Error {
         case servingDateUnparseable
     }
     
@@ -81,6 +81,33 @@ final class UNCComedor {
         }
     }
     
+    // MARK: Helpers
+    
+    /**
+     Use as first error handling method of any type of URLSession task.
+     - Parameters:
+        - error: an optional error found in the task completion handler.
+        - res: the `URLResponse` found in the task completion handler.
+     - Returns: if an error is found, a custom error is returned, else `nil`.
+     */
+    private static func handleAPIResponse(error: Error?, res: URLResponse?) -> Error? {
+        guard error == nil else {
+            // TODO handle client error
+            //            handleClientError(error)
+            return error!
+        }
+        
+        guard let httpResponse = res as? HTTPURLResponse,
+            (200...299).contains(httpResponse.statusCode) else {
+                print("response = \(res!)")
+                // TODO: create my own errors
+                //            handleServerError(res)
+                return NSError()
+        }
+        
+        return nil
+    }
+    
     // MARK: - Public API methods
     func getUsers(from codes: [String], callback: @escaping (_ result: Result<[User]>) -> Void) {
         guard !codes.isEmpty else {
@@ -97,25 +124,14 @@ final class UNCComedor {
         ]
         
         // Send the request and setup the callback.
-        let task: URLSessionDataTask  = session.dataTask(with: request.url!) { data, res, error in
+        let task  = session.dataTask(with: request.url!) { data, res, error in
             // Check for errors and exit early.
-            guard error == nil else {
-                // Client error
-                callback(.failure(error!))
+            let customError = UNCComedor.handleAPIResponse(error: error, res: res)
+            guard customError == nil else {
+                callback(.failure(customError!))
                 return
             }
-            guard let httpResponse = res as? HTTPURLResponse else {
-                print("response = \(res!)")
-                callback(.failure(NSError()))
-                // TODO: create my own errors
-                return
-            }
-            guard (200...299).contains(httpResponse.statusCode) else {
-                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
-                callback(.failure(NSError()))
-                // TODO: create my own errors
-                return
-            }
+            
             guard let data = data else {
                 callback(.failure(NSError()))
                 // TODO: create my own errors
@@ -154,25 +170,14 @@ final class UNCComedor {
     
     func getUserImage(from code: String, callback: @escaping (_ result: Result<UIImage>) -> Void) {
         let url = UNCComedor.baseImageURL.appendingPathComponent(code)
-        let task: URLSessionDataTask = session.dataTask(with: url) { data, res, error in
+        let task = session.dataTask(with: url) { data, res, error in
             // Check for errors and exit early.
-            guard error == nil else {
-                // Client error
-                callback(.failure(error!))
+            let customError = UNCComedor.handleAPIResponse(error: error, res: res)
+            guard customError == nil else {
+                callback(.failure(customError!))
                 return
             }
-            guard let httpResponse = res as? HTTPURLResponse else {
-                print("response = \(res!)")
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
-            guard (200...299).contains(httpResponse.statusCode) else {
-                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
+            
             guard let data = data else {
                 callback(.failure(NSError()))
                 // TODO create my own errors
@@ -191,41 +196,29 @@ final class UNCComedor {
     }
     
     func getMenu(callback: @escaping (_ result: Result<[Date:[String]]>) -> Void) {
-        let task: URLSessionDataTask = session.dataTask(with: UNCComedor.baseMenuURL) { data, res, error in
+        let task = session.dataTask(with: UNCComedor.baseMenuURL) { data, res, error in
             // Check for errors and exit early.
-            guard error == nil else {
-                // Client error
-                callback(.failure(error!))
-                return
-            }
-            guard let httpResponse = res as? HTTPURLResponse else {
-                print("response = \(res!)")
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
-            guard (200...299).contains(httpResponse.statusCode) else {
-                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
-            guard let data = data,
-                let dataString = String(data: data, encoding: .utf8) else {
-                callback(.failure(NSError()))
-                // TODO create my own errors
+            let customError = UNCComedor.handleAPIResponse(error: error, res: res)
+            guard customError == nil else {
+                callback(.failure(customError!))
                 return
             }
             
-            // Try to parse HTML
-            guard let doc: Document = try? SwiftSoup.parse(dataString) else {
+            guard let data = data,
+                let dataString = String(data: data, encoding: .utf8) else {
+                    callback(.failure(NSError()))
+                    // TODO create my own errors
+                    return
+            }
+            
+            // Try to parse HTML and find the elements we care about.
+            let elements: Elements
+            do {
+                let doc = try SwiftSoup.parse(dataString)
+                elements = try doc.select("div[class='field-item even']").select("ul")
+            } catch {
                 print("can't parse HTML response.")
                 // TODO: should create error
-                callback(.failure(NSError()))
-                return
-            }
-            // Find the week's menu.
-            guard let elements = try? doc.select("div[class='field-item even']").select("ul") else {
                 callback(.failure(NSError()))
                 return
             }
@@ -234,6 +227,7 @@ final class UNCComedor {
             // Prefer to not show anything or parse wrongly than to crash.
             var menu: [Date:[String]] = [:]
             
+            // Whatever week we're in, find monday.
             let monday = Calendar(identifier: .iso8601).date(from: Calendar(identifier: .iso8601).dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
             
             // For each day, parse the menu.
@@ -242,9 +236,8 @@ final class UNCComedor {
                     let listItems: [Element] = try element.select("li").array()
                     
                     let foodList = listItems
-                        .map { try? $0.text() }
-                        .flatMap { $0 }
-                        .filter { !$0.isEmpty }
+                        .flatMap { try? $0.text() }
+                        .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                     
                     let day = monday.addingTimeInterval(TimeInterval(index * 24 * 60 * 60))
                     menu[day] = foodList
@@ -263,23 +256,12 @@ final class UNCComedor {
     func getServings(callback: @escaping (_ result: Result<[Date: Int]>) -> Void) {
         let task: URLSessionDataTask = session.dataTask(with: UNCComedor.baseServingsURL) { data, res, error in
             // Check for errors and exit early.
-            guard error == nil else {
-                // Client error
-                callback(.failure(error!))
+            let customError = UNCComedor.handleAPIResponse(error: error, res: res)
+            guard customError == nil else {
+                callback(.failure(customError!))
                 return
             }
-            guard let httpResponse = res as? HTTPURLResponse else {
-                print("response = \(res!)")
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
-            guard (200...299).contains(httpResponse.statusCode) else {
-                print("Status code should be inside (200...299), but is \(httpResponse.statusCode)")
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
+            
             guard let data = data else {
                 callback(.failure(NSError()))
                 // TODO create my own errors
@@ -289,8 +271,7 @@ final class UNCComedor {
             // Parse received data.
             let servingData: [Serving]
             do {
-                let jsonDecoder = JSONDecoder()
-                servingData = try jsonDecoder.decode([Serving].self, from: data)
+                servingData = try JSONDecoder().decode([Serving].self, from: data)
             } catch UNCComedorError.servingDateUnparseable {
                 callback(.failure(UNCComedorError.servingDateUnparseable))
                 return
@@ -306,7 +287,7 @@ final class UNCComedor {
             
             callback(.success(servings))
         }
-            
+        
         task.resume()
     }
 }

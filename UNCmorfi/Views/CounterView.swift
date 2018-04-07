@@ -13,8 +13,6 @@ class CounterView: UIView, CAAnimationDelegate {
     // MARK: - Layers.
     private let circlePathLayer = CAShapeLayer()
 
-    var delegate: CounterViewController!
-
     // MARK: - Circle path properties.
     private var lineWidth: CGFloat = 3
     private var arcWidth: CGFloat = 15
@@ -153,9 +151,6 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.duration = 0.5
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
-
-        delegate.shouldUpdateLabel()
-
     }
     
     override init(frame: CGRect) {

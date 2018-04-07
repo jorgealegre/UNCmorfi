@@ -17,7 +17,7 @@
 // Navigation Titles
 "balance.nav.label" = "Balance";
 "menu.nav.label" = "This Week's Menu";
-"counter.nav.label" = "Servings Left";
+"counter.nav.label" = "Meals Served";
 "map.nav.label" = "Locations";
 "info.nav.label" = "Information";
 "barcodescanner.nav.label" = "Scanning…";
