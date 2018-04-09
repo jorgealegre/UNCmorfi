@@ -34,6 +34,7 @@ public final class UNCComedor {
     // MARK: Errors
     public enum UNCComedorError: Error {
         case servingDateUnparseable
+        case servingCountUnparseable
     }
     
     // MARK: Response data wrappers
@@ -50,14 +51,19 @@ public final class UNCComedor {
         let count: Int
         let date: Date
         
-        private enum CodingKeys: CodingKey {
-            case count
-            case date
+        private enum CodingKeys: String, CodingKey {
+            case count = "raciones"
+            case date = "fecha"
         }
         
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.count = try container.decode(Int.self, forKey: .count)
+            
+            let countString = try container.decode(String.self, forKey: .count)
+            guard let count = Int(countString) else {
+                throw UNCComedorError.servingCountUnparseable
+            }
+            self.count = count
             
             // The server only gave us a time in timezone GMT-3 (e.g. 12:09:00)
             // We need to add the current date and timezone data. (e.g. 2017-09-10 15:09:00 +0000)
