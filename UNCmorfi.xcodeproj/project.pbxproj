@@ -277,7 +277,7 @@
 				TargetAttributes = {
 					5EC4CBCE1E91F4DA00E0BE71 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = MCQUU65FS6;
+						DevelopmentTeam = V67S6WRV9Z;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -565,10 +565,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MCQUU65FS6;
+				DEVELOPMENT_TEAM = V67S6WRV9Z;
 				INFOPLIST_FILE = "$(SRCROOT)/UNCmorfi/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.igor.UNCmorfi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -586,10 +586,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MCQUU65FS6;
+				DEVELOPMENT_TEAM = V67S6WRV9Z;
 				INFOPLIST_FILE = "$(SRCROOT)/UNCmorfi/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.igor.UNCmorfi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
