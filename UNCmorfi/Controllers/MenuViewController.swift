@@ -14,6 +14,7 @@ class MenuViewController: UITableViewController {
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         dateFormatter.dateFormat = "EEEE d"
         return dateFormatter
     }()
@@ -44,7 +45,7 @@ class MenuViewController: UITableViewController {
                 case .failure(_):
                     return
                 case .success(let menu):
-                    self.menu = menu
+                    self.menu = menu.menu
                     
                     self.tableView?.reloadData()
                 }
@@ -64,7 +65,7 @@ class MenuViewController: UITableViewController {
         
         let date = menu!.keys.sorted()[indexPath.row]
         cell.dateLabel.text = dateFormatter.string(from: date)
-        
+
         menu![date]!.enumerated().forEach{ index, meal in
             guard let label = cell.mealsStackView.arrangedSubviews[index] as? UILabel else {
                 fatalError("Todo mal")
