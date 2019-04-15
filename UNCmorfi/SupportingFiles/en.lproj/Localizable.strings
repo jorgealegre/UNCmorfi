@@ -52,7 +52,7 @@
 "camera.location.permissions" = "Camera and location permissions";
 "camera.location.permissions.body" = "Camera permissions are required if you want to be able to scan the barcode in your lunch hall credentials without having to type character by character. \
 Location permissions are required if you wish to see your location in the map where the lunch halls are located. \
-Both permissions are completely optional and can be disabled from the |[Settings App](App-Prefs:path=com.georgealegre.UNCmorfi)|.";
+Both permissions are completely optional and can be disabled from the |[Settings App](app-settings:)|.";
 
 "colaborate" = "Colaborate";
 "colaborate.body" = "If you wish to colaborate in any way, you are free to do so. The app is open source, you can view the code in the |[repository](https://github.com/georgealegre/UNCmorfi)|.";

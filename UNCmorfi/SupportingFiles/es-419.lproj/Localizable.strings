@@ -52,7 +52,7 @@
 "camera.location.permissions" = "Permisos de cámara y ubicación";
 "camera.location.permissions.body" = "Permisos para la cámara son requeridos si se desea escanear la tarjeta del comedor sin ingresar los caracteres manualmente.\
 Permisos de su ubicación son requeridos si desea saber qué tan lejos o cerca se encuentra de alguno de los dos comedores.\
-Ambos permisos son completamente opcionales y pueden ser deshabilitados desde |[Ajustes](App-Prefs:path=com.georgealegre.UNCmorfi)|.";
+Ambos permisos son completamente opcionales y pueden ser deshabilitados desde |[Ajustes](app-settings:)| .";
 
 "colaborate" = "Colaborar";
 "colaborate.body" = "Si sabes programar o te interesa aprender, podes ver el código de la aplicación en el |[repositorio](https://github.com/georgealegre/UNCmorfi)|. Si se te ocurre algo para mejorar, dale para adelante, estoy abierto a suferencias.";
