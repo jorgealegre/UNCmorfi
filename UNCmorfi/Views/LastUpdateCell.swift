@@ -9,9 +9,14 @@
 import UIKit
 
 class LastUpdateCell: UITableViewCell {
-    
-    // MARK: static vars
+
+    // MARK: static
     static let reuseIdentifier = "LastUpdateCell"
+    
+    enum UpdateType {
+        case menu
+        case balance
+    }
     
     // MARK: UI vars
     let containerView: UIView = {
@@ -44,6 +49,8 @@ class LastUpdateCell: UITableViewCell {
 
     // MARK: inits
     
+    private static let lastUpdateDate: LastUpdateDate = LastUpdateDateImpl()
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -68,12 +75,34 @@ class LastUpdateCell: UITableViewCell {
         updateLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5).isActive = true
     }
     
-    static func populate(tableView: UITableView, indexPath: IndexPath) -> LastUpdateCell {
+    static func populate(_ tableView: UITableView, at indexPath: IndexPath, with type: UpdateType) -> LastUpdateCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LastUpdateCell.reuseIdentifier, for: indexPath) as? LastUpdateCell else {
             fatalError("Dequeued cell is not a LastUpdateCell.")
         }
-        cell.updateLabel.text = "Last update was: --:--"
+        cell.updateLabel.text = createLabelText(from: type)
         return cell
+    }
+    
+    // MARK: methods
+    
+    static func createLabelText(from type: UpdateType) -> String {
+        let string = "last.update.date.label".localized()
+        
+        var date: Date?
+        switch type {
+        case .menu:
+            date = lastUpdateDate.menu
+            break
+        case .balance:
+            date = lastUpdateDate.balance
+            break
+        }
+        
+        guard date != nil else {
+            return "last.update.date.label.error".localized()
+        }
+        
+        return String(format: string, date!.string(with: .simpleDateFormat))
     }
     
 }

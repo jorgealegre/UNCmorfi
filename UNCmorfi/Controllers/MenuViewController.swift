@@ -53,7 +53,7 @@ class MenuViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = LastUpdateCell.populate(tableView: tableView, indexPath: indexPath)
+            let cell = LastUpdateCell.populate(tableView, at: indexPath, with: .menu)
             return cell
         } else {
             return FoodCell.populate(tableView: tableView, menu: self.menu, indexPath: indexPath)

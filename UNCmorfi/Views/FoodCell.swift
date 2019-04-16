@@ -52,13 +52,6 @@ class FoodCell: UITableViewCell {
         return stackView
     }()
     
-    // TODO: move formatters into extra file
-    static let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE d"
-        return dateFormatter
-    }()
-
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -95,7 +88,7 @@ class FoodCell: UITableViewCell {
             fatalError("Dequeued cell is not a FoodCell.")
         }
         let date = menu!.keys.sorted()[indexPath.row - 1]
-        cell.dateLabel.text = dateFormatter.string(from: date)
+        cell.dateLabel.text = date.string(with: .weekDay)
         menu![date]!.enumerated().forEach{ index, meal in
             guard let label = cell.mealsStackView.arrangedSubviews[index] as? UILabel else {
                 fatalError("Todo mal")

@@ -25,7 +25,11 @@ public final class UNCComedor {
     // MARK: URLSession
     private let session = URLSession.shared
     
+    // MARK: LastUpdateDate
+    private let lastUpdateDate: LastUpdateDate = LastUpdateDateImpl()
+    
     // MARK: API endpoints
+    // TODO: these shouldn't be here, maybe in a Plist?
     private static let baseImageURL = URL(string: "https://asiruws.unc.edu.ar/foto/")!
     private static let baseDataURL = "http://comedor.unc.edu.ar/gv-ds_test.php"
     private static let baseMenuURL = URL(string: "https://www.unc.edu.ar/vida-estudiantil/men%C3%BA-de-la-semana")!
@@ -65,25 +69,8 @@ public final class UNCComedor {
             }
             self.count = count
             
-            // The server only gave us a time in timezone GMT-3 (e.g. 12:09:00)
-            // We need to add the current date and timezone data. (e.g. 2017-09-10 15:09:00 +0000)
-            // Start off by getting the current date.
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'"
-            
-            let todaysDate = dateFormatter.string(from: Date())
-            
-            // Join today's date, the time and the timezone into one string in ISO format.
             let timeString = try container.decode(String.self, forKey: .date)
-            let timestamp = "\(todaysDate)\(timeString)-0300"
-            
-            dateFormatter.dateFormat.append("HH:mm:ssZ")
-            
-            guard let date = dateFormatter.date(from: timestamp) else {
-                throw UNCComedorError.servingDateUnparseable
-            }
-            
-            self.date = date
+            self.date = try Date.completeISO(from: timeString)
         }
     }
     
@@ -146,8 +133,7 @@ public final class UNCComedor {
             
             // Decode data.
             let decoder = JSONDecoder()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateFormatter = DateFormatter(format: .snakeFormat)
             decoder.dateDecodingStrategy = .formatted(dateFormatter)
             
             let userData: [UserData]
@@ -168,6 +154,7 @@ public final class UNCComedor {
                 return user
             }
             
+            self.lastUpdateDate.updatedBalances()
             callback(.success(users))
         }
         
@@ -255,6 +242,7 @@ public final class UNCComedor {
                 return
             }
             
+            self.lastUpdateDate.updatedMenu()
             callback(.success(menu))
         }
         

@@ -31,7 +31,9 @@
 		5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B91F8CE1B200D18449 /* Information.swift */; };
 		5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */; };
 		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
+		9B73B63E226658EB00EBC3D7 /* LastUpdateDateDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B73B63D226658EB00EBC3D7 /* LastUpdateDateDefaults.swift */; };
 		9BF8B52422662AFB003327B4 /* LastUpdateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8B52322662AFB003327B4 /* LastUpdateCell.swift */; };
+		9BF8B52622664D97003327B4 /* Date+DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8B52522664D97003327B4 /* Date+DateFormatter.swift */; };
 		B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +81,9 @@
 		5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		5EF2A7511F7E635200742BFB /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNCmorfi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B73B63D226658EB00EBC3D7 /* LastUpdateDateDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateDateDefaults.swift; sourceTree = "<group>"; };
 		9BF8B52322662AFB003327B4 /* LastUpdateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateCell.swift; sourceTree = "<group>"; };
+		9BF8B52522664D97003327B4 /* Date+DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+DateFormatter.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */,
+				9BF8B52522664D97003327B4 /* Date+DateFormatter.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 		5EC4CBD11E91F4DA00E0BE71 /* UNCmorfi */ = {
 			isa = PBXGroup;
 			children = (
+				9B73B63C226658D600EBC3D7 /* UserDefaults */,
 				5E45C98B1F7DBBC400FA35A2 /* Extensions */,
 				5EA6DEEF1EE33C7300D6E750 /* Models */,
 				5E60DE0E1ED5C7E100DAA93F /* Controllers */,
@@ -208,6 +214,14 @@
 				5EC4CBEB1E91F4DA00E0BE71 /* Info.plist */,
 			);
 			path = UNCmorfiTests;
+			sourceTree = "<group>";
+		};
+		9B73B63C226658D600EBC3D7 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				9B73B63D226658EB00EBC3D7 /* LastUpdateDateDefaults.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		C682DE43C1BC153FE90AD5DE /* Pods */ = {
@@ -396,11 +410,13 @@
 				5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */,
 				5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */,
 				5E4962321F68AE2300568648 /* FoodCell.swift in Sources */,
+				9BF8B52622664D97003327B4 /* Date+DateFormatter.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
 				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,
+				9B73B63E226658EB00EBC3D7 /* LastUpdateDateDefaults.swift in Sources */,
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
 				5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */,
 				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,

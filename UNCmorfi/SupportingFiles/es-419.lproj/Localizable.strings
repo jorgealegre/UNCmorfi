@@ -22,6 +22,10 @@
 "info.nav.label" = "Información";
 "barcodescanner.nav.label" = "Escaneando…";
 
+// Last update date
+"last.update.date.label" = "Última actualización: %@";
+"last.update.date.label.error" = "Sin actualización";
+
 // Map Annotations
 "university.annotation.title" = "Ciudad Universitaria";
 "downtown.annotation.title" = "Centro";
