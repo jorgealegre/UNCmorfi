@@ -51,6 +51,13 @@ class FoodCell: UITableViewCell {
         stackView.axis = .vertical
         return stackView
     }()
+    
+    // TODO: move formatters into extra file
+    static let dateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE d"
+        return dateFormatter
+    }()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -80,4 +87,22 @@ class FoodCell: UITableViewCell {
         mealsStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         mealsStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
     }
+    
+    // MARK: populate method
+    
+    static func populate(tableView: UITableView, menu: [Date: [String]]?, indexPath: IndexPath) -> FoodCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FoodCell.reuseIdentifier, for: indexPath) as? FoodCell else {
+            fatalError("Dequeued cell is not a FoodCell.")
+        }
+        let date = menu!.keys.sorted()[indexPath.row]
+        cell.dateLabel.text = dateFormatter.string(from: date)
+        menu![date]!.enumerated().forEach{ index, meal in
+            guard let label = cell.mealsStackView.arrangedSubviews[index] as? UILabel else {
+                fatalError("Todo mal")
+            }
+            label.text = meal
+        }
+        return cell
+    }
+    
 }

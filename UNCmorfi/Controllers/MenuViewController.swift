@@ -11,13 +11,7 @@ import UIKit
 
 class MenuViewController: UITableViewController {
     private var menu: [Date: [String]]? = nil
-    
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE d"
-        return dateFormatter
-    }()
-    
+
     private let activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         return view
@@ -57,22 +51,6 @@ class MenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: should move this code to FoodCell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FoodCell.reuseIdentifier, for: indexPath) as? FoodCell else {
-            fatalError("Dequeued cell is not a FoodCell.")
-        }
-        
-        let date = menu!.keys.sorted()[indexPath.row]
-        cell.dateLabel.text = dateFormatter.string(from: date)
-        
-        menu![date]!.enumerated().forEach{ index, meal in
-            guard let label = cell.mealsStackView.arrangedSubviews[index] as? UILabel else {
-                fatalError("Todo mal")
-            }
-            
-            label.text = meal
-        }
-        
-        return cell
+        return FoodCell.populate(tableView: tableView, menu: self.menu, indexPath: indexPath)
     }
 }
