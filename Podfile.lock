@@ -7,7 +7,7 @@ DEPENDENCIES:
   - SwiftSoup
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - FontAwesome.swift
     - SwiftSoup
 
@@ -17,4 +17,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 1ee5e157f8553cb334d44db88213c3dc489ef377
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.6.0

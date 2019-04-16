@@ -31,6 +31,7 @@
 		5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B91F8CE1B200D18449 /* Information.swift */; };
 		5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */; };
 		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
+		9BF8B52422662AFB003327B4 /* LastUpdateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8B52322662AFB003327B4 /* LastUpdateCell.swift */; };
 		B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		5EF2A7511F7E635200742BFB /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNCmorfi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BF8B52322662AFB003327B4 /* LastUpdateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				5EF2A7511F7E635200742BFB /* CounterView.swift */,
 				5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */,
 				5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */,
+				9BF8B52322662AFB003327B4 /* LastUpdateCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -344,7 +347,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
@@ -355,7 +358,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3FE7E2420285653683FE6B9B /* [CP] Check Pods Manifest.lock */ = {
@@ -389,6 +392,7 @@
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
+				9BF8B52422662AFB003327B4 /* LastUpdateCell.swift in Sources */,
 				5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */,
 				5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */,
 				5E4962321F68AE2300568648 /* FoodCell.swift in Sources */,

@@ -30,6 +30,7 @@ class MenuViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
+        tableView.register(LastUpdateCell.self, forCellReuseIdentifier: LastUpdateCell.reuseIdentifier)
     
         UNCComedor.api.getMenu { apiResult in
             DispatchQueue.main.async { [unowned self] in
@@ -47,10 +48,15 @@ class MenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menu?.keys.count ?? 0
+        return (menu?.keys.count  ?? 0) + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return FoodCell.populate(tableView: tableView, menu: self.menu, indexPath: indexPath)
+        if (indexPath.row == 0) {
+            let cell = LastUpdateCell.populate(tableView: tableView, indexPath: indexPath)
+            return cell
+        } else {
+            return FoodCell.populate(tableView: tableView, menu: self.menu, indexPath: indexPath)
+        }
     }
 }
