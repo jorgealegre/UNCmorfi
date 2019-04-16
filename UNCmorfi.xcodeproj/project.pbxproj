@@ -31,6 +31,7 @@
 		5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B91F8CE1B200D18449 /* Information.swift */; };
 		5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */; };
 		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
+		9BF8B522226619EC003327B4 /* AppRunCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF8B521226619EC003327B4 /* AppRunCount.swift */; };
 		B515918965B12ADF3BD2C7AD /* Pods_UNCmorfi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
 		5EF2A7511F7E635200742BFB /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 		96180C9E1657667115FCC632 /* Pods_UNCmorfi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UNCmorfi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BF8B521226619EC003327B4 /* AppRunCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRunCount.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 		5EC4CBD11E91F4DA00E0BE71 /* UNCmorfi */ = {
 			isa = PBXGroup;
 			children = (
+				9BF8B520226619D0003327B4 /* UserDefaults */,
 				5E45C98B1F7DBBC400FA35A2 /* Extensions */,
 				5EA6DEEF1EE33C7300D6E750 /* Models */,
 				5E60DE0E1ED5C7E100DAA93F /* Controllers */,
@@ -205,6 +208,14 @@
 				5EC4CBEB1E91F4DA00E0BE71 /* Info.plist */,
 			);
 			path = UNCmorfiTests;
+			sourceTree = "<group>";
+		};
+		9BF8B520226619D0003327B4 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				9BF8B521226619EC003327B4 /* AppRunCount.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		C682DE43C1BC153FE90AD5DE /* Pods */ = {
@@ -344,7 +355,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
@@ -355,7 +366,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3FE7E2420285653683FE6B9B /* [CP] Check Pods Manifest.lock */ = {
@@ -400,6 +411,7 @@
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
 				5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */,
 				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,
+				9BF8B522226619EC003327B4 /* AppRunCount.swift in Sources */,
 				5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

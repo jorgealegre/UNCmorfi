@@ -8,11 +8,15 @@
 //
 
 import UIKit
+import StoreKit
 import os.log
 
 class UserTableViewController: UITableViewController {
     // MARK: Properties
     private var users: [User] = []
+    
+    // MARK: AppRunCount
+    private var appRunCount: AppRunCount = AppRunCountImpl()
 
     // MARK: Setup.
     override func viewDidLoad() {
@@ -39,6 +43,9 @@ class UserTableViewController: UITableViewController {
         
         // Cell setup.
         tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
+        
+        // Check count to request review
+        checkForReview()
     }
     
     private func setupNavigationBarButtons() {
@@ -170,6 +177,15 @@ class UserTableViewController: UITableViewController {
                 self.saveUsers()
                 self.tableView.reloadData()
                 refreshControl?.endRefreshing()
+            }
+        }
+    }
+    
+    private func checkForReview() {
+        if (appRunCount.reachedLimit)  {
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+                appRunCount.reset()
             }
         }
     }
