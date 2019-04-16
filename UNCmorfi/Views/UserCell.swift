@@ -81,4 +81,14 @@ class UserCell: UITableViewCell {
         photoImageView.image = user.image
         barcodeLabel.text = user.code
     }
+    
+    static func populate(_ tableView: UITableView, at indexPath: IndexPath, for user: User) -> UserCell {
+        // TODO: move this code into the UserCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as? UserCell else {
+            fatalError("The dequeued cell is not an instance of UserCell.")
+        }
+        cell.configureFor(user: user)
+        return cell
+    }
+    
 }

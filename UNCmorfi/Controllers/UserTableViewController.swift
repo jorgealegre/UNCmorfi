@@ -39,6 +39,7 @@ class UserTableViewController: UITableViewController {
         
         // Cell setup.
         tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
+        tableView.register(LastUpdateCell.self, forCellReuseIdentifier: LastUpdateCell.reuseIdentifier)
     }
     
     private func setupNavigationBarButtons() {
@@ -51,24 +52,22 @@ class UserTableViewController: UITableViewController {
 
     // MARK: UITableViewDelegate
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 { return 45}
         return 66.5 // 8 for margin, 50 for image, 8 for margin and 0.5 for table separator
     }
 
     // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return (users.count + 1)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as? UserCell else {
-            fatalError("The dequeued cell is not an instance of UserCell.")
+        if indexPath.row == 0 {
+            return LastUpdateCell.populate(tableView, at: indexPath, with: .balance)
+        } else {
+            let user = users[indexPath.row - 1]
+            return UserCell.populate(tableView, at: indexPath, for: user)
         }
-
-        let user = users[indexPath.row]
-        
-        cell.configureFor(user: user)
-        
-        return cell
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
