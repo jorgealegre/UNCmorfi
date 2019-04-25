@@ -112,4 +112,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             // Fallback on earlier versions
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        locationManager.startUpdatingLocation()
+        mapView.showsUserLocation = true
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+        mapView.showsUserLocation = false
+        super.viewWillDisappear(animated)
+    }
 }
