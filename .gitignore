@@ -1,3 +1,6 @@
 UNCmorfi.xcworkspace/xcuserdata/
 Pods
 UNCmorfiTests/TestDataFiles/
+
+# for AppCode
+.idea
