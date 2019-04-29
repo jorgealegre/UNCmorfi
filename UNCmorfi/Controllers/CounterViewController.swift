@@ -82,7 +82,7 @@ class CounterViewController: UIViewController {
                 return
             case .success(let servings):
                 DispatchQueue.main.async {
-                    self.servings = servings
+                    self.servings = servings.servings
                 }
             }
         }
