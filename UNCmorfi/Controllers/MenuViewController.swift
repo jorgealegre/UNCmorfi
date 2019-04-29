@@ -31,7 +31,7 @@ class MenuViewController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
         tableView.register(LastUpdateCell.self, forCellReuseIdentifier: LastUpdateCell.reuseIdentifier)
-    
+
         UNCComedor.api.getMenu { apiResult in
             DispatchQueue.main.async { [unowned self] in
                 self.activityIndicator.stopAnimating()
@@ -39,7 +39,7 @@ class MenuViewController: UITableViewController {
                 case .failure(_):
                     return
                 case .success(let menu):
-                    self.menu = menu
+                    self.menu = menu.menu
                     
                     self.tableView?.reloadData()
                 }

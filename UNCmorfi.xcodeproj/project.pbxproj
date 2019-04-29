@@ -10,6 +10,8 @@
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
 		5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */; };
 		5E4962321F68AE2300568648 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4962311F68AE2300568648 /* FoodCell.swift */; };
+		5E5DAEBB212B850A00F0C5C6 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5DAEBA212B850A00F0C5C6 /* Menu.swift */; };
+		5E5DAEBD212B855800F0C5C6 /* Servings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5DAEBC212B855800F0C5C6 /* Servings.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
 		5E6957011F60E5D100713CDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957031F60E5D100713CDA /* Localizable.strings */; };
 		5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5E6957061F60E5D800713CDA /* InfoPlist.strings */; };
@@ -53,6 +55,8 @@
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
 		5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5E4962311F68AE2300568648 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
+		5E5DAEBA212B850A00F0C5C6 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		5E5DAEBC212B855800F0C5C6 /* Servings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Servings.swift; sourceTree = "<group>"; };
 		5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		5E6956F21F60CCD700713CDA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E6957021F60E5D100713CDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 		5EA6DEEF1EE33C7300D6E750 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5E5DAEBC212B855800F0C5C6 /* Servings.swift */,
+				5E5DAEBA212B850A00F0C5C6 /* Menu.swift */,
 				5ECD1FB11EAF028900508A16 /* User.swift */,
 				5E9679511F533B1C0059F754 /* Comedor.swift */,
 				5EE8D7B91F8CE1B200D18449 /* Information.swift */,
@@ -361,18 +367,16 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FontAwesome.swift/FontAwesome_swift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesome_swift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-UNCmorfi/Pods-UNCmorfi-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3FE7E2420285653683FE6B9B /* [CP] Check Pods Manifest.lock */ = {
@@ -406,6 +410,7 @@
 				5ECD1FB21EAF028900508A16 /* User.swift in Sources */,
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
+				5E5DAEBD212B855800F0C5C6 /* Servings.swift in Sources */,
 				9BF8B52422662AFB003327B4 /* LastUpdateCell.swift in Sources */,
 				5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */,
 				5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */,
@@ -413,6 +418,7 @@
 				9BF8B52622664D97003327B4 /* Date+DateFormatter.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */,
+				5E5DAEBB212B850A00F0C5C6 /* Menu.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
 				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,

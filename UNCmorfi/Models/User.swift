@@ -18,7 +18,7 @@ class User: Codable {
     var balance: Int
     var image: UIImage?
     var imageCode: String
-    var expiryDate: Date
+//    var expiryDate: Date
 
     init(fromCode code: String) {
         self.code = code.uppercased()
@@ -26,7 +26,7 @@ class User: Codable {
         self.balance = 0
         self.imageCode = ""
         self.image = nil
-        self.expiryDate = Date()
+//        self.expiryDate = Date()
     }
     
     // MARK: Codable
@@ -50,7 +50,7 @@ class User: Codable {
         balance = try values.decode(Int.self, forKey: .balance)
         code = try values.decode(String.self, forKey: .code)
         imageCode = try values.decode(String.self, forKey: .imageCode)
-        expiryDate = try values.decode(Date.self, forKey: .expiryDate)
+//        expiryDate = try values.decode(Date.self, forKey: .expiryDate)
 
         if let imageBase64 = try values.decodeIfPresent(String.self, forKey: .image),
             let imageData = Data(base64Encoded: imageBase64) {
@@ -66,7 +66,7 @@ class User: Codable {
         try container.encode(balance, forKey: .balance)
         try container.encode(code, forKey: .code)
         try container.encode(imageCode, forKey: .imageCode)
-        try container.encode(expiryDate, forKey: .expiryDate)
+//        try container.encode(expiryDate, forKey: .expiryDate)
 
         if let image = image,
             let imageData = UIImagePNGRepresentation(image) {
