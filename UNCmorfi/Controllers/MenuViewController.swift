@@ -20,7 +20,7 @@ class MenuViewController: UITableViewController {
     }()
     
     private let activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let view = UIActivityIndicatorView(style: .gray)
         return view
     }()
     

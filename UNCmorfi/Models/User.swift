@@ -69,7 +69,7 @@ class User: Codable {
 //        try container.encode(expiryDate, forKey: .expiryDate)
 
         if let image = image,
-            let imageData = UIImagePNGRepresentation(image) {
+            let imageData = image.pngData() {
             try container.encode(imageData.base64EncodedString(), forKey: .image)
         }
     }
@@ -86,7 +86,7 @@ extension Array where Element == User {
         let result: [Element]
         
         result = users.compactMap { (user) -> Element? in
-            guard let index = self.index(of: user) else {
+            guard let index = self.firstIndex(of: user) else {
                 return nil
             }
             

@@ -31,7 +31,7 @@ class InfoViewController: UITableViewController {
         // Cell setup.
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.reuseIdentifier)
 
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 150
         
         // Remove empty row separators below the table view.

@@ -27,7 +27,7 @@ class InfoCell: UITableViewCell, UITextViewDelegate {
         return view
     }()
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
 
@@ -53,8 +53,8 @@ class InfoCell: UITableViewCell, UITextViewDelegate {
         components.enumerated().forEach { (index: Int, element: String) in
             if (index % 2 == 1) {
                 // Element is a link with Markdown syntax ([name](link)).
-                let visibleName = element[element.index(element.index(of: "[")!, offsetBy: 1)..<element.index(of: "]")!]
-                let urlString = element[element.index(element.index(of: "(")!, offsetBy: 1)..<element.index(of: ")")!]
+                let visibleName = element[element.index(element.firstIndex(of: "[")!, offsetBy: 1)..<element.firstIndex(of: "]")!]
+                let urlString = element[element.index(element.firstIndex(of: "(")!, offsetBy: 1)..<element.firstIndex(of: ")")!]
 
                 let url = NSMutableAttributedString(string: String(visibleName))
                 url.addAttribute(.link, value: urlString, range: NSRange(location: 0, length: visibleName.count))

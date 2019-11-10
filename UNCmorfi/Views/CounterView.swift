@@ -44,7 +44,7 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.beginTime = 0.5
         animation.toValue = 1
         animation.duration = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         return animation
     }()
 
@@ -52,10 +52,10 @@ class CounterView: UIView, CAAnimationDelegate {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 1
         animation.duration = 1
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
         // The model is set to 0, I'm animating towards 1. When this is done, strokeStart is still being animated (catching up with me with 0.5s delay).
         // I don't want this to jump to 0 until strokeStart animation finishes (animationGroup finishes).
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         return animation
     }()
 
@@ -149,7 +149,7 @@ class CounterView: UIView, CAAnimationDelegate {
         // Stroke until a 75% of the path to look like a speedometer.
         circlePathLayer.strokeEnd = CGFloat(currentValue)/CGFloat(maxValue) * 0.75
         animation.duration = 0.5
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
     }
     
