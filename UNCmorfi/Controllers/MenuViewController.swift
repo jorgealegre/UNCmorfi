@@ -10,7 +10,10 @@
 import UIKit
 
 class MenuViewController: UITableViewController {
-    private var menu: [Date: [String]]? = nil
+
+    // MARK: - Properties
+
+    private var menu: [Date: [String]]?
     
     private let dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -18,11 +21,15 @@ class MenuViewController: UITableViewController {
         dateFormatter.dateFormat = "EEEE d"
         return dateFormatter
     }()
-    
+
+    // MARK: - Views
+
     private let activityIndicator: UIActivityIndicatorView = {
         let view = UIActivityIndicatorView(style: .gray)
         return view
     }()
+
+    // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +45,7 @@ class MenuViewController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
     
-        UNCComedor.api.getMenu { apiResult in
+        UNCComedor.shared.getMenu { apiResult in
             DispatchQueue.main.async { [unowned self] in
                 self.activityIndicator.stopAnimating()
                 switch apiResult {
@@ -59,18 +66,13 @@ class MenuViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // TODO: should move this code to FoodCell
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FoodCell.reuseIdentifier, for: indexPath) as? FoodCell else {
-            fatalError("Dequeued cell is not a FoodCell.")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: FoodCell.reuseIdentifier, for: indexPath) as! FoodCell
         
         let date = menu!.keys.sorted()[indexPath.row]
         cell.dateLabel.text = dateFormatter.string(from: date)
 
         menu![date]!.enumerated().forEach{ index, meal in
-            guard let label = cell.mealsStackView.arrangedSubviews[index] as? UILabel else {
-                fatalError("Todo mal")
-            }
-            
+            let label = cell.mealsStackView.arrangedSubviews[index] as! UILabel
             label.text = meal
         }
         

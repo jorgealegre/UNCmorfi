@@ -20,7 +20,6 @@ class InfoCell: UITableViewCell, UITextViewDelegate {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isEditable = false
-        // This allows the UITextView to set its intrinsicContentSize.
         view.isScrollEnabled = false
         view.dataDetectorTypes = .link
         view.isUserInteractionEnabled = true

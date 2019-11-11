@@ -12,7 +12,9 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    // MARK: Properties
+
+    // MARK: - Views
+
     private let mapView: MKMapView = {
         let mapView = MKMapView(frame: UIScreen.main.bounds)
         mapView.showsUserLocation = true
@@ -20,11 +22,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         return mapView
     }()
 
+    // MARK: - Properties
+
     private let locationManager = CLLocationManager()
 
     private let viewID = "viewID"
 
-    // MARK: MVC lifecycle
+    // MARK: - View lifecycle
+
     override func loadView() {
         view = mapView
     }
@@ -84,11 +89,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         mapView.setRegion(region, animated: true)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        locationManager.startUpdatingLocation()
+        mapView.showsUserLocation = true
+        super.viewWillAppear(animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        locationManager.stopUpdatingLocation()
+        mapView.showsUserLocation = false
+        super.viewWillDisappear(animated)
+    }
+
+    // MARK: - CLLocationManagerDelegate
+
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             mapView.showsUserLocation = true
         }
     }
+
+    // MARK: - MKMapViewDelegate
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is Comedor else { return nil }
@@ -106,22 +127,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if #available(iOS 10.0, *) {
-            MKMapItem(placemark: MKPlacemark(coordinate: view.annotation!.coordinate)).openInMaps(launchOptions: nil)
-        } else {
-            // Fallback on earlier versions
-        }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        locationManager.startUpdatingLocation()
-        mapView.showsUserLocation = true
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        locationManager.stopUpdatingLocation()
-        mapView.showsUserLocation = false
-        super.viewWillDisappear(animated)
+        MKMapItem(placemark: MKPlacemark(coordinate: view.annotation!.coordinate)).openInMaps(launchOptions: nil)
     }
 }

@@ -10,8 +10,10 @@
 import UIKit
 
 class CounterViewController: UIViewController {
-    // MARK: Views
-    private let counterView = CounterView(frame: CGRect.zero)
+
+    // MARK: - Views
+
+    private let counterView = CounterView(frame: .zero)
     
     private let progressLabel: UILabel = {
         let label = UILabel()
@@ -21,7 +23,8 @@ class CounterViewController: UIViewController {
         return label
     }()
 
-    // MARK: Properties
+    // MARK: - Properties
+
     private var servings: [Date: Int]? = nil {
         didSet {
             guard let servings = servings else { return }
@@ -45,7 +48,8 @@ class CounterViewController: UIViewController {
 
     private var timer: Timer!
 
-    // MARK: Lifecycle
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,7 +80,7 @@ class CounterViewController: UIViewController {
     }
 
     private func updateServings() {
-        UNCComedor.api.getServings { result in
+        UNCComedor.shared.getServings { result in
             switch result {
             case .failure(_):
                 return

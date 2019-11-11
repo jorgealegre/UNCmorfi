@@ -26,7 +26,7 @@ class TabBarController: UITabBarController {
             selectedImage: nil)
         
         let menu = UINavigationController(rootViewController: MenuViewController())
-        let menuImage = UIImage.fontAwesomeIcon(name: .utensils, style: .regular, textColor: .black, size: size)
+        let menuImage = UIImage.fontAwesomeIcon(name: .utensils, style: .solid, textColor: .black, size: size)
         menu.tabBarItem = UITabBarItem(
             title: "menu.tab.label".localized(),
             image: menuImage,
@@ -40,14 +40,14 @@ class TabBarController: UITabBarController {
             selectedImage: nil)
 
         let counter = UINavigationController(rootViewController: CounterViewController())
-        let counterImage = UIImage.fontAwesomeIcon(name: .tachometerAlt, style: .regular, textColor: .black, size: size)
+        let counterImage = UIImage.fontAwesomeIcon(name: .tachometerAlt, style: .solid, textColor: .black, size: size)
         counter.tabBarItem = UITabBarItem(
             title: "counter.tab.label".localized(),
             image: counterImage,
             selectedImage: nil)
 
         let info = UINavigationController(rootViewController: InfoViewController())
-        let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, style: .regular, textColor: .black, size: size)
+        let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, style: .solid, textColor: .black, size: size)
         info.tabBarItem = UITabBarItem(
             title: "info.tab.label".localized(),
             image: infoImage,

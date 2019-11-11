@@ -82,7 +82,7 @@ class CounterView: UIView, CAAnimationDelegate {
      Overriding this method to get notified whenever my view controller sets up
      constraints on me. This way, we can use AutoLayout from the view controller
      and have the path update automatically.
-     
+
      Maybe we should change strategy since this would cause the path to reset itself
      with every layout change.
      */
@@ -103,7 +103,7 @@ class CounterView: UIView, CAAnimationDelegate {
         // Initially the path will be hidden, except when indeterminate animation is on.
         circlePathLayer.strokeEnd = 0
     }
-    
+
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -152,12 +152,12 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()

@@ -8,13 +8,14 @@
 //
 
 import UIKit
-import os.log
 
 class UserTableViewController: UITableViewController {
-    // MARK: Properties
+
+    // MARK: - Properties
     private var users: [User] = []
 
-    // MARK: Setup.
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -49,20 +50,19 @@ class UserTableViewController: UITableViewController {
         self.navigationItem.rightBarButtonItems = [addViaTextButton, addViaCameraButton]
     }
 
-    // MARK: UITableViewDelegate
+    // MARK: - UITableViewDelegate
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 66.5 // 8 for margin, 50 for image, 8 for margin and 0.5 for table separator
     }
 
-    // MARK: UITableViewDataSource
+    // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as? UserCell else {
-            fatalError("The dequeued cell is not an instance of UserCell.")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as! UserCell
 
         let user = users[indexPath.row]
         
@@ -90,7 +90,8 @@ class UserTableViewController: UITableViewController {
         users.insert(user, at: to.row)
     }
     
-    // MARK: Actions
+    // MARK: - Actions
+
     @objc private func addViaTextButtonTapped(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "balance.add.user.text.title".localized(),
                                    message: "balance.add.user.text.description".localized(),
@@ -117,16 +118,14 @@ class UserTableViewController: UITableViewController {
         navigationController?.pushViewController(bsvc, animated: true)
     }
     
-    // MARK: Methods
+    // MARK: - Methods
+
     func add(user: User) {
         // Make sure it doesn't already exist.
         guard !users.contains(user) else {
-            os_log("User already exists.", log: .default, type: .debug)
-            // TODO: Maybe alert the user?
             return
         }
         users.append(user)
-        os_log("User added successfully.", log: .default, type: .debug)
         
         // Add a new user.
         users.update { users in
@@ -142,10 +141,8 @@ class UserTableViewController: UITableViewController {
         let jsonEncoder = JSONEncoder()
         do {
             let data = try jsonEncoder.encode(users)
-            try data.write(to: User.ArchiveURL)
-            os_log("Users successfully saved.", log: .default, type: .debug)
+            try data.write(to: User.archiveURL)
         } catch {
-            os_log("Failed to save users...", log: .default, type: .error)
             print("Error: \(error).")
         }
     }
@@ -153,11 +150,10 @@ class UserTableViewController: UITableViewController {
     private func savedUsers() -> [User]? {
         let jsonDecoder = JSONDecoder()
         do {
-            let data = try Data(contentsOf: User.ArchiveURL)
+            let data = try Data(contentsOf: User.archiveURL)
             let users = try jsonDecoder.decode([User].self, from: data)
             return users
         } catch {
-            os_log("Failed to load users...", log: .default, type: .error)
             print("Error: \(error).")
             return nil
         }

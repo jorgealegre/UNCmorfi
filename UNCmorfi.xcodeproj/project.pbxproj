@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
 		5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */; };
+		5E4944642377F34F00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944632377F32B00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf */; };
+		5E4944652377F35200C1CF3E /* Font Awesome 5 Free-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */; };
+		5E4944662377F35400C1CF3E /* Font Awesome 5 Free-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */; };
 		5E4962321F68AE2300568648 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4962311F68AE2300568648 /* FoodCell.swift */; };
 		5E5DAEBB212B850A00F0C5C6 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5DAEBA212B850A00F0C5C6 /* Menu.swift */; };
 		5E5DAEBD212B855800F0C5C6 /* Servings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5DAEBC212B855800F0C5C6 /* Servings.swift */; };
@@ -49,6 +52,9 @@
 /* Begin PBXFileReference section */
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
 		5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Regular-400.otf"; sourceTree = "<group>"; };
+		5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Solid-900.otf"; sourceTree = "<group>"; };
+		5E4944632377F32B00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
 		5E4962311F68AE2300568648 /* FoodCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCell.swift; sourceTree = "<group>"; };
 		5E5DAEBA212B850A00F0C5C6 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		5E5DAEBC212B855800F0C5C6 /* Servings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Servings.swift; sourceTree = "<group>"; };
@@ -101,12 +107,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5E3D55A61EFEBA8200BCA877 /* Services */ = {
+		5E3D55A61EFEBA8200BCA877 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */,
 			);
-			path = Services;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		5E3D55A71EFEBAEE00BCA877 /* Views */ = {
@@ -124,6 +130,7 @@
 		5E3D55A81EFEBB0100BCA877 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				5E4944602377F31D00C1CF3E /* Fonts */,
 				5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */,
 				5E6FAF581F94614A00FFBC12 /* Assets.xcassets */,
 				5E6956F21F60CCD700713CDA /* Info.plist */,
@@ -140,6 +147,16 @@
 				5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5E4944602377F31D00C1CF3E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				5E4944632377F32B00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf */,
+				5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */,
+				5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		5E60DE0E1ED5C7E100DAA93F /* Controllers */ = {
@@ -194,7 +211,7 @@
 				5EA6DEEF1EE33C7300D6E750 /* Models */,
 				5E60DE0E1ED5C7E100DAA93F /* Controllers */,
 				5E3D55A71EFEBAEE00BCA877 /* Views */,
-				5E3D55A61EFEBA8200BCA877 /* Services */,
+				5E3D55A61EFEBA8200BCA877 /* Network */,
 				5E3D55A81EFEBB0100BCA877 /* SupportingFiles */,
 			);
 			path = UNCmorfi;
@@ -318,10 +335,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E4944642377F34F00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf in Resources */,
+				5E4944652377F35200C1CF3E /* Font Awesome 5 Free-Regular-400.otf in Resources */,
 				5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */,
 				5E6957011F60E5D100713CDA /* Localizable.strings in Resources */,
 				5E6FAF591F94614A00FFBC12 /* Assets.xcassets in Resources */,
 				5E6957041F60E5D800713CDA /* InfoPlist.strings in Resources */,
+				5E4944662377F35400C1CF3E /* Font Awesome 5 Free-Solid-900.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

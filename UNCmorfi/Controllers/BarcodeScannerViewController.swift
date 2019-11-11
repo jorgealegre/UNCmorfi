@@ -11,14 +11,15 @@ import UIKit
 import AVFoundation
 
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-    // MARK: Properties
-    public var delegate: UserTableViewController?
-    
-    // Make status bar visible.
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
+    // MARK: - Properties
+
+    weak var delegate: UserTableViewController?
+
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
+
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

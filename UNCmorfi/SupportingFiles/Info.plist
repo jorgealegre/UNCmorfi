@@ -20,17 +20,6 @@
 	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>uncmorfi.georgealegre.com</key>
-			<dict>
-				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
-	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Access to the camera is required for scanning the card's barcode.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -10,22 +10,21 @@
 import Foundation
 import UIKit
 
-public enum Result<A> {
-    case success(A)
-    case failure(Error)
-}
+class UNCComedor {
 
-public final class UNCComedor {
-    // MARK: Singleton
-    public static let api = UNCComedor()
+    // MARK: - Singleton
+
+    static let shared = UNCComedor()
+
     private init() {}
     
-    // MARK: URLSession
+    // MARK: - URLSession
+
     private let session = URLSession.shared
     
-    // MARK: API endpoints
-    private static let baseURL = URL(string: "http://uncmorfi.georgealegre.com/")!
-    private static let baseImageURL = URL(string: "https://asiruws.unc.edu.ar/foto/")!
+    // MARK: - API endpoints
+
+    private static let baseURL = URL(string: "https://uncmorfi.georgealegre.com/")!
 
     // MARK: Helpers
     
@@ -55,7 +54,8 @@ public final class UNCComedor {
     }
     
     // MARK: - Public API methods
-    func getUsers(from codes: [String], callback: @escaping (_ result: Result<[User]>) -> Void) {
+    
+    func getUsers(from codes: [String], callback: @escaping (_ result: Result<[User], Error>) -> Void) {
         guard !codes.isEmpty else {
             callback(.success([]))
             return
@@ -98,9 +98,8 @@ public final class UNCComedor {
         task.resume()
     }
     
-    func getUserImage(from code: String, callback: @escaping (_ result: Result<UIImage>) -> Void) {
-        let url = UNCComedor.baseImageURL.appendingPathComponent(code)
-        let task = session.dataTask(with: url) { data, res, error in
+    func getUserImage(from URL: URL, callback: @escaping (_ result: Result<UIImage, Error>) -> Void) {
+        let task = session.dataTask(with: URL) { data, res, error in
             // Check for errors and exit early.
             let customError = self.handleAPIResponse(error: error, res: res)
             guard customError == nil else {
@@ -125,7 +124,7 @@ public final class UNCComedor {
         task.resume()
     }
     
-    func getMenu(callback: @escaping (_ result: Result<Menu>) -> Void) {
+    func getMenu(callback: @escaping (_ result: Result<Menu, Error>) -> Void) {
         let task = session.dataTask(with: UNCComedor.baseURL.appendingPathComponent("menu")) { data, res, error in
             // Check for errors and exit early.
             let customError = self.handleAPIResponse(error: error, res: res)
@@ -157,7 +156,7 @@ public final class UNCComedor {
         task.resume()
     }
     
-    func getServings(callback: @escaping (_ result: Result<Servings>) -> Void) {
+    func getServings(callback: @escaping (_ result: Result<Servings, Error>) -> Void) {
         let task: URLSessionDataTask = session.dataTask(with: UNCComedor.baseURL.appendingPathComponent("servings")) { data, res, error in
             // Check for errors and exit early.
             let customError = self.handleAPIResponse(error: error, res: res)
