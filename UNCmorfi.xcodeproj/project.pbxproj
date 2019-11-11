@@ -547,7 +547,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.0.0;
+				CURRENT_PROJECT_VERSION = 1.2.0.1;
 				DEVELOPMENT_TEAM = MCQUU65FS6;
 				INFOPLIST_FILE = "$(SRCROOT)/UNCmorfi/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -572,7 +572,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.0.0;
+				CURRENT_PROJECT_VERSION = 1.2.0.1;
 				DEVELOPMENT_TEAM = MCQUU65FS6;
 				INFOPLIST_FILE = "$(SRCROOT)/UNCmorfi/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -638,7 +638,7 @@
 				5EC4CBED1E91F4DA00E0BE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5EC4CBEE1E91F4DA00E0BE71 /* Build configuration list for PBXNativeTarget "UNCmorfi" */ = {
 			isa = XCConfigurationList;
@@ -647,7 +647,7 @@
 				5EC4CBF01E91F4DA00E0BE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		5EC4CBF11E91F4DA00E0BE71 /* Build configuration list for PBXNativeTarget "UNCmorfiTests" */ = {
 			isa = XCConfigurationList;
@@ -656,7 +656,7 @@
 				5EC4CBF31E91F4DA00E0BE71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
