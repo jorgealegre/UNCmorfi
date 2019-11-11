@@ -18,27 +18,31 @@ class User: Codable {
     var balance: Int
     var image: UIImage?
     var imageCode: String
-//    var expiryDate: Date
+    var imageURL: URL? // TODO this should change
+    var expirationDate: Date
 
+    // TODO we should not need this initializer like this, only to store the user code.
     init(fromCode code: String) {
         self.code = code.uppercased()
         self.name = ""
         self.balance = 0
         self.imageCode = ""
         self.image = nil
-//        self.expiryDate = Date()
+        self.expirationDate = Date()
+        self.imageURL = nil
     }
     
     // MARK: Codable
-    private static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("users")
+    private static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let archiveURL = documentsDirectory.appendingPathComponent("users")
 
     private enum CodingKeys: String, CodingKey {
         case name
         case balance
         case code
         case imageCode
-        case expiryDate
+        case expirationDate
+        case imageURL
 
         // Image is gonna be encoded as data and an image will be obtained from this data when decoding.
         case image
@@ -50,7 +54,8 @@ class User: Codable {
         balance = try values.decode(Int.self, forKey: .balance)
         code = try values.decode(String.self, forKey: .code)
         imageCode = try values.decode(String.self, forKey: .imageCode)
-//        expiryDate = try values.decode(Date.self, forKey: .expiryDate)
+        expirationDate = try values.decode(Date.self, forKey: .expirationDate)
+        imageURL = try values.decode(URL.self, forKey: .imageURL)
 
         if let imageBase64 = try values.decodeIfPresent(String.self, forKey: .image),
             let imageData = Data(base64Encoded: imageBase64) {
@@ -66,10 +71,11 @@ class User: Codable {
         try container.encode(balance, forKey: .balance)
         try container.encode(code, forKey: .code)
         try container.encode(imageCode, forKey: .imageCode)
-//        try container.encode(expiryDate, forKey: .expiryDate)
+        try container.encode(expirationDate, forKey: .expirationDate)
+        try container.encode(imageURL, forKey: .imageURL)
 
         if let image = image,
-            let imageData = UIImagePNGRepresentation(image) {
+            let imageData = image.pngData() {
             try container.encode(imageData.base64EncodedString(), forKey: .image)
         }
     }
@@ -86,7 +92,7 @@ extension Array where Element == User {
         let result: [Element]
         
         result = users.compactMap { (user) -> Element? in
-            guard let index = self.index(of: user) else {
+            guard let index = self.firstIndex(of: user) else {
                 return nil
             }
             
@@ -121,7 +127,7 @@ extension Array where Element == User {
         
         // Get the updated users from the API.
         group.enter()
-        UNCComedor.api.getUsers(from: userCodes) { (apiResult) in
+        UNCComedor.shared.getUsers(from: userCodes) { (apiResult) in
             // Notify that this task is done.
             defer { group.leave() }
             
@@ -137,7 +143,7 @@ extension Array where Element == User {
                 users.forEach { (user) in
                     group.enter()
                     
-                    UNCComedor.api.getUserImage(from: user.imageCode) { imageResult in
+                    UNCComedor.shared.getUserImage(from: user.imageURL!) { imageResult in
                         // Notify that this task is done.
                         defer { group.leave() }
                         
@@ -156,10 +162,12 @@ extension Array where Element == User {
         
         // When all tasks have finished.
         group.notify(queue: queue) {
-            if updateFailed {
-                callback(backup)
-            } else {
-                callback((try? result.matchingOrder(of: self)) ?? backup)
+            DispatchQueue.main.async {
+                if updateFailed {
+                    callback(backup)
+                } else {
+                    callback((try? result.matchingOrder(of: self)) ?? backup)
+                }
             }
         }
     }

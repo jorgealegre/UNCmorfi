@@ -10,16 +10,13 @@
 import UIKit
 
 class InfoViewController: UITableViewController {
-    private var data: [(isHidden: Bool, datum: Information)] = [
-        (isHidden: true, datum: .development),
-        (isHidden: true, datum: .design),
-        (isHidden: true, datum: .balanceMenuServingsSource),
-        (isHidden: true, datum: .cameraLocationPermissions),
-        (isHidden: true, datum: .colaborate),
-        (isHidden: true, datum: .getInTouch),
-        (isHidden: true, datum: .android)
-    ]
 
+    // MARK: - Properties
+
+    private var data: [(isHidden: Bool, datum: Information)] = Information.allCases.map { (true, $0) }
+
+    // MARK: - View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +28,7 @@ class InfoViewController: UITableViewController {
         // Cell setup.
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.reuseIdentifier)
 
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 150
         
         // Remove empty row separators below the table view.
@@ -62,9 +59,7 @@ class InfoViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: InfoCell.reuseIdentifier, for: indexPath) as? InfoCell else {
-            fatalError("The dequeued cell is not an instance of InfoCell.")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: InfoCell.reuseIdentifier, for: indexPath) as! InfoCell
 
         let info = data[indexPath.section].datum
         cell.configureFor(info: info)
@@ -76,7 +71,7 @@ class InfoViewController: UITableViewController {
         // Toggle the visibility of the cell inside the section.
         let section = recognizer.view!.tag
 
-        data[section].isHidden = !data[section].isHidden
+        data[section].isHidden.toggle()
 
         tableView.reloadSections(IndexSet(integer: section), with: .automatic)
     }

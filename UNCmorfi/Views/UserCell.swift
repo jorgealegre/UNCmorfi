@@ -20,31 +20,39 @@ class UserCell: UITableViewCell {
         imageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
 
     let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AvenirNext-Medium", size: 20)
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
     
     let barcodeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AvenirNext-Regular", size: 14)
+        label.font = .preferredFont(forTextStyle: .body)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
     let balanceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "AvenirNext-Bold", size: 16)
+        if #available(iOS 11.0, *) {
+            label.font = .preferredFont(for: .headline, weight: .bold)
+        } else {
+            label.font = .preferredFont(forTextStyle: .headline)
+        }
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
         selectionStyle = .none
