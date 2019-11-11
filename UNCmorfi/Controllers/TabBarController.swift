@@ -13,7 +13,7 @@ import FontAwesome
 class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Create all the view controllers for the tab bar controller.
         // Standard tab bar item image size.
         let size = CGSize(width: 25, height: 25)

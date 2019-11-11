@@ -162,10 +162,12 @@ extension Array where Element == User {
         
         // When all tasks have finished.
         group.notify(queue: queue) {
-            if updateFailed {
-                callback(backup)
-            } else {
-                callback((try? result.matchingOrder(of: self)) ?? backup)
+            DispatchQueue.main.async {
+                if updateFailed {
+                    callback(backup)
+                } else {
+                    callback((try? result.matchingOrder(of: self)) ?? backup)
+                }
             }
         }
     }

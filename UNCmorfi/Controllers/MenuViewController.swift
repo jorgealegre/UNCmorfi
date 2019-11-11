@@ -25,7 +25,12 @@ class MenuViewController: UITableViewController {
     // MARK: - Views
 
     private let activityIndicator: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(style: .gray)
+        let view: UIActivityIndicatorView
+        if #available(iOS 13.0, *) {
+            view = UIActivityIndicatorView(style: .large)
+        } else {
+            view = UIActivityIndicatorView(style: .gray)
+        }
         return view
     }()
 
@@ -42,7 +47,6 @@ class MenuViewController: UITableViewController {
         tableView.backgroundView = activityIndicator
         activityIndicator.startAnimating()
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .white
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
     
         UNCComedor.shared.getMenu { apiResult in

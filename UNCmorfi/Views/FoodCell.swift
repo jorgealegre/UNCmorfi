@@ -17,24 +17,19 @@ class FoodCell: UITableViewCell {
 
         view.translatesAutoresizingMaskIntoConstraints = false
 
-        view.backgroundColor = .white
-
         view.layer.cornerRadius = 3
 
-        view.layer.borderColor = #colorLiteral(red: 0.9921568627, green: 0.2823529412, blue: 0.3215686275, alpha: 1).cgColor
+        view.layer.borderColor = UIColor.systemOrange.cgColor
         view.layer.borderWidth = 1
         
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.4
-        view.layer.shadowOffset = CGSize(width: 0, height: 0)
-        view.layer.shadowRadius = 1
-
         return view
     }()
 
     let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
@@ -43,6 +38,9 @@ class FoodCell: UITableViewCell {
         let mealLabels = range.map { _ -> UILabel in
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
+            label.font = .preferredFont(forTextStyle: .body)
+            label.adjustsFontForContentSizeCategory = true
+            label.numberOfLines = 0
             return label
         }
 

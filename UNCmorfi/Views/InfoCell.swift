@@ -9,13 +9,16 @@
 
 import UIKit
 
-class InfoCell: UITableViewCell, UITextViewDelegate {
-    // MARK: Properties
+class InfoCell: UITableViewCell {
+
+    // MARK: - Properties
+
     static let reuseIdentifier = "InfoCell"
 
-    /* Using a UITextView instead of a UILabel for allowing attributed
-     * strings and hyperlinks. This also allows the text to be highlightable.
-     */
+    // MARK: - Subviews
+
+    /// Using a UITextView instead of a UILabel for allowing attributed
+    /// strings and hyperlinks. This also allows the text to be highlightable.
     private let textView: UITextView = {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +26,8 @@ class InfoCell: UITableViewCell, UITextViewDelegate {
         view.isScrollEnabled = false
         view.dataDetectorTypes = .link
         view.isUserInteractionEnabled = true
+        view.font = .preferredFont(forTextStyle: .body)
+        view.adjustsFontForContentSizeCategory = true
         return view
     }()
 
@@ -55,20 +60,27 @@ class InfoCell: UITableViewCell, UITextViewDelegate {
                 let visibleName = element[element.index(element.firstIndex(of: "[")!, offsetBy: 1)..<element.firstIndex(of: "]")!]
                 let urlString = element[element.index(element.firstIndex(of: "(")!, offsetBy: 1)..<element.firstIndex(of: ")")!]
 
-                let url = NSMutableAttributedString(string: String(visibleName))
+                let url: NSMutableAttributedString
+                if #available(iOS 13.0, *) {
+                    url = NSMutableAttributedString(string: String(visibleName), attributes: [.foregroundColor: UIColor.label])
+                } else {
+                    url = NSMutableAttributedString(string: String(visibleName))
+                }
                 url.addAttribute(.link, value: urlString, range: NSRange(location: 0, length: visibleName.count))
 
                 attributedString.append(url)
             } else {
-                attributedString.append(NSAttributedString(string: element))
+                let string: NSAttributedString
+                if #available(iOS 13.0, *) {
+                    string = NSAttributedString(string: element, attributes: [.foregroundColor: UIColor.label])
+                } else {
+                    string = NSAttributedString(string: element)
+                }
+
+                attributedString.append(string)
             }
         }
 
         textView.attributedText = attributedString
-    }
-
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
-        print(URL)
-        return false
     }
 }

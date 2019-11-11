@@ -10,11 +10,16 @@
 import UIKit
 import AVFoundation
 
+protocol BarcodeScannerViewControllerDelegate: AnyObject {
+    func barcodeScanner(_ barcodeScannerViewController: BarcodeScannerViewController,
+                        didScanCode code: String)
+}
+
 class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     // MARK: - Properties
 
-    weak var delegate: UserTableViewController?
+    weak var delegate: BarcodeScannerViewControllerDelegate?
 
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 
@@ -24,10 +29,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         super.viewDidLoad()
 
         navigationItem.title = "barcodescanner.nav.label".localized()
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
-        }
-        
+
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
         guard let input = try? AVCaptureDeviceInput(device: captureDevice!) else {
@@ -58,9 +60,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         guard let metadata = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
         
         if metadata.type == AVMetadataObject.ObjectType.code39, let code = metadata.stringValue {
-            let user = User(fromCode: code)
-            delegate?.add(user: user)
-            navigationController?.popViewController(animated: true)
+            delegate?.barcodeScanner(self, didScanCode: code)
+            dismiss(animated: true, completion: nil)
         }
     }
 }

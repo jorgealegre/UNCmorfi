@@ -10,18 +10,23 @@
 import UIKit
 
 class CounterView: UIView, CAAnimationDelegate {
-    // MARK: - Layers.
+
+    private enum Constants {
+        static let lineWidth: CGFloat = 3
+        static let arcWidth: CGFloat = 15
+        static let arcBackgroundColor: UIColor = .systemOrange
+    }
+
+    // MARK: - Layers
+
     private let circlePathLayer = CAShapeLayer()
 
-    // MARK: - Circle path properties.
-    private var lineWidth: CGFloat = 3
-    private var arcWidth: CGFloat = 15
-    private var arcBackgroundColor: UIColor = .orange
-    private var arcOutlineColor: UIColor = .red
+    // MARK: - Properties
 
-    // MARK: - View model.
     private var isIndeterminate = true
+
     var maxValue = 1500
+
     var currentValue = 0 {
         didSet {
             currentValue = min(maxValue, currentValue) // Enforce the max value.
@@ -36,7 +41,6 @@ class CounterView: UIView, CAAnimationDelegate {
         }
     }
 
-    // MARK: - Animations.
     private var shouldTransitionFromIndeterminateToDeterminate = false
 
     private let strokeStartAnimation: CAAnimation = {
@@ -44,7 +48,7 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.beginTime = 0.5
         animation.toValue = 1
         animation.duration = 1
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeOut)
         return animation
     }()
 
@@ -52,10 +56,11 @@ class CounterView: UIView, CAAnimationDelegate {
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.toValue = 1
         animation.duration = 1
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
-        // The model is set to 0, I'm animating towards 1. When this is done, strokeStart is still being animated (catching up with me with 0.5s delay).
+        animation.timingFunction = CAMediaTimingFunction(name: .easeIn)
+        // The model is set to 0, I'm animating towards 1.
+        // When this is done, strokeStart is still being animated (catching up with me with 0.5s delay).
         // I don't want this to jump to 0 until strokeStart animation finishes (animationGroup finishes).
-        animation.fillMode = CAMediaTimingFillMode.forwards
+        animation.fillMode = .forwards
         return animation
     }()
 
@@ -71,21 +76,19 @@ class CounterView: UIView, CAAnimationDelegate {
     private let rotationAnimation: CAAnimation = {
         let animation = CABasicAnimation(keyPath: "transform.rotation.z")
         animation.fromValue = 0
-        animation.toValue = 2 * Float.pi
+        animation.toValue = 2 * Double.pi
         animation.duration = 1.5
         animation.repeatCount = .infinity
         animation.isRemovedOnCompletion = false
         return animation
     }()
 
-    /*
-     Overriding this method to get notified whenever my view controller sets up
-     constraints on me. This way, we can use AutoLayout from the view controller
-     and have the path update automatically.
-
-     Maybe we should change strategy since this would cause the path to reset itself
-     with every layout change.
-     */
+    /// Overriding this method to get notified whenever my view controller sets up
+    /// constraints on me. This way, we can use AutoLayout from the view controller
+    /// and have the path update automatically.
+    ///
+    /// Maybe we should change strategy since this would cause the path to reset itself
+    /// with every layout change.
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -93,7 +96,7 @@ class CounterView: UIView, CAAnimationDelegate {
         let center = CGPoint(x: bounds.width/2, y: bounds.height/2)
         let radius: CGFloat = min(bounds.width, bounds.height) / 2
         let path = UIBezierPath(arcCenter: center,
-                                radius: radius - arcWidth/2,
+                                radius: radius - Constants.arcWidth/2,
                                 startAngle: (3/4) * .pi,
                                 endAngle: (11/4) * .pi,
                                 clockwise: true)
@@ -107,9 +110,9 @@ class CounterView: UIView, CAAnimationDelegate {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
 
-        circlePathLayer.lineWidth = arcWidth
-        circlePathLayer.strokeColor = arcBackgroundColor.cgColor
-        circlePathLayer.fillColor = UIColor.clear.cgColor
+        circlePathLayer.lineWidth = Constants.arcWidth
+        circlePathLayer.strokeColor = Constants.arcBackgroundColor.cgColor
+        circlePathLayer.fillColor = nil
 
         layer.addSublayer(circlePathLayer)
     }
@@ -120,12 +123,11 @@ class CounterView: UIView, CAAnimationDelegate {
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        /* This delegate method allows us to stop repeating the indeterminate animation.
-         * At any time, the current value of this view could be set.
-         * If it's set in the middle of an animation, we don't want to stop it completely.
-         * Flag that we should stop animating (i.e. wait for the current animation
-         * but don't keep adding new ones).
-         */
+        /// This delegate method allows us to stop repeating the indeterminate animation.
+        /// At any time, the current value of this view could be set.
+        /// If it's set in the middle of an animation, we don't want to stop it completely.
+        /// Flag that we should stop animating (i.e. wait for the current animation
+        /// but don't keep adding new ones).
         if !shouldTransitionFromIndeterminateToDeterminate {
             // Continue animating until the value is set.
             circlePathLayer.add(rotationAnimation, forKey: "rotationAnimation")
@@ -149,7 +151,7 @@ class CounterView: UIView, CAAnimationDelegate {
         // Stroke until a 75% of the path to look like a speedometer.
         circlePathLayer.strokeEnd = CGFloat(currentValue)/CGFloat(maxValue) * 0.75
         animation.duration = 0.5
-        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
     }
 
