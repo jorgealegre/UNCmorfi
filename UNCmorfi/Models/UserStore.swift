@@ -6,7 +6,7 @@
 //  Copyright © 2019 George Alegre. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class UserStore {
 
@@ -14,110 +14,115 @@ class UserStore {
 
     static let shared = UserStore()
 
-    private init() {}
+    private init() {
+        self.users = loadUsers()
+    }
 
     // MARK: - Properties
 
     private enum Constants {
-        private static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+        static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         static let archiveURL = documentsDirectory.appendingPathComponent("users")
     }
 
-    var users: [User] = []
+    enum Error: Swift.Error {
+        case addingExistingUser
+        case addUserFailed
+    }
+
+    private let encoder = JSONEncoder()
+
+    private let decoder = JSONDecoder()
+
+    private(set) var users: [User] = []
 
     // MARK: - Methods
 
-    func addUser(_ user: User) {
-        // Make sure it doesn't already exist.
-        guard !users.contains(user) else { return }
-        users.append(user)
+    func addUser(withCode code: String, callback: @escaping ((Result<Void, Error>) -> Void)) {
+        guard !users.map({ $0.code }).contains(code) else {
+            // User already exists
+            DispatchQueue.main.async {
+                callback(.failure(.addingExistingUser))
+            }
+            return
+        }
 
-        saveUsers()
+        UNCComedor.shared.getUsers(from: [code]) { [unowned self] result in
+            switch result {
+            case let .success(users):
+                let user = users.first!
+                self.users.append(user)
+                self.saveUsers()
+                DispatchQueue.main.async {
+                    callback(.success(()))
+                }
+            case let .failure(error):
+                print(error)
+                DispatchQueue.main.async {
+                    callback(.failure(.addUserFailed))
+                }
+            }
+        }
     }
 
     func updateUsers(callback: @escaping (() -> Void)) {
-        // Create a queue for parallel jobs.
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        let group = DispatchGroup()
-
-        // Return the original data if the update fails.
-        var updateFailed = false
-        let backup: [User] = users
-
-        var result: [User] = []
-        var images: [String: UIImage] = [:]
-
         // Get the user codes needed for the user API.
         let userCodes = users.map { $0.code }
 
         // Get the updated users from the API.
-        group.enter()
-        UNCComedor.shared.getUsers(from: userCodes) { (apiResult) in
-            // Notify that this task is done.
-            defer { group.leave() }
-
-            switch apiResult {
-            case .failure(let error):
-                // TODO: handle error
-                updateFailed = true
-                return
-            case .success(let users):
-                result = users
-
-                // Get the updated user images from the API.
-                users.forEach { (user) in
-                    group.enter()
-
-                    UNCComedor.shared.getUserImage(from: user.imageURL!) { imageResult in
-                        // Notify that this task is done.
-                        defer { group.leave() }
-
-                        switch imageResult {
-                        case .failure(_):
-                            // TODO: handle error
-                            updateFailed = true
-                            return
-                        case .success(let image):
-                            user.image = image
-                        }
+        UNCComedor.shared.getUsers(from: userCodes) { result in
+            switch result {
+            case let .success(users):
+                guard let users = try? users.matchingOrder(of: self.users) else {
+                    DispatchQueue.main.async {
+                        callback()
                     }
+                    return
                 }
-            }
-        }
 
-        // When all tasks have finished.
-        group.notify(queue: queue) {
-            DispatchQueue.main.async {
-                if updateFailed {
+                self.users = users
+                self.saveUsers()
+
+                DispatchQueue.main.async {
                     callback()
-                } else {
-                    self.users = (try? result.matchingOrder(of: self.users)) ?? backup
-                    self.saveUsers()
+                }
+            case let .failure(error):
+                // TODO: handle error
+                DispatchQueue.main.async {
                     callback()
                 }
             }
         }
     }
 
+    func swapUser(from: Int, to: Int) {
+        users.swapAt(from, to)
+        saveUsers()
+    }
+
+    func removeUser(at index: Int) {
+        users.remove(at: index)
+        saveUsers()
+    }
+
     // MARK: - Persistance
 
-    func saveUsers() {
-        let jsonEncoder = JSONEncoder()
+    private func saveUsers() {
         do {
-            let data = try jsonEncoder.encode(users)
+            let data = try encoder.encode(users)
             try data.write(to: Constants.archiveURL)
         } catch {
             print("Error: \(error).")
         }
     }
 
-    func loadUsers() {
-        let jsonDecoder = JSONDecoder()
+    private func loadUsers() -> [User] {
         do {
             let data = try Data(contentsOf: Constants.archiveURL)
-            users = try jsonDecoder.decode([User].self, from: data)
+            return try decoder.decode([User].self, from: data)
         } catch {
             print("Error: \(error).")
+            return []
         }
     }
 }

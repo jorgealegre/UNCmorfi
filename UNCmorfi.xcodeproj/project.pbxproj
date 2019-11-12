@@ -33,6 +33,7 @@
 		5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */; };
 		5ECD1FB21EAF028900508A16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FB11EAF028900508A16 /* User.swift */; };
 		5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */; };
+		5ED23596237A62310099CD71 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5ED23595237A62310099CD71 /* AlamofireImage */; };
 		5EE4342323791873002E895A /* UIFont+preferredFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4342223791873002E895A /* UIFont+preferredFont.swift */; };
 		5EE4343E23792846002E895A /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4343D23792846002E895A /* UserStore.swift */; };
 		5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */; };
@@ -98,6 +99,7 @@
 			files = (
 				5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */,
 				5EB70AB32377E75D003C51A5 /* FontAwesome in Frameworks */,
+				5ED23596237A62310099CD71 /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +260,7 @@
 			name = UNCmorfi;
 			packageProductDependencies = (
 				5EB70AB22377E75D003C51A5 /* FontAwesome */,
+				5ED23595237A62310099CD71 /* AlamofireImage */,
 			);
 			productName = UNCmorfi;
 			productReference = 5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */;
@@ -325,6 +328,7 @@
 			mainGroup = 5EC4CBC61E91F4D900E0BE71;
 			packageReferences = (
 				5EB70AB12377E75D003C51A5 /* XCRemoteSwiftPackageReference "FontAwesome" */,
+				5ED23594237A62310099CD71 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 5EC4CBD01E91F4DA00E0BE71 /* Products */;
 			projectDirPath = "";
@@ -675,6 +679,14 @@
 				minimumVersion = 1.8.2;
 			};
 		};
+		5ED23594237A62310099CD71 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -682,6 +694,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5EB70AB12377E75D003C51A5 /* XCRemoteSwiftPackageReference "FontAwesome" */;
 			productName = FontAwesome;
+		};
+		5ED23595237A62310099CD71 /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5ED23594237A62310099CD71 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

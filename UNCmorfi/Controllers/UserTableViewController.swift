@@ -22,16 +22,13 @@ class UserTableViewController: UITableViewController {
         }
         
         setupNavigationBarButtons()
-    
-        // Load saved users.
-        UserStore.shared.loadUsers()
         
         // Update all data.
         refreshData()
         
         // Allow updating data.
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         // Cell setup.
         tableView.estimatedRowHeight = 65
@@ -40,11 +37,13 @@ class UserTableViewController: UITableViewController {
     }
     
     private func setupNavigationBarButtons() {
-        self.navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem = editButtonItem
         
-        let addViaCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addViaCameraButtonTapped(_:)))
-        let addViaTextButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addViaTextButtonTapped(_:)))
-        self.navigationItem.rightBarButtonItems = [addViaTextButton, addViaCameraButton]
+        let addViaCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self,
+                                                 action: #selector(addViaCameraButtonTapped))
+        let addViaTextButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                               action: #selector(addViaTextButtonTapped))
+        navigationItem.rightBarButtonItems = [addViaTextButton, addViaCameraButton]
     }
 
     // MARK: - UITableViewDataSource
@@ -54,7 +53,8 @@ class UserTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as! UserCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier,
+                                                 for: indexPath) as! UserCell
 
         let user = UserStore.shared.users[indexPath.row]
         
@@ -63,10 +63,10 @@ class UserTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            UserStore.shared.users.remove(at: indexPath.row)
-            UserStore.shared.saveUsers()
+            UserStore.shared.removeUser(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -76,8 +76,7 @@ class UserTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        UserStore.shared.users.swapAt(fromIndexPath.row, to.row)
-        UserStore.shared.saveUsers()
+        UserStore.shared.swapUser(from: fromIndexPath.row, to: to.row)
     }
     
     // MARK: - Actions
@@ -95,10 +94,8 @@ class UserTableViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
         ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [ac] _ in
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
-            
-            let user = User(fromCode: text)
-            UserStore.shared.addUser(user)
-            self.refreshData()
+
+            self.addNewUser(withCode: text)
         })
         present(ac, animated: true)
     }
@@ -111,6 +108,19 @@ class UserTableViewController: UITableViewController {
     }
     
     // MARK: - Methods
+
+    private func addNewUser(withCode code: String) {
+        UserStore.shared.addUser(withCode: code) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
+                self.tableView.reloadData()
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
         UserStore.shared.updateUsers { [unowned self] in
@@ -121,9 +131,8 @@ class UserTableViewController: UITableViewController {
 }
 
 extension UserTableViewController: BarcodeScannerViewControllerDelegate {
-    func barcodeScanner(_ barcodeScannerViewController: BarcodeScannerViewController, didScanCode code: String) {
-        let user = User(fromCode: code)
-        UserStore.shared.addUser(user)
-        refreshData()
+    func barcodeScanner(_ barcodeScannerViewController: BarcodeScannerViewController,
+                        didScanCode code: String) {
+        addNewUser(withCode: code)
     }
 }

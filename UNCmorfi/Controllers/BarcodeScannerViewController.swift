@@ -23,6 +23,8 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 
+    private var captureSession: AVCaptureSession!
+
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -30,38 +32,40 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
         navigationItem.title = "barcodescanner.nav.label".localized()
 
-        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
+        let captureDevice = AVCaptureDevice.default(for: .video)
         
         guard let input = try? AVCaptureDeviceInput(device: captureDevice!) else {
             return
         }
         
-        let captureSession = AVCaptureSession()
+        captureSession = AVCaptureSession()
         captureSession.addInput(input)
         
         let captureMetadataOutput = AVCaptureMetadataOutput()
         captureSession.addOutput(captureMetadataOutput)
 
-        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.code39]
+        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: .main)
+        captureMetadataOutput.metadataObjectTypes = [.code39]
         
         // Add video preview.
         let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        videoPreviewLayer.videoGravity = .resizeAspectFill
         videoPreviewLayer.frame = view.layer.bounds
         view.layer.addSublayer(videoPreviewLayer)
         
         captureSession.startRunning()
     }
-    
-    // Video capture delegate.
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        guard metadataObjects.count != 0 else { return }
-        guard let metadata = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else { return }
+
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject],
+                        from connection: AVCaptureConnection) {
+        guard let metadata = metadataObjects.first as? AVMetadataMachineReadableCodeObject else { return }
         
-        if metadata.type == AVMetadataObject.ObjectType.code39, let code = metadata.stringValue {
-            delegate?.barcodeScanner(self, didScanCode: code)
-            dismiss(animated: true, completion: nil)
+        guard metadata.type == .code39, let code = metadata.stringValue else {
+            return
         }
+
+        captureSession.stopRunning()
+        delegate?.barcodeScanner(self, didScanCode: code)
+        dismiss(animated: true, completion: nil)
     }
 }

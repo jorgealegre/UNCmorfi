@@ -8,7 +8,7 @@
 //
 
 import Foundation
-import UIKit
+import class Alamofire.DataRequest
 
 class UNCComedor {
 
@@ -16,11 +16,19 @@ class UNCComedor {
 
     static let shared = UNCComedor()
 
-    private init() {}
+    private init() {
+        DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
+    }
     
-    // MARK: - URLSession
+    // MARK: - Properties
 
     private let session = URLSession.shared
+
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
     
     // MARK: - API endpoints
 
@@ -31,8 +39,8 @@ class UNCComedor {
     /**
      Use as first error handling method of any type of URLSession task.
      - Parameters:
-        - error: an optional error found in the task completion handler.
-        - res: the `URLResponse` found in the task completion handler.
+     - error: an optional error found in the task completion handler.
+     - res: the `URLResponse` found in the task completion handler.
      - Returns: if an error is found, a custom error is returned, else `nil`.
      */
     private func handleAPIResponse(error: Error?, res: URLResponse?) -> Error? {
@@ -81,44 +89,15 @@ class UNCComedor {
             }
             
             // Decode data.
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            
             let users: [User]
             do {
-                users = try decoder.decode([User].self, from: data)
+                users = try self.decoder.decode([User].self, from: data)
             } catch {
                 callback(.failure(NSError()))
                 return
             }
 
             callback(.success(users))
-        }
-        
-        task.resume()
-    }
-    
-    func getUserImage(from URL: URL, callback: @escaping (_ result: Result<UIImage, Error>) -> Void) {
-        let task = session.dataTask(with: URL) { data, res, error in
-            // Check for errors and exit early.
-            let customError = self.handleAPIResponse(error: error, res: res)
-            guard customError == nil else {
-                callback(.failure(customError!))
-                return
-            }
-            
-            guard let data = data else {
-                callback(.failure(NSError()))
-                // TODO create my own errors
-                return
-            }
-            
-            guard let image = UIImage(data: data) else {
-                callback(.failure(NSError()))
-                return
-            }
-            
-            callback(.success(image))
         }
         
         task.resume()
@@ -134,17 +113,14 @@ class UNCComedor {
             }
             
             guard let data = data else {
-                    callback(.failure(NSError()))
-                    // TODO create my own errors
-                    return
+                callback(.failure(NSError()))
+                // TODO create my own errors
+                return
             }
-
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
 
             let menu: Menu
             do {
-                menu = try decoder.decode(Menu.self, from: data)
+                menu = try self.decoder.decode(Menu.self, from: data)
             } catch {
                 callback(.failure(NSError()))
                 return
@@ -172,12 +148,9 @@ class UNCComedor {
             }
             
             // Parse received data.
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-
             let servings: Servings
             do {
-                servings = try decoder.decode(Servings.self, from: data)
+                servings = try self.decoder.decode(Servings.self, from: data)
             } catch {
                 callback(.failure(NSError()))
                 return

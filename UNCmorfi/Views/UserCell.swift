@@ -8,12 +8,17 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class UserCell: UITableViewCell {
-    // MARK: Properties
+
+    // MARK: - Properties
+
     static let reuseIdentifier = "UserCell"
-    
-    let photoImageView: UIImageView = {
+
+    // MARK: - Subviews
+
+    private let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
@@ -24,7 +29,7 @@ class UserCell: UITableViewCell {
         return imageView
     }()
 
-    let nameLabel: UILabel = {
+    private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
@@ -32,7 +37,7 @@ class UserCell: UITableViewCell {
         return label
     }()
     
-    let barcodeLabel: UILabel = {
+    private let barcodeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
@@ -40,7 +45,7 @@ class UserCell: UITableViewCell {
         return label
     }()
 
-    let balanceLabel: UILabel = {
+    private let balanceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11.0, *) {
@@ -86,7 +91,10 @@ class UserCell: UITableViewCell {
     func configureFor(user: User) {
         balanceLabel.text = "$\(user.balance)"
         nameLabel.text = user.name
-        photoImageView.image = user.image
         barcodeLabel.text = user.code
+
+        if let imageURL = user.imageURL {
+            photoImageView.af_setImage(withURL: imageURL)
+        }
     }
 }
