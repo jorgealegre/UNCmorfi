@@ -33,8 +33,6 @@ class User: Codable {
     }
     
     // MARK: Codable
-    private static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let archiveURL = documentsDirectory.appendingPathComponent("users")
 
     private enum CodingKeys: String, CodingKey {
         case name
@@ -104,71 +102,5 @@ extension Array where Element == User {
         }
         
         return result
-    }
-    
-    /**
-     Updates a collection of users.
-     - Parameter callback: handler to be called with updated users as argument.
-     */
-    func update(callback: @escaping (([User]) -> Void)) {
-        // Create a queue for parallel jobs.
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        let group = DispatchGroup()
-
-        // Return the original data if the update fails.
-        let backup: [User] = self
-        var updateFailed = false
-        
-        var result: [User] = []
-        var images: [String: UIImage] = [:]
-
-        // Get the user codes needed for the user API.
-        let userCodes = map { $0.code }
-        
-        // Get the updated users from the API.
-        group.enter()
-        UNCComedor.shared.getUsers(from: userCodes) { (apiResult) in
-            // Notify that this task is done.
-            defer { group.leave() }
-            
-            switch apiResult {
-            case .failure(let error):
-                // TODO: handle error
-                updateFailed = true
-                return
-            case .success(let users):
-                result = users
-                
-                // Get the updated user images from the API.
-                users.forEach { (user) in
-                    group.enter()
-                    
-                    UNCComedor.shared.getUserImage(from: user.imageURL!) { imageResult in
-                        // Notify that this task is done.
-                        defer { group.leave() }
-                        
-                        switch imageResult {
-                        case .failure(_):
-                            // TODO: handle error
-                            updateFailed = true
-                            return
-                        case .success(let image):
-                            user.image = image
-                        }
-                    }
-                }
-            }
-        }
-        
-        // When all tasks have finished.
-        group.notify(queue: queue) {
-            DispatchQueue.main.async {
-                if updateFailed {
-                    callback(backup)
-                } else {
-                    callback((try? result.matchingOrder(of: self)) ?? backup)
-                }
-            }
-        }
     }
 }

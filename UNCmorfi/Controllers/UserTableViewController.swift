@@ -11,10 +11,6 @@ import UIKit
 
 class UserTableViewController: UITableViewController {
 
-    // MARK: - Properties
-    
-    private var users: [User] = []
-
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
@@ -28,9 +24,7 @@ class UserTableViewController: UITableViewController {
         setupNavigationBarButtons()
     
         // Load saved users.
-        if let savedUsers = savedUsers() {
-            users = savedUsers
-        }
+        UserStore.shared.loadUsers()
         
         // Update all data.
         refreshData()
@@ -56,13 +50,13 @@ class UserTableViewController: UITableViewController {
     // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        users.count
+        UserStore.shared.users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as! UserCell
 
-        let user = users[indexPath.row]
+        let user = UserStore.shared.users[indexPath.row]
         
         cell.configureFor(user: user)
         
@@ -71,8 +65,8 @@ class UserTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            users.remove(at: indexPath.row)
-            saveUsers()
+            UserStore.shared.users.remove(at: indexPath.row)
+            UserStore.shared.saveUsers()
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -82,8 +76,8 @@ class UserTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        users.swapAt(fromIndexPath.row, to.row)
-        saveUsers()
+        UserStore.shared.users.swapAt(fromIndexPath.row, to.row)
+        UserStore.shared.saveUsers()
     }
     
     // MARK: - Actions
@@ -103,7 +97,8 @@ class UserTableViewController: UITableViewController {
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
             
             let user = User(fromCode: text)
-            self.addUser(user)
+            UserStore.shared.addUser(user)
+            self.refreshData()
         })
         present(ac, animated: true)
     }
@@ -116,41 +111,9 @@ class UserTableViewController: UITableViewController {
     }
     
     // MARK: - Methods
-
-    private func addUser(_ user: User) {
-        // Make sure it doesn't already exist.
-        guard !users.contains(user) else { return }
-        users.append(user)
-
-        refreshData()
-    }
-    
-    private func saveUsers() {
-        let jsonEncoder = JSONEncoder()
-        do {
-            let data = try jsonEncoder.encode(users)
-            try data.write(to: User.archiveURL)
-        } catch {
-            print("Error: \(error).")
-        }
-    }
-    
-    private func savedUsers() -> [User]? {
-        let jsonDecoder = JSONDecoder()
-        do {
-            let data = try Data(contentsOf: User.archiveURL)
-            let users = try jsonDecoder.decode([User].self, from: data)
-            return users
-        } catch {
-            print("Error: \(error).")
-            return nil
-        }
-    }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
-        users.update { [unowned self] users in
-            self.users = users
-            self.saveUsers()
+        UserStore.shared.updateUsers { [unowned self] in
             self.tableView.reloadData()
             refreshControl?.endRefreshing()
         }
@@ -160,6 +123,7 @@ class UserTableViewController: UITableViewController {
 extension UserTableViewController: BarcodeScannerViewControllerDelegate {
     func barcodeScanner(_ barcodeScannerViewController: BarcodeScannerViewController, didScanCode code: String) {
         let user = User(fromCode: code)
-        addUser(user)
+        UserStore.shared.addUser(user)
+        refreshData()
     }
 }
