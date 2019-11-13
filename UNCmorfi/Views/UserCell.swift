@@ -48,11 +48,7 @@ class UserCell: UITableViewCell {
     private let balanceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        if #available(iOS 11.0, *) {
-            label.font = .preferredFont(for: .headline, weight: .bold)
-        } else {
-            label.font = .preferredFont(forTextStyle: .headline)
-        }
+        label.font = .preferredFont(for: .headline, weight: .bold)
         label.adjustsFontForContentSizeCategory = true
         return label
     }()

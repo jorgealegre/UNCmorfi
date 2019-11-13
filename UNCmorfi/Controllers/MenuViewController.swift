@@ -40,9 +40,7 @@ class MenuViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "menu.nav.label".localized()
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
-        }
+        navigationController!.navigationBar.prefersLargeTitles = true
         
         tableView.backgroundView = activityIndicator
         activityIndicator.startAnimating()

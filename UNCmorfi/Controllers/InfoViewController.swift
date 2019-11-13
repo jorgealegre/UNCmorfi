@@ -21,9 +21,7 @@ class InfoViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = NSLocalizedString("info.nav.label", comment: "Information")
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
-        }
+        navigationController!.navigationBar.prefersLargeTitles = true
 
         // Cell setup.
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.reuseIdentifier)

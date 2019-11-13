@@ -10,16 +10,15 @@
 import UIKit
 import AVFoundation
 
-protocol BarcodeScannerViewControllerDelegate: AnyObject {
-    func barcodeScanner(_ barcodeScannerViewController: BarcodeScannerViewController,
-                        didScanCode code: String)
+protocol BarcodeHandler: AnyObject {
+    func barcodeDetected(_ barcode: String)
 }
 
-class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class CameraBarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     // MARK: - Properties
 
-    weak var delegate: BarcodeScannerViewControllerDelegate?
+    weak var barcodeHandler: BarcodeHandler?
 
     override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 
@@ -65,7 +64,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
         }
 
         captureSession.stopRunning()
-        delegate?.barcodeScanner(self, didScanCode: code)
-        dismiss(animated: true, completion: nil)
+        barcodeHandler?.barcodeDetected(code)
+        dismiss(animated: true)
     }
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */; };
-		5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */; };
 		5E4944642377F34F00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944632377F32B00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf */; };
 		5E4944652377F35200C1CF3E /* Font Awesome 5 Free-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */; };
 		5E4944662377F35400C1CF3E /* Font Awesome 5 Free-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */; };
@@ -26,7 +25,7 @@
 		5E9679521F533B1C0059F754 /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9679511F533B1C0059F754 /* Comedor.swift */; };
 		5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E96795E1F5345FD0059F754 /* TabBarController.swift */; };
 		5EB70AB32377E75D003C51A5 /* FontAwesome in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB70AB22377E75D003C51A5 /* FontAwesome */; };
-		5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */; };
+		5EC11E731ED4E4C10031843E /* CameraBarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC11E721ED4E4C10031843E /* CameraBarcodeScannerViewController.swift */; };
 		5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */; };
 		5EC4CBEA1E91F4DA00E0BE71 /* UNCmorfiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC4CBE91E91F4DA00E0BE71 /* UNCmorfiTests.swift */; };
 		5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FAD1EAF001100508A16 /* UserCell.swift */; };
@@ -34,6 +33,8 @@
 		5ECD1FB21EAF028900508A16 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ECD1FB11EAF028900508A16 /* User.swift */; };
 		5ECE14DD1F6F001C0093E84E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */; };
 		5ED23596237A62310099CD71 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5ED23595237A62310099CD71 /* AlamofireImage */; };
+		5ED9714C237BC48200793943 /* PhotoBarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9714B237BC48200793943 /* PhotoBarcodeScannerViewController.swift */; };
+		5ED9714E237BCC6700793943 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9714D237BCC6700793943 /* String+localized.swift */; };
 		5EE4342323791873002E895A /* UIFont+preferredFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4342223791873002E895A /* UIFont+preferredFont.swift */; };
 		5EE4343E23792846002E895A /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4343D23792846002E895A /* UserStore.swift */; };
 		5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */; };
@@ -54,7 +55,6 @@
 
 /* Begin PBXFileReference section */
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
-		5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
 		5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Regular-400.otf"; sourceTree = "<group>"; };
 		5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Solid-900.otf"; sourceTree = "<group>"; };
 		5E4944632377F32B00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comedor.swift; sourceTree = "<group>"; };
 		5E96795E1F5345FD0059F754 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		5EC11E721ED4E4C10031843E /* CameraBarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraBarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCmorfi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EC4CBD21E91F4DA00E0BE71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EC4CBE51E91F4DA00E0BE71 /* UNCmorfiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UNCmorfiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +84,8 @@
 		5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		5ECD1FB11EAF028900508A16 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5ED9714B237BC48200793943 /* PhotoBarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		5ED9714D237BCC6700793943 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
 		5EE4342223791873002E895A /* UIFont+preferredFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+preferredFont.swift"; sourceTree = "<group>"; };
 		5EE4343D23792846002E895A /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellHeader.swift; sourceTree = "<group>"; };
@@ -150,8 +152,8 @@
 		5E45C98B1F7DBBC400FA35A2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5E45C98C1F7DBBF100FA35A2 /* String+Localized.swift */,
 				5EE4342223791873002E895A /* UIFont+preferredFont.swift */,
+				5ED9714D237BCC6700793943 /* String+localized.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,7 +173,8 @@
 			children = (
 				5E96795E1F5345FD0059F754 /* TabBarController.swift */,
 				5ECD1FAF1EAF025100508A16 /* UserTableViewController.swift */,
-				5EC11E721ED4E4C10031843E /* BarcodeScannerViewController.swift */,
+				5ED9714B237BC48200793943 /* PhotoBarcodeScannerViewController.swift */,
+				5EC11E721ED4E4C10031843E /* CameraBarcodeScannerViewController.swift */,
 				5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */,
 				5E6957091F660E5500713CDA /* CounterViewController.swift */,
 				5E80C11C1F05114F00B0813F /* MapViewController.swift */,
@@ -376,17 +379,18 @@
 				5EC4CBD31E91F4DA00E0BE71 /* AppDelegate.swift in Sources */,
 				5E9679521F533B1C0059F754 /* Comedor.swift in Sources */,
 				5E5DAEBD212B855800F0C5C6 /* Servings.swift in Sources */,
-				5E45C98D1F7DBBF100FA35A2 /* String+Localized.swift in Sources */,
 				5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */,
 				5EE4342323791873002E895A /* UIFont+preferredFont.swift in Sources */,
+				5ED9714E237BCC6700793943 /* String+localized.swift in Sources */,
 				5E4962321F68AE2300568648 /* FoodCell.swift in Sources */,
+				5ED9714C237BC48200793943 /* PhotoBarcodeScannerViewController.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
 				5EE4343E23792846002E895A /* UserStore.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */,
 				5E5DAEBB212B850A00F0C5C6 /* Menu.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
-				5EC11E731ED4E4C10031843E /* BarcodeScannerViewController.swift in Sources */,
+				5EC11E731ED4E4C10031843E /* CameraBarcodeScannerViewController.swift in Sources */,
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
 				5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */,
 				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,
@@ -484,7 +488,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -538,7 +542,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;

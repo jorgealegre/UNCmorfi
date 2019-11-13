@@ -8,7 +8,6 @@
 
 import UIKit
 
-@available(iOS 11.0, *)
 extension UIFont {
     static func preferredFont(for style: TextStyle, weight: Weight) -> UIFont {
         let metrics = UIFontMetrics(forTextStyle: style)

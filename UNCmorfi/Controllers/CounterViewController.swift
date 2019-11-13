@@ -57,9 +57,7 @@ class CounterViewController: UIViewController {
             view.backgroundColor = .white
         }
         navigationItem.title = "counter.nav.label".localized()
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
-        }
+        navigationController!.navigationBar.prefersLargeTitles = true
 
         setupCounter()
         updateServings()
@@ -74,8 +72,8 @@ class CounterViewController: UIViewController {
         NSLayoutConstraint.activate([
             counterView.widthAnchor.constraint(equalToConstant: 260),
             counterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            counterView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            counterView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            counterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            counterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
 
         counterView.startAnimating()

@@ -9,7 +9,7 @@
 
 import UIKit
 
-class UserTableViewController: UITableViewController {
+class UserTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     // MARK: - View lifecycle
 
@@ -17,9 +17,7 @@ class UserTableViewController: UITableViewController {
         super.viewDidLoad()
 
         navigationItem.title = "balance.nav.label".localized()
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
-        }
+        navigationController!.navigationBar.prefersLargeTitles = true
         
         setupNavigationBarButtons()
         
@@ -38,12 +36,10 @@ class UserTableViewController: UITableViewController {
     
     private func setupNavigationBarButtons() {
         navigationItem.leftBarButtonItem = editButtonItem
-        
-        let addViaCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self,
-                                                 action: #selector(addViaCameraButtonTapped))
-        let addViaTextButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
-                                               action: #selector(addViaTextButtonTapped))
-        navigationItem.rightBarButtonItems = [addViaTextButton, addViaCameraButton]
+
+        let addUserButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                               action: #selector(addUserButtonTapped))
+        navigationItem.rightBarButtonItem = addUserButton
     }
 
     // MARK: - UITableViewDataSource
@@ -81,7 +77,28 @@ class UserTableViewController: UITableViewController {
     
     // MARK: - Actions
 
-    @objc private func addViaTextButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func addUserButtonTapped() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "manual".localized(), style: .default, handler: { _ in
+            self.addUserViaText()
+        }))
+        alertController.addAction(UIAlertAction(title: "camera".localized(), style: .default, handler: { _ in
+            self.addUserViaCamera()
+        }))
+        alertController.addAction(UIAlertAction(title: "photo".localized(), style: .default, handler: { _ in
+            self.addUserViaPhoto()
+        }))
+        alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
+        present(alertController, animated: true)
+    }
+
+    private func addUserViaPhoto() {
+        let imagePickerController = PhotoBarcodeScannerViewController()
+        imagePickerController.barcodeHandler = self
+        present(imagePickerController, animated: true)
+    }
+
+    private func addUserViaText() {
         let ac = UIAlertController(title: "balance.add.user.text.title".localized(),
                                    message: "balance.add.user.text.description".localized(),
                                    preferredStyle: .alert)
@@ -100,10 +117,10 @@ class UserTableViewController: UITableViewController {
         present(ac, animated: true)
     }
     
-    @objc private func addViaCameraButtonTapped(_ sender: UIBarButtonItem) {
-        let bsvc = BarcodeScannerViewController()
+    private func addUserViaCamera() {
+        let bsvc = CameraBarcodeScannerViewController()
         let navigationController = UINavigationController(rootViewController: bsvc)
-        bsvc.delegate = self
+        bsvc.barcodeHandler = self
         present(navigationController, animated: true)
     }
     
@@ -130,9 +147,8 @@ class UserTableViewController: UITableViewController {
     }
 }
 
-extension UserTableViewController: BarcodeScannerViewControllerDelegate {
-    func barcodeScanner(_ barcodeScannerViewController: BarcodeScannerViewController,
-                        didScanCode code: String) {
-        addNewUser(withCode: code)
+extension UserTableViewController: BarcodeHandler {
+    func barcodeDetected(_ barcode: String) {
+        addNewUser(withCode: barcode)
     }
 }
