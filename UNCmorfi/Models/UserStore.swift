@@ -8,6 +8,12 @@
 
 import Foundation
 
+extension FileManager {
+    func sharedContainerURL() -> URL {
+        containerURL(forSecurityApplicationGroupIdentifier: "group.com.georgealegre.UNCmorfi")!
+    }
+}
+
 class UserStore {
 
     // MARK: - Singleton
@@ -21,8 +27,7 @@ class UserStore {
     // MARK: - Properties
 
     private enum Constants {
-        static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        static let archiveURL = documentsDirectory.appendingPathComponent("users")
+        static let archiveURL = FileManager.default.sharedContainerURL().appendingPathComponent("users")
     }
 
     enum Error: Swift.Error {

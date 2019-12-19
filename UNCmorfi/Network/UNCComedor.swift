@@ -8,7 +8,6 @@
 //
 
 import Foundation
-import class Alamofire.DataRequest
 
 class UNCComedor {
 
@@ -17,7 +16,6 @@ class UNCComedor {
     static let shared = UNCComedor()
 
     private init() {
-        DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
     }
     
     // MARK: - Properties
