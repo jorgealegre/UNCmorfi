@@ -91,7 +91,7 @@ class UNCComedor {
             do {
                 users = try self.decoder.decode([User].self, from: data)
             } catch {
-                callback(.failure(NSError()))
+                callback(.failure(error))
                 return
             }
 

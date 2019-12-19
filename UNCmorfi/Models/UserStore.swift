@@ -33,6 +33,9 @@ class UserStore {
     enum Error: Swift.Error {
         case addingExistingUser
         case addUserFailed
+        case userNotFound
+        case updatedUsersDontMatchExisting
+        case updatingUsersFailed
     }
 
     private let encoder = JSONEncoder()
@@ -42,6 +45,11 @@ class UserStore {
     private(set) var users: [User] = []
 
     // MARK: - Methods
+
+    /// Load persisted users from disk.
+    func reloadUsers() {
+        users = loadUsers()
+    }
 
     func addUser(withCode code: String, callback: @escaping ((Result<Void, Error>) -> Void)) {
         guard !users.map({ $0.code }).contains(code) else {
@@ -54,12 +62,16 @@ class UserStore {
 
         UNCComedor.shared.getUsers(from: [code]) { [unowned self] result in
             switch result {
-            case let .success(users):
+            case let .success(users) where !users.isEmpty:
                 let user = users.first!
                 self.users.append(user)
                 self.saveUsers()
                 DispatchQueue.main.async {
                     callback(.success(()))
+                }
+            case .success:
+                DispatchQueue.main.async {
+                    callback(.failure(.userNotFound))
                 }
             case let .failure(error):
                 print(error)
@@ -70,7 +82,7 @@ class UserStore {
         }
     }
 
-    func updateUsers(callback: @escaping (() -> Void)) {
+    func updateUsers(callback: @escaping ((Result<Void, Error>) -> Void)) {
         // Get the user codes needed for the user API.
         let userCodes = users.map { $0.code }
 
@@ -80,7 +92,7 @@ class UserStore {
             case let .success(users):
                 guard let users = try? users.matchingOrder(of: self.users) else {
                     DispatchQueue.main.async {
-                        callback()
+                        callback(.failure(.updatedUsersDontMatchExisting))
                     }
                     return
                 }
@@ -89,12 +101,12 @@ class UserStore {
                 self.saveUsers()
 
                 DispatchQueue.main.async {
-                    callback()
+                    callback(.success(()))
                 }
-            case let .failure(error):
+            case .failure:
                 // TODO: handle error
                 DispatchQueue.main.async {
-                    callback()
+                    callback(.failure(.updatingUsersFailed))
                 }
             }
         }

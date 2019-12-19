@@ -11,6 +11,10 @@ import UIKit
 
 class UserTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
@@ -18,7 +22,7 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
 
         navigationItem.title = "balance.nav.label".localized()
         navigationController!.navigationBar.prefersLargeTitles = true
-        
+
         setupNavigationBarButtons()
         
         // Update all data.
@@ -26,12 +30,24 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
         
         // Allow updating data.
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        
+        refreshControl!.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+
         // Cell setup.
-        tableView.estimatedRowHeight = 65
+        tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
+
+        // Listen to notifications.
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+
+    @objc private func applicationWillEnterForeground() {
+        UserStore.shared.reloadUsers()
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     private func setupNavigationBarButtons() {
@@ -93,9 +109,11 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
     }
 
     private func addUserViaPhoto() {
-        let imagePickerController = PhotoBarcodeScannerViewController()
-        imagePickerController.barcodeHandler = self
-        present(imagePickerController, animated: true)
+        if PhotoBarcodeScannerViewController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePickerController = PhotoBarcodeScannerViewController()
+            imagePickerController.barcodeHandler = self
+            present(imagePickerController, animated: true)
+        }
     }
 
     private func addUserViaText() {
@@ -134,13 +152,22 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
             case .success:
                 self.tableView.reloadData()
             case let .failure(error):
-                print(error)
+                switch error {
+                case .userNotFound:
+                    let alert = UIAlertController(title: "user.not.found.title".localized(),
+                                                  message: "user.not.found.message".localized(),
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "ok".localized(), style: .default))
+                    self.present(alert, animated: true)
+                default:
+                    break
+                }
             }
         }
     }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
-        UserStore.shared.updateUsers { [unowned self] in
+        UserStore.shared.updateUsers { [unowned self] _ in
             self.tableView.reloadData()
             refreshControl?.endRefreshing()
         }

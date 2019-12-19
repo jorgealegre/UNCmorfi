@@ -25,6 +25,7 @@ class PhotoBarcodeScannerViewController: UIImagePickerController, UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        sourceType = .photoLibrary
         delegate = self
     }
 

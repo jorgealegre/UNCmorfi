@@ -35,6 +35,8 @@
 "balance.add.user.text.title" = "Agregar una persona nueva";
 "balance.add.user.text.description" = "Escriba el código de barras…";
 "balance.add.user.text.confirm" = "Agregar";
+"user.not.found.title" = "Usuario no existe";
+"user.not.found.message" = "No existe ningún usuario que coincida con el código ingresado.";
 
 // # Information
 "development" = "Desarrollo";

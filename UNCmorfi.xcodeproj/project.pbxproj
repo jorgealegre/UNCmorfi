@@ -26,6 +26,11 @@
 		5E69570A1F660E5500713CDA /* CounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6957091F660E5500713CDA /* CounterViewController.swift */; };
 		5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E69570B1F660EA300713CDA /* InfoViewController.swift */; };
 		5E6FAF591F94614A00FFBC12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E6FAF581F94614A00FFBC12 /* Assets.xcassets */; };
+		5E768BC323AB115E00E56C87 /* UIView+addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BC223AB115E00E56C87 /* UIView+addSubviews.swift */; };
+		5E768BC423AB115E00E56C87 /* UIView+addSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BC223AB115E00E56C87 /* UIView+addSubviews.swift */; };
+		5E768BC623AB11DE00E56C87 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BC523AB11DE00E56C87 /* UserCell.swift */; };
+		5E768BCB23AB356600E56C87 /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BCA23AB356600E56C87 /* LoadingImageView.swift */; };
+		5E768BCC23AB356600E56C87 /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BCA23AB356600E56C87 /* LoadingImageView.swift */; };
 		5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C11C1F05114F00B0813F /* MapViewController.swift */; };
 		5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C11E1F05123900B0813F /* MapKit.framework */; };
 		5E9679521F533B1C0059F754 /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9679511F533B1C0059F754 /* Comedor.swift */; };
@@ -102,6 +107,9 @@
 		5E6957091F660E5500713CDA /* CounterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterViewController.swift; sourceTree = "<group>"; };
 		5E69570B1F660EA300713CDA /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		5E6FAF581F94614A00FFBC12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5E768BC223AB115E00E56C87 /* UIView+addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviews.swift"; sourceTree = "<group>"; };
+		5E768BC523AB11DE00E56C87 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		5E768BCA23AB356600E56C87 /* LoadingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImageView.swift; sourceTree = "<group>"; };
 		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comedor.swift; sourceTree = "<group>"; };
@@ -176,6 +184,7 @@
 				5EF2A7511F7E635200742BFB /* CounterView.swift */,
 				5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */,
 				5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */,
+				5E768BCA23AB356600E56C87 /* LoadingImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +208,7 @@
 			children = (
 				5EE4342223791873002E895A /* UIFont+preferredFont.swift */,
 				5ED9714D237BCC6700793943 /* String+localized.swift */,
+				5E768BC223AB115E00E56C87 /* UIView+addSubviews.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +301,7 @@
 				5E46FADA237BDA270098FB16 /* UNCMORFI.entitlements */,
 				5ED97157237BD0EF00793943 /* TodayViewController.swift */,
 				5ED9715C237BD0EF00793943 /* Info.plist */,
+				5E768BC523AB11DE00E56C87 /* UserCell.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -464,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E768BC323AB115E00E56C87 /* UIView+addSubviews.swift in Sources */,
 				5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */,
 				5E69570A1F660E5500713CDA /* CounterViewController.swift in Sources */,
 				5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */,
@@ -478,6 +490,7 @@
 				5ED9714C237BC48200793943 /* PhotoBarcodeScannerViewController.swift in Sources */,
 				5E96795F1F5345FD0059F754 /* TabBarController.swift in Sources */,
 				5EE4343E23792846002E895A /* UserStore.swift in Sources */,
+				5E768BCB23AB356600E56C87 /* LoadingImageView.swift in Sources */,
 				5ECD1FAE1EAF001100508A16 /* UserCell.swift in Sources */,
 				5E5DAEBB212B850A00F0C5C6 /* Menu.swift in Sources */,
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
@@ -502,11 +515,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E768BC623AB11DE00E56C87 /* UserCell.swift in Sources */,
 				5E46FAD0237BD7F30098FB16 /* UserStore.swift in Sources */,
+				5E768BCC23AB356600E56C87 /* LoadingImageView.swift in Sources */,
 				5ED97158237BD0EF00793943 /* TodayViewController.swift in Sources */,
 				5E46FAD4237BD81A0098FB16 /* Servings.swift in Sources */,
 				5E46FAD2237BD80F0098FB16 /* UNCComedor.swift in Sources */,
 				5E46FAD1237BD80B0098FB16 /* User.swift in Sources */,
+				5E768BC423AB115E00E56C87 /* UIView+addSubviews.swift in Sources */,
 				5E46FAD3237BD8160098FB16 /* Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

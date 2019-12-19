@@ -35,6 +35,8 @@
 "balance.add.user.text.title" = "Add a new person";
 "balance.add.user.text.description" = "Type the barcode…";
 "balance.add.user.text.confirm" = "Done";
+"user.not.found.title" = "User not found";
+"user.not.found.message" = "The code provided does not match an existing user.";
 
 // # Information
 "development" = "Development";
