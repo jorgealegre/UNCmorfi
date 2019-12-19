@@ -31,6 +31,8 @@
 		5E768BC623AB11DE00E56C87 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BC523AB11DE00E56C87 /* UserCell.swift */; };
 		5E768BCB23AB356600E56C87 /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BCA23AB356600E56C87 /* LoadingImageView.swift */; };
 		5E768BCC23AB356600E56C87 /* LoadingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BCA23AB356600E56C87 /* LoadingImageView.swift */; };
+		5E768BD423AB5C5A00E56C87 /* UNCmorfiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BD323AB5C5A00E56C87 /* UNCmorfiUITests.swift */; };
+		5E768BDC23AB5C8900E56C87 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E768BDB23AB5C8900E56C87 /* SnapshotHelper.swift */; };
 		5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E80C11C1F05114F00B0813F /* MapViewController.swift */; };
 		5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E80C11E1F05123900B0813F /* MapKit.framework */; };
 		5E9679521F533B1C0059F754 /* Comedor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E9679511F533B1C0059F754 /* Comedor.swift */; };
@@ -58,6 +60,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5E768BD623AB5C5A00E56C87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5EC4CBC71E91F4D900E0BE71 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5EC4CBCE1E91F4DA00E0BE71;
+			remoteInfo = UNCmorfi;
+		};
 		5EC4CBE61E91F4DA00E0BE71 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5EC4CBC71E91F4D900E0BE71 /* Project object */;
@@ -110,6 +119,10 @@
 		5E768BC223AB115E00E56C87 /* UIView+addSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+addSubviews.swift"; sourceTree = "<group>"; };
 		5E768BC523AB11DE00E56C87 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		5E768BCA23AB356600E56C87 /* LoadingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingImageView.swift; sourceTree = "<group>"; };
+		5E768BD123AB5C5A00E56C87 /* UNCmorfiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UNCmorfiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E768BD323AB5C5A00E56C87 /* UNCmorfiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNCmorfiUITests.swift; sourceTree = "<group>"; };
+		5E768BD523AB5C5A00E56C87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E768BDB23AB5C8900E56C87 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = UNCmorfiUITests/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		5E80C11C1F05114F00B0813F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5E80C11E1F05123900B0813F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5E9679511F533B1C0059F754 /* Comedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comedor.swift; sourceTree = "<group>"; };
@@ -139,6 +152,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5E768BCE23AB5C5A00E56C87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EC4CBCC1E91F4DA00E0BE71 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +258,16 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		5E768BD223AB5C5A00E56C87 /* UNCmorfiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5E768BDB23AB5C8900E56C87 /* SnapshotHelper.swift */,
+				5E768BD323AB5C5A00E56C87 /* UNCmorfiUITests.swift */,
+				5E768BD523AB5C5A00E56C87 /* Info.plist */,
+			);
+			path = UNCmorfiUITests;
+			sourceTree = "<group>";
+		};
 		5EA6DEEF1EE33C7300D6E750 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +287,7 @@
 				5EC4CBD11E91F4DA00E0BE71 /* UNCmorfi */,
 				5EC4CBE81E91F4DA00E0BE71 /* UNCmorfiTests */,
 				5ED97156237BD0EF00793943 /* Widget */,
+				5E768BD223AB5C5A00E56C87 /* UNCmorfiUITests */,
 				5EC4CBD01E91F4DA00E0BE71 /* Products */,
 				CD922E469514090919B9E750 /* Frameworks */,
 			);
@@ -268,6 +299,7 @@
 				5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */,
 				5EC4CBE51E91F4DA00E0BE71 /* UNCmorfiTests.xctest */,
 				5ED97153237BD0EF00793943 /* UNCMORFI.appex */,
+				5E768BD123AB5C5A00E56C87 /* UNCmorfiUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -318,6 +350,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5E768BD023AB5C5A00E56C87 /* UNCmorfiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5E768BD823AB5C5A00E56C87 /* Build configuration list for PBXNativeTarget "UNCmorfiUITests" */;
+			buildPhases = (
+				5E768BCD23AB5C5A00E56C87 /* Sources */,
+				5E768BCE23AB5C5A00E56C87 /* Frameworks */,
+				5E768BCF23AB5C5A00E56C87 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5E768BD723AB5C5A00E56C87 /* PBXTargetDependency */,
+			);
+			name = UNCmorfiUITests;
+			productName = UNCmorfiUITests;
+			productReference = 5E768BD123AB5C5A00E56C87 /* UNCmorfiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		5EC4CBCE1E91F4DA00E0BE71 /* UNCmorfi */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EC4CBEE1E91F4DA00E0BE71 /* Build configuration list for PBXNativeTarget "UNCmorfi" */;
@@ -389,6 +439,10 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "George Alegre";
 				TargetAttributes = {
+					5E768BD023AB5C5A00E56C87 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = 5EC4CBCE1E91F4DA00E0BE71;
+					};
 					5EC4CBCE1E91F4DA00E0BE71 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = MCQUU65FS6;
@@ -434,12 +488,20 @@
 			targets = (
 				5EC4CBCE1E91F4DA00E0BE71 /* UNCmorfi */,
 				5EC4CBE41E91F4DA00E0BE71 /* UNCmorfiTests */,
+				5E768BD023AB5C5A00E56C87 /* UNCmorfiUITests */,
 				5ED97152237BD0EF00793943 /* Widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5E768BCF23AB5C5A00E56C87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EC4CBCD1E91F4DA00E0BE71 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,6 +533,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5E768BCD23AB5C5A00E56C87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E768BD423AB5C5A00E56C87 /* UNCmorfiUITests.swift in Sources */,
+				5E768BDC23AB5C8900E56C87 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5EC4CBCB1E91F4DA00E0BE71 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -530,6 +601,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5E768BD723AB5C5A00E56C87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5EC4CBCE1E91F4DA00E0BE71 /* UNCmorfi */;
+			targetProxy = 5E768BD623AB5C5A00E56C87 /* PBXContainerItemProxy */;
+		};
 		5EC4CBE71E91F4DA00E0BE71 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5EC4CBCE1E91F4DA00E0BE71 /* UNCmorfi */;
@@ -564,6 +640,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5E768BD923AB5C5A00E56C87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MCQUU65FS6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = UNCmorfiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = UNCmorfi;
+			};
+			name = Debug;
+		};
+		5E768BDA23AB5C5A00E56C87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MCQUU65FS6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = UNCmorfiUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = UNCmorfi;
+			};
+			name = Release;
+		};
 		5EC4CBEC1E91F4DA00E0BE71 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -780,6 +907,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.0.2;
 				DEVELOPMENT_TEAM = MCQUU65FS6;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -789,6 +917,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi.Widget;
@@ -809,6 +938,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.0.2;
 				DEVELOPMENT_TEAM = MCQUU65FS6;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = Widget/Info.plist;
@@ -818,6 +948,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.2.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi.Widget;
 				PRODUCT_NAME = UNCMORFI;
@@ -830,6 +961,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5E768BD823AB5C5A00E56C87 /* Build configuration list for PBXNativeTarget "UNCmorfiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E768BD923AB5C5A00E56C87 /* Debug */,
+				5E768BDA23AB5C5A00E56C87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		5EC4CBCA1E91F4DA00E0BE71 /* Build configuration list for PBXProject "UNCmorfi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
