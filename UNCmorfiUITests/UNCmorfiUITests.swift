@@ -41,10 +41,4 @@ class UNCmorfiUITests: XCTestCase {
 
         snapshot("locations")
     }
-
-    func testInformation() {
-        XCUIApplication().tabBars.buttons["info"].tap()
-
-        snapshot("information")
-    }
 }

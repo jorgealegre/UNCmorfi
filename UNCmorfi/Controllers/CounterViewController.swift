@@ -47,8 +47,15 @@ class CounterViewController: UIViewController {
         super.viewDidLoad()
 
         setupUI()
-        updateServings()
-        prepareTimer()
+
+        if UserDefaults.standard.bool(forKey: "FASTLANE_SNAPSHOT") {
+            counterView.currentValue = 1342
+            progressLabel.text = "1342"
+            progressLabel.alpha = 1
+        } else {
+            updateServings()
+            prepareTimer()
+        }
     }
 
     private func setupUI() {

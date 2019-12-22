@@ -2,13 +2,15 @@
 
 # A list of devices you want to take the screenshots from
  devices([
-   "iPhone 11 Pro Max",
+   "iPhone 11 Pro Max"
  ])
 
  languages([
    "en-US",
    "es-AR",
  ])
+
+dark_mode(true)
 
 # The name of the scheme which contains the UI Tests
 # scheme("SchemeName")
