@@ -1,24 +1,18 @@
 //
-//  CouterViewController.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 9/10/17.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
+import TinyConstraints
 
 class CounterViewController: UIViewController {
 
     // MARK: - Views
 
     private let counterView = CounterView(frame: .zero)
-    
+
     private let progressLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(34)
         label.alpha = 0
         return label
     }()
@@ -40,6 +34,7 @@ class CounterViewController: UIViewController {
                     self.progressLabel.alpha = 1
                 }
             }
+
             progressLabel.text = String(currentCount)
         }
     }
@@ -51,6 +46,30 @@ class CounterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupUI()
+
+        if UserDefaults.standard.bool(forKey: "FASTLANE_SNAPSHOT") {
+            counterView.currentValue = 1342
+            progressLabel.text = "1342"
+            progressLabel.alpha = 1
+        } else {
+            updateServings()
+            prepareTimer()
+        }
+    }
+
+    private func setupUI() {
+        // Hierarchy
+        view.addSubviews(counterView, progressLabel)
+
+        // Layout
+        counterView.widthToSuperview(multiplier: 0.8)
+        counterView.heightToWidth(of: counterView)
+        counterView.centerInSuperview()
+        progressLabel.centerInSuperview()
+
+        // Configuration
+        setProgressLabelFont()
         if #available(iOS 13.0, *) {
             view.backgroundColor = .systemBackground
         } else {
@@ -58,23 +77,6 @@ class CounterViewController: UIViewController {
         }
         navigationItem.title = "counter.nav.label".localized()
         navigationController!.navigationBar.prefersLargeTitles = true
-
-        setupCounter()
-        updateServings()
-        prepareTimer()
-        setupLabel()
-    }
-
-    private func setupCounter() {
-        // Add counter view and layout
-        view.addSubview(counterView)
-
-        NSLayoutConstraint.activate([
-            counterView.widthAnchor.constraint(equalToConstant: 260),
-            counterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            counterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            counterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            ])
 
         counterView.startAnimating()
     }
@@ -98,12 +100,22 @@ class CounterViewController: UIViewController {
         }
     }
 
-    private func setupLabel() {
-        view.addSubview(progressLabel)
+    // MARK: - Environment changes
 
-        NSLayoutConstraint.activate([
-            progressLabel.centerXAnchor.constraint(equalTo: counterView.centerXAnchor),
-            progressLabel.centerYAnchor.constraint(equalTo: counterView.centerYAnchor),
-            ])
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        // For some reason, the label's font size doesn't update automatically.
+        // We have to get the new size once the trait collection changed.
+        setProgressLabelFont()
+    }
+
+    private func setProgressLabelFont() {
+        let fontSize = UIFont.preferredFont(forTextStyle: .title1).pointSize
+        if #available(iOS 12.0, *) {
+            progressLabel.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .bold)
+        } else {
+            progressLabel.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .bold)
+        }
     }
 }

@@ -1,20 +1,16 @@
 //
-//  UserTableViewCell.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 4/25/17.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
+import TinyConstraints
 import AlamofireImage
 
 class UserCell: UITableViewCell {
 
     // MARK: - Properties
 
-    static let reuseIdentifier = "UserCell"
+    static let reuseID = "UserCell"
 
     private enum Constants {
         static let balanceFormatter: NumberFormatter = {
@@ -26,19 +22,16 @@ class UserCell: UITableViewCell {
             return formatter
         }()
 
-        static let photoImageViewHeight: CGFloat = 50
+        static let photoImageViewWidth: CGFloat = 50
     }
 
     // MARK: - Subviews
 
     private let photoImageView: LoadingImageView = {
         let imageView = LoadingImageView(image: nil)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        let widthConstraint = imageView.widthAnchor.constraint(equalToConstant: Constants.photoImageViewHeight)
-        widthConstraint.priority = .required - 1
-        widthConstraint.isActive = true
-        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
-        imageView.layer.cornerRadius = Constants.photoImageViewHeight / 2
+        imageView.width(Constants.photoImageViewWidth, priority: .required - 1)
+        imageView.heightToWidth(of: imageView)
+        imageView.layer.cornerRadius = Constants.photoImageViewWidth / 2
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -46,7 +39,6 @@ class UserCell: UITableViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title2)
         label.adjustsFontForContentSizeCategory = true
         return label
@@ -54,16 +46,24 @@ class UserCell: UITableViewCell {
     
     private let barcodeLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+        if #available(iOS 12.0, *) {
+            label.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+        } else {
+            label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular)
+        }
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
     private let balanceLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(for: .headline, weight: .bold)
+        let fontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize
+        if #available(iOS 12.0, *) {
+            label.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .bold)
+        } else {
+            label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .bold)
+        }
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -72,30 +72,24 @@ class UserCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        
-        selectionStyle = .none
-        
-        let margin = contentView.layoutMarginsGuide
-        
+
+        // Hierarchy
         contentView.addSubviews(nameLabel, barcodeLabel, balanceLabel, photoImageView)
-        
-        NSLayoutConstraint.activate([
-            photoImageView.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
-            photoImageView.topAnchor.constraint(equalTo: margin.topAnchor),
-            photoImageView.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
 
-            nameLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 5),
+        // Layout
+        let margin = contentView.layoutMarginsGuide
+        photoImageView.edges(to: margin, excluding: .right)
+        nameLabel.leadingToTrailing(of: photoImageView, offset: 10)
+        nameLabel.trailing(to: margin)
+        nameLabel.top(to: margin)
+        barcodeLabel.leading(to: nameLabel)
+        barcodeLabel.topToBottom(of: nameLabel, relation: .equalOrGreater)
+        barcodeLabel.bottom(to: margin)
+        balanceLabel.trailing(to: margin)
+        balanceLabel.bottom(to: margin)
 
-            nameLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
-            nameLabel.topAnchor.constraint(equalTo: margin.topAnchor),
-
-            barcodeLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            barcodeLabel.topAnchor.constraint(greaterThanOrEqualTo: nameLabel.bottomAnchor),
-            barcodeLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
-
-            balanceLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
-            balanceLabel.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
-        ])
+        // Configuration
+        selectionStyle = .none
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -1,5 +1,5 @@
 //
-// Copyright © 2018 George Alegre. All rights reserved.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import Foundation

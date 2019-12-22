@@ -1,9 +1,5 @@
 //
-//  UNCmorfiUITests.swift
-//  UNCmorfiUITests
-//
-//  Created by George Alegre on 19/12/2019.
-//  Copyright © 2019 George Alegre. All rights reserved.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import XCTest
@@ -44,11 +40,5 @@ class UNCmorfiUITests: XCTestCase {
         XCUIApplication().tabBars.buttons["map"].tap()
 
         snapshot("locations")
-    }
-
-    func testInformation() {
-        XCUIApplication().tabBars.buttons["info"].tap()
-
-        snapshot("information")
     }
 }

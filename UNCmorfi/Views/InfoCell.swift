@@ -1,13 +1,9 @@
 //
-//  InfoCell.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 09/10/2017.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
+import TinyConstraints
 
 class InfoCell: UITableViewCell {
 
@@ -21,33 +17,34 @@ class InfoCell: UITableViewCell {
     /// strings and hyperlinks. This also allows the text to be highlightable.
     private let textView: UITextView = {
         let view = UITextView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.isEditable = false
         view.isScrollEnabled = false
         view.dataDetectorTypes = .link
         view.isUserInteractionEnabled = true
-        view.font = .preferredFont(forTextStyle: .body)
         view.adjustsFontForContentSizeCategory = true
         return view
     }()
 
+    // MARK: - Initializers
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .none
 
-        let margin = contentView.layoutMarginsGuide
-        contentView.addSubview(textView)
-        NSLayoutConstraint.activate([
-            textView.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
-            textView.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
-            textView.topAnchor.constraint(equalTo: margin.topAnchor),
-            textView.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
-            ])
+        // Hierarchy
+        contentView.addSubviews(textView)
+
+        // Layout
+        textView.edges(to: contentView.layoutMarginsGuide)
+
+        // Configuration
+        selectionStyle = .none
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Methods
 
     func configureFor(info: Information) {
         let string = info.rawValue.appending(".body").localized()
@@ -80,6 +77,10 @@ class InfoCell: UITableViewCell {
                 attributedString.append(string)
             }
         }
+
+        let font = UIFont.preferredFont(forTextStyle: .body)
+        attributedString.addAttribute(.font, value: font,
+                                      range: NSRange(location: 0, length: attributedString.string.count))
 
         textView.attributedText = attributedString
     }

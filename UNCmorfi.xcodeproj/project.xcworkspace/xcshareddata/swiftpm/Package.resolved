@@ -27,6 +27,15 @@
           "revision": "51f059d794d1435a02c0ec6212a930243e1e40e0",
           "version": "1.8.2"
         }
+      },
+      {
+        "package": "TinyConstraints",
+        "repositoryURL": "https://github.com/roberthein/TinyConstraints",
+        "state": {
+          "branch": null,
+          "revision": "f413ea53b886de81b925eeb37a14538fe6ae4912",
+          "version": "4.0.1"
+        }
       }
     ]
   },

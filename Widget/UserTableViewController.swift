@@ -1,32 +1,25 @@
 //
-//  TodayViewController.swift
-//  Widget
-//
-//  Created by George Alegre on 13/11/2019.
-//  Copyright © 2019 George Alegre. All rights reserved.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
 import NotificationCenter
-import Alamofire
 
-@objc(TodayViewController)
-class TodayViewController: UITableViewController, NCWidgetProviding {
+@objc(UserTableViewController)
+class UserTableViewController: UITableViewController, NCWidgetProviding {
 
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Allow loading images from the server.
-        DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
-
         // Configuration
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
 
         // Table view configuration
         tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseID)
-        tableView.rowHeight = 40
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 40
     }
 
     // MARK: - UITableViewDataSource

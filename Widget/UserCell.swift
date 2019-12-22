@@ -1,33 +1,31 @@
 //
-//  UserCell.swift
-//  Widget
-//
-//  Created by George Alegre on 18/12/2019.
-//  Copyright © 2019 George Alegre. All rights reserved.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
-import AlamofireImage
+import TinyConstraints
 
 class UserCell: UITableViewCell {
 
+    // MARK: - Properties
+
     static let reuseID = "UserCell"
+
+    private enum Constants {
+        static let balanceFormatter: NumberFormatter = {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.currencyCode = "ARS"
+            formatter.currencySymbol = "$"
+            formatter.maximumFractionDigits = 0
+            return formatter
+        }()
+    }
 
     // MARK: - Subviews
 
-    private let photoImageView: LoadingImageView = {
-        let imageView = LoadingImageView(image: nil)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
-        imageView.layer.cornerRadius = 7.5
-        imageView.layer.masksToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title3)
         label.adjustsFontForContentSizeCategory = true
         return label
@@ -35,8 +33,12 @@ class UserCell: UITableViewCell {
 
     private let balanceLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
+        if #available(iOS 12.0, *) {
+            label.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .bold)
+        } else {
+            label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .bold)
+        }
         label.adjustsFontForContentSizeCategory = true
         return label
     }()
@@ -46,21 +48,16 @@ class UserCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        selectionStyle = .none
+        // Hierarchy
+        contentView.addSubviews(nameLabel, balanceLabel)
 
+        // Layout
         let margin = contentView.layoutMarginsGuide
+        nameLabel.edges(to: margin, excluding: .right)
+        balanceLabel.edges(to: margin, excluding: .left)
 
-        contentView.addSubviews(nameLabel, balanceLabel, photoImageView)
-
-        NSLayoutConstraint.activate([
-            photoImageView.leadingAnchor.constraint(equalTo: margin.leadingAnchor),
-            photoImageView.topAnchor.constraint(equalTo: margin.topAnchor),
-            photoImageView.bottomAnchor.constraint(equalTo: margin.bottomAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 5),
-            nameLabel.centerYAnchor.constraint(equalTo: margin.centerYAnchor),
-            balanceLabel.trailingAnchor.constraint(equalTo: margin.trailingAnchor),
-            balanceLabel.centerYAnchor.constraint(equalTo: margin.centerYAnchor)
-        ])
+        // Configuration
+        selectionStyle = .none
     }
 
     required init?(coder: NSCoder) {
@@ -70,14 +67,7 @@ class UserCell: UITableViewCell {
     // MARK: - Methods
 
     func configureFor(user: User) {
-        balanceLabel.text = "$\(user.balance)"
+        balanceLabel.text = Constants.balanceFormatter.string(from: user.balance as NSNumber)
         nameLabel.text = user.name
-
-        if let imageURL = user.imageURL {
-            photoImageView.isLoading = true
-            photoImageView.af_setImage(withURL: imageURL) { [weak self] _ in
-                self?.photoImageView.isLoading = false
-            }
-        }
     }
 }

@@ -1,10 +1,5 @@
 //
-//  MapViewController.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 6/29/17.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
@@ -25,9 +20,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     // MARK: - Properties
     
     private let locationManager = CLLocationManager()
-    
-    private let viewID = "viewID"
-    
+
     // MARK: - View lifecycle
     
     override func loadView() {
@@ -100,14 +93,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is Comedor else { return nil }
         
-        let annotationView: MKPinAnnotationView
-        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: viewID) as? MKPinAnnotationView {
-            annotationView = view
-        } else {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: viewID)
-            annotationView.canShowCallout = true
-            annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
+        let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        annotationView.canShowCallout = true
+        annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         
         return annotationView
     }

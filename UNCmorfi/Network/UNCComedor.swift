@@ -1,27 +1,22 @@
 //
-//  UNCComedor.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 4/23/17.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import Foundation
 
 class UNCComedor {
-
+    
     // MARK: - Singleton
-
+    
     static let shared = UNCComedor()
-
+    
     private init() {
     }
     
     // MARK: - Properties
-
+    
     private let session = URLSession.shared
-
+    
     private let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
@@ -29,9 +24,9 @@ class UNCComedor {
     }()
     
     // MARK: - API endpoints
-
+    
     private static let baseURL = URL(string: "https://uncmorfi.georgealegre.com/")!
-
+    
     // MARK: Helpers
     
     /**
@@ -94,7 +89,7 @@ class UNCComedor {
                 callback(.failure(error))
                 return
             }
-
+            
             callback(.success(users))
         }
         
@@ -106,25 +101,33 @@ class UNCComedor {
             // Check for errors and exit early.
             let customError = self.handleAPIResponse(error: error, res: res)
             guard customError == nil else {
-                callback(.failure(customError!))
+                DispatchQueue.main.async {
+                    callback(.failure(customError!))
+                }
                 return
             }
             
             guard let data = data else {
-                callback(.failure(NSError()))
-                // TODO create my own errors
+                DispatchQueue.main.async {
+                    callback(.failure(NSError()))
+                    // TODO create my own errors
+                }
                 return
             }
-
+            
             let menu: Menu
             do {
                 menu = try self.decoder.decode(Menu.self, from: data)
             } catch {
-                callback(.failure(NSError()))
+                DispatchQueue.main.async {
+                    callback(.failure(NSError()))
+                }
                 return
             }
-
-            callback(.success(menu))
+            
+            DispatchQueue.main.async {
+                callback(.success(menu))
+            }
         }
         
         task.resume()
@@ -153,7 +156,7 @@ class UNCComedor {
                 callback(.failure(NSError()))
                 return
             }
-
+            
             callback(.success(servings))
         }
         

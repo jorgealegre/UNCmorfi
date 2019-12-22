@@ -1,15 +1,10 @@
 //
-//  UserTableViewController.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 4/25/17.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
 
-class UserTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UserTableViewController: UITableViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -27,10 +22,7 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
         navigationController!.navigationBar.prefersLargeTitles = true
 
         setupNavigationBarButtons()
-        
-        // Update all data.
-        refreshData()
-        
+
         // Allow updating data.
         refreshControl = UIRefreshControl()
         refreshControl!.addTarget(self, action: #selector(refreshData), for: .valueChanged)
@@ -38,11 +30,14 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
         // Cell setup.
         tableView.estimatedRowHeight = 70
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
+        tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseID)
 
         // Listen to notifications.
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
+
+        // Update all data.
+        refreshData()
 
         // Check count to request review
         checkForReview()
@@ -71,7 +66,7 @@ class UserTableViewController: UITableViewController, UIImagePickerControllerDel
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier,
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseID,
                                                  for: indexPath) as! UserCell
 
         let user = UserStore.shared.users[indexPath.row]
