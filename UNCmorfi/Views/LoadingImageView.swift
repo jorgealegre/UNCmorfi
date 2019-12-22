@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import TinyConstraints
 
 class LoadingImageView: UIImageView {
 
@@ -15,7 +16,6 @@ class LoadingImageView: UIImageView {
         } else {
             indicator = UIActivityIndicatorView(style: .gray)
         }
-        indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
         return indicator
     }()
@@ -38,14 +38,11 @@ class LoadingImageView: UIImageView {
     override init(image: UIImage?) {
         super.init(image: image)
 
-        translatesAutoresizingMaskIntoConstraints = false
+        // Hierarchy
+        addSubviews(loadingIndicator)
 
-        addSubview(loadingIndicator)
-
-        NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
-            ])
+        // Layout
+        loadingIndicator.centerInSuperview()
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -45,8 +45,6 @@ class PhotoBarcodeScannerViewController: UIImagePickerController, UIImagePickerC
                 return
             }
 
-            print("Detected barcode: \(detectedBarcode)")
-
             self.barcodeHandler?.barcodeDetected(detectedBarcode)
             self.dismiss(animated: true)
         }

@@ -9,13 +9,6 @@ class MenuViewController: UITableViewController {
     // MARK: - Properties
 
     private var menu: [Date: [String]]?
-    
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        dateFormatter.dateFormat = "EEEE d"
-        return dateFormatter
-    }()
 
     // MARK: - Views
 
@@ -38,40 +31,37 @@ class MenuViewController: UITableViewController {
         navigationController!.navigationBar.prefersLargeTitles = true
         
         tableView.backgroundView = activityIndicator
-        activityIndicator.startAnimating()
         tableView.separatorStyle = .none
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
-    
-        UNCComedor.shared.getMenu { apiResult in
-            DispatchQueue.main.async { [unowned self] in
-                self.activityIndicator.stopAnimating()
-                switch apiResult {
-                case .failure(_):
-                    return
-                case .success(let menu):
-                    self.menu = menu.menu
-                    
-                    self.tableView?.reloadData()
-                }
+
+        activityIndicator.startAnimating()
+        UNCComedor.shared.getMenu { [weak self] result in
+            guard let self = self else { return }
+
+            self.activityIndicator.stopAnimating()
+
+            switch result {
+            case let .success(menu):
+                self.menu = menu.menu
+                self.tableView.reloadData()
+            case let .failure(error):
+                print(error)
             }
         }
     }
+
+    // MARK: - UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menu?.keys.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: should move this code to FoodCell
         let cell = tableView.dequeueReusableCell(withIdentifier: FoodCell.reuseIdentifier, for: indexPath) as! FoodCell
         
         let date = menu!.keys.sorted()[indexPath.row]
-        cell.dateLabel.text = dateFormatter.string(from: date)
 
-        menu![date]!.enumerated().forEach{ index, meal in
-            let label = cell.mealsStackView.arrangedSubviews[index] as! UILabel
-            label.text = meal
-        }
+        cell.configure(date: date, meals: menu![date]!)
         
         return cell
     }

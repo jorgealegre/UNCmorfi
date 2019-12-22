@@ -20,13 +20,17 @@ class InfoViewController: UITableViewController {
 
         // Cell setup.
         tableView.register(InfoCell.self, forCellReuseIdentifier: InfoCell.reuseIdentifier)
+        tableView.register(InfoCellHeader.self, forHeaderFooterViewReuseIdentifier: InfoCellHeader.reuseID)
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 150
+        tableView.sectionHeaderHeight = 50
         
         // Remove empty row separators below the table view.
         tableView.tableFooterView = UIView()
     }
+
+    // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return data.count
@@ -37,7 +41,8 @@ class InfoViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = InfoCellHeader()
+        let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: InfoCellHeader.reuseID) as! InfoCellHeader
+
         let info = data[section].datum
         
         view.configureFor(info: info)
@@ -45,10 +50,6 @@ class InfoViewController: UITableViewController {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(headerTapped)))
 
         return view
-    }
-
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,6 +60,8 @@ class InfoViewController: UITableViewController {
 
         return cell
     }
+
+    // MARK: - Actions
 
     @objc private func headerTapped(recognizer: UITapGestureRecognizer) {
         // Toggle the visibility of the cell inside the section.

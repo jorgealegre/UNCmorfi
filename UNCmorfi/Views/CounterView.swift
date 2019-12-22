@@ -14,7 +14,13 @@ class CounterView: UIView, CAAnimationDelegate {
 
     // MARK: - Layers
 
-    private let circlePathLayer = CAShapeLayer()
+    private let circlePathLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.lineWidth = Constants.arcWidth
+        layer.strokeColor = Constants.arcBackgroundColor.cgColor
+        layer.fillColor = nil
+        return layer
+    }()
 
     // MARK: - Properties
 
@@ -78,6 +84,20 @@ class CounterView: UIView, CAAnimationDelegate {
         return animation
     }()
 
+    // MARK: - Initializers
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configure()
+    }
+
+    // MARK: - Lifecycle
+
     /// Overriding this method to get notified whenever my view controller sets up
     /// constraints on me. This way, we can use AutoLayout from the view controller
     /// and have the path update automatically.
@@ -102,13 +122,9 @@ class CounterView: UIView, CAAnimationDelegate {
         circlePathLayer.strokeEnd = 0
     }
 
+    // MARK: - Methods
+
     private func configure() {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        circlePathLayer.lineWidth = Constants.arcWidth
-        circlePathLayer.strokeColor = Constants.arcBackgroundColor.cgColor
-        circlePathLayer.fillColor = nil
-
         layer.addSublayer(circlePathLayer)
     }
 
@@ -148,15 +164,5 @@ class CounterView: UIView, CAAnimationDelegate {
         animation.duration = 0.5
         animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         circlePathLayer.add(animation, forKey: "strokeEnd")
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configure()
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        configure()
     }
 }

@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension FileManager {
+fileprivate extension FileManager {
     func sharedContainerURL() -> URL {
         containerURL(forSecurityApplicationGroupIdentifier: "group.com.georgealegre.UNCmorfi")!
     }

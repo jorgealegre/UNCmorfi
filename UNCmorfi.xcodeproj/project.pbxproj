@@ -17,7 +17,6 @@
 		5E4944652377F35200C1CF3E /* Font Awesome 5 Free-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */; };
 		5E4944662377F35400C1CF3E /* Font Awesome 5 Free-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */; };
 		5E4962321F68AE2300568648 /* FoodCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E4962311F68AE2300568648 /* FoodCell.swift */; };
-		5E4B9981239DF68F0054DEFA /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5E4B9980239DF68F0054DEFA /* AlamofireImage */; };
 		5E5DAEBB212B850A00F0C5C6 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5DAEBA212B850A00F0C5C6 /* Menu.swift */; };
 		5E5DAEBD212B855800F0C5C6 /* Servings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E5DAEBC212B855800F0C5C6 /* Servings.swift */; };
 		5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E60DE0F1ED5C9E400DAA93F /* MenuViewController.swift */; };
@@ -48,14 +47,16 @@
 		5ED9714C237BC48200793943 /* PhotoBarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9714B237BC48200793943 /* PhotoBarcodeScannerViewController.swift */; };
 		5ED9714E237BCC6700793943 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED9714D237BCC6700793943 /* String+localized.swift */; };
 		5ED97155237BD0EF00793943 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ED97154237BD0EF00793943 /* NotificationCenter.framework */; };
-		5ED97158237BD0EF00793943 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED97157237BD0EF00793943 /* TodayViewController.swift */; };
-		5ED9715F237BD0EF00793943 /* UNCMORFI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5ED97153237BD0EF00793943 /* UNCMORFI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5ED97158237BD0EF00793943 /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED97157237BD0EF00793943 /* UserTableViewController.swift */; };
+		5ED9715F237BD0EF00793943 /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5ED97153237BD0EF00793943 /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5EE4342323791873002E895A /* UIFont+preferredFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4342223791873002E895A /* UIFont+preferredFont.swift */; };
 		5EE4343E23792846002E895A /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE4343D23792846002E895A /* UserStore.swift */; };
 		5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */; };
 		5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B91F8CE1B200D18449 /* Information.swift */; };
 		5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */; };
 		5EEC8B8923AF1DEA004C0921 /* BarcodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC8B8823AF1DEA004C0921 /* BarcodeHandler.swift */; };
+		5EEC8B8C23AF23A9004C0921 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 5EEC8B8B23AF23A9004C0921 /* TinyConstraints */; };
+		5EEC8B8E23AF23B8004C0921 /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 5EEC8B8D23AF23B8004C0921 /* TinyConstraints */; };
 		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +84,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5ED9715F237BD0EF00793943 /* UNCMORFI.appex in Embed App Extensions */,
+				5ED9715F237BD0EF00793943 /* Widget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,7 +94,7 @@
 /* Begin PBXFileReference section */
 		5E2B93D91EAD6B4E00C9E6FC /* UNCComedor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCComedor.swift; sourceTree = "<group>"; };
 		5E46FAD9237BD9F90098FB16 /* UNCmorfi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UNCmorfi.entitlements; sourceTree = "<group>"; };
-		5E46FADA237BDA270098FB16 /* UNCMORFI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UNCMORFI.entitlements; sourceTree = "<group>"; };
+		5E46FADA237BDA270098FB16 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
 		5E4944612377F32A00C1CF3E /* Font Awesome 5 Free-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Regular-400.otf"; sourceTree = "<group>"; };
 		5E4944622377F32A00C1CF3E /* Font Awesome 5 Free-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Free-Solid-900.otf"; sourceTree = "<group>"; };
 		5E4944632377F32B00C1CF3E /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
@@ -129,9 +130,9 @@
 		5ECE14DC1F6F001C0093E84E /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5ED9714B237BC48200793943 /* PhotoBarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		5ED9714D237BCC6700793943 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
-		5ED97153237BD0EF00793943 /* UNCMORFI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = UNCMORFI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5ED97153237BD0EF00793943 /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ED97154237BD0EF00793943 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		5ED97157237BD0EF00793943 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		5ED97157237BD0EF00793943 /* UserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		5ED9715C237BD0EF00793943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5EE4342223791873002E895A /* UIFont+preferredFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+preferredFont.swift"; sourceTree = "<group>"; };
 		5EE4343D23792846002E895A /* UserStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 				5E80C11F1F05123900B0813F /* MapKit.framework in Frameworks */,
 				5EB70AB32377E75D003C51A5 /* FontAwesome in Frameworks */,
 				5ED23596237A62310099CD71 /* AlamofireImage in Frameworks */,
+				5EEC8B8C23AF23A9004C0921 /* TinyConstraints in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +167,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ED97155237BD0EF00793943 /* NotificationCenter.framework in Frameworks */,
-				5E4B9981239DF68F0054DEFA /* AlamofireImage in Frameworks */,
+				5EEC8B8E23AF23B8004C0921 /* TinyConstraints in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,7 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */,
-				5ED97153237BD0EF00793943 /* UNCMORFI.appex */,
+				5ED97153237BD0EF00793943 /* Widget.appex */,
 				5E768BD123AB5C5A00E56C87 /* UNCmorfiUITests.xctest */,
 			);
 			name = Products;
@@ -304,8 +306,8 @@
 		5ED97156237BD0EF00793943 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
-				5E46FADA237BDA270098FB16 /* UNCMORFI.entitlements */,
-				5ED97157237BD0EF00793943 /* TodayViewController.swift */,
+				5E46FADA237BDA270098FB16 /* Widget.entitlements */,
+				5ED97157237BD0EF00793943 /* UserTableViewController.swift */,
 				5ED9715C237BD0EF00793943 /* Info.plist */,
 				5E768BC523AB11DE00E56C87 /* UserCell.swift */,
 			);
@@ -368,6 +370,7 @@
 			packageProductDependencies = (
 				5EB70AB22377E75D003C51A5 /* FontAwesome */,
 				5ED23595237A62310099CD71 /* AlamofireImage */,
+				5EEC8B8B23AF23A9004C0921 /* TinyConstraints */,
 			);
 			productName = UNCmorfi;
 			productReference = 5EC4CBCF1E91F4DA00E0BE71 /* UNCmorfi.app */;
@@ -387,10 +390,10 @@
 			);
 			name = Widget;
 			packageProductDependencies = (
-				5E4B9980239DF68F0054DEFA /* AlamofireImage */,
+				5EEC8B8D23AF23B8004C0921 /* TinyConstraints */,
 			);
 			productName = Widget;
-			productReference = 5ED97153237BD0EF00793943 /* UNCMORFI.appex */;
+			productReference = 5ED97153237BD0EF00793943 /* Widget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -439,6 +442,7 @@
 			packageReferences = (
 				5EB70AB12377E75D003C51A5 /* XCRemoteSwiftPackageReference "FontAwesome" */,
 				5ED23594237A62310099CD71 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				5EEC8B8A23AF23A9004C0921 /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 			);
 			productRefGroup = 5EC4CBD01E91F4DA00E0BE71 /* Products */;
 			projectDirPath = "";
@@ -532,7 +536,7 @@
 				5E768BC623AB11DE00E56C87 /* UserCell.swift in Sources */,
 				5E46FAD0237BD7F30098FB16 /* UserStore.swift in Sources */,
 				5E768BCC23AB356600E56C87 /* LoadingImageView.swift in Sources */,
-				5ED97158237BD0EF00793943 /* TodayViewController.swift in Sources */,
+				5ED97158237BD0EF00793943 /* UserTableViewController.swift in Sources */,
 				5E46FAD4237BD81A0098FB16 /* Servings.swift in Sources */,
 				5E46FAD2237BD80F0098FB16 /* UNCComedor.swift in Sources */,
 				5E46FAD1237BD80B0098FB16 /* User.swift in Sources */,
@@ -803,7 +807,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = Widget/UNCMORFI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -821,7 +825,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi.Widget;
-				PRODUCT_NAME = UNCMORFI;
+				PRODUCT_NAME = Widget;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -834,7 +838,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = Widget/UNCMORFI.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widget/Widget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -851,7 +855,7 @@
 				MARKETING_VERSION = 1.2.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi.Widget;
-				PRODUCT_NAME = UNCMORFI;
+				PRODUCT_NAME = Widget;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -916,14 +920,17 @@
 				minimumVersion = 3.6.0;
 			};
 		};
+		5EEC8B8A23AF23A9004C0921 /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roberthein/TinyConstraints";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5E4B9980239DF68F0054DEFA /* AlamofireImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5ED23594237A62310099CD71 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
-			productName = AlamofireImage;
-		};
 		5EB70AB22377E75D003C51A5 /* FontAwesome */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5EB70AB12377E75D003C51A5 /* XCRemoteSwiftPackageReference "FontAwesome" */;
@@ -933,6 +940,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5ED23594237A62310099CD71 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
+		};
+		5EEC8B8B23AF23A9004C0921 /* TinyConstraints */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5EEC8B8A23AF23A9004C0921 /* XCRemoteSwiftPackageReference "TinyConstraints" */;
+			productName = TinyConstraints;
+		};
+		5EEC8B8D23AF23B8004C0921 /* TinyConstraints */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5EEC8B8A23AF23A9004C0921 /* XCRemoteSwiftPackageReference "TinyConstraints" */;
+			productName = TinyConstraints;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -5,12 +5,12 @@
 import Foundation
 
 class User: Codable {
-    var name: String
+    let name: String
     let code: String
-    var balance: Int
-    var imageCode: String
-    var imageURL: URL?
-    var expirationDate: Date
+    let balance: Int
+    let imageURL: URL?
+    let expirationDate: Date
+    let type: String
 }
 
 extension User: Equatable {
