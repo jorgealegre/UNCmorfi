@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class UserTableViewController: UITableViewController {
 
