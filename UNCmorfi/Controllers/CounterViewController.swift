@@ -10,8 +10,10 @@
 import UIKit
 
 class CounterViewController: UIViewController {
-    // MARK: Views
-    private let counterView = CounterView(frame: CGRect.zero)
+
+    // MARK: - Views
+
+    private let counterView = CounterView(frame: .zero)
     
     private let progressLabel: UILabel = {
         let label = UILabel()
@@ -21,15 +23,14 @@ class CounterViewController: UIViewController {
         return label
     }()
 
-    // MARK: Properties
+    // MARK: - Properties
+
     private var servings: [Date: Int]? = nil {
         didSet {
             guard let servings = servings else { return }
 
             // Calculate the current count based on the model.
-            let currentCount = servings.keys.sorted().reduce(0) { (count, date) -> Int in
-                return count + servings[date]!
-            }
+            let currentCount = servings.values.reduce(0, +)
             
             // Update UI.
             counterView.currentValue = currentCount
@@ -45,15 +46,18 @@ class CounterViewController: UIViewController {
 
     private var timer: Timer!
 
-    // MARK: Lifecycle
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
-        navigationItem.title = "counter.nav.label".localized()
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
+        if #available(iOS 13.0, *) {
+            view.backgroundColor = .systemBackground
+        } else {
+            view.backgroundColor = .white
         }
+        navigationItem.title = "counter.nav.label".localized()
+        navigationController!.navigationBar.prefersLargeTitles = true
 
         setupCounter()
         updateServings()
@@ -68,15 +72,15 @@ class CounterViewController: UIViewController {
         NSLayoutConstraint.activate([
             counterView.widthAnchor.constraint(equalToConstant: 260),
             counterView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            counterView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            counterView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor),
+            counterView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            counterView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
 
         counterView.startAnimating()
     }
 
     private func updateServings() {
-        UNCComedor.api.getServings { result in
+        UNCComedor.shared.getServings { result in
             switch result {
             case .failure(_):
                 return
@@ -89,7 +93,9 @@ class CounterViewController: UIViewController {
     }
 
     private func prepareTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in self.updateServings() }
+        timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+            self?.updateServings()
+        }
     }
 
     private func setupLabel() {

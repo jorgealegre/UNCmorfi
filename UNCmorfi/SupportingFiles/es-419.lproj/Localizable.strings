@@ -35,6 +35,8 @@
 "balance.add.user.text.title" = "Agregar una persona nueva";
 "balance.add.user.text.description" = "Escriba el código de barras…";
 "balance.add.user.text.confirm" = "Agregar";
+"user.not.found.title" = "Usuario no existe";
+"user.not.found.message" = "No existe ningún usuario que coincida con el código ingresado.";
 
 // # Information
 "development" = "Desarrollo";
@@ -42,9 +44,6 @@
 
 "design" = "Diseño";
 "design.body" = "Gracias a |[Julieta Wiesztort](mailto:juli.nana.07@gmail.com)|, esta aplicación tiene un hermoso ícono.";
-//"design.body" = "La app es diseñada por Nicolas Bacile.
-//Es un estudiante de diseño gráfico apasionado con crear arte digital. Además, tiene extensa experiencia creando y diseñando interfaces de usuario.
-//Uno se puede dar una idea de su calidad visitando su |[perfil en Behance](https://www.behance.net/nicobacile)|.";
 
 "balance.menu.servings.source" = "Fuentes de datos";
 "balance.menu.servings.source.body" = "Obtenemos todos los datos de servidores administrados por la UNC. Nosotros no controlamos la fuente de los datos.";
@@ -62,3 +61,10 @@ Ambos permisos son completamente opcionales y pueden ser deshabilitados desde |[
 
 "android" = "Versión en Android";
 "android.body" = "La versión en Android de esta app (detalles en la sección de Desarrollo) se llama igual que esta, UNCmorfi. La podes encontrar buscando en el Play Store. También puedes ver el |[código fuente](https://github.com/AIDEA775/UNCmorfi)|.";
+
+"noBarcodeDetected" = "No se detectó un código de barra en la imagen seleccionada. Intente de nuevo o elija otra imagen.";
+"ok" = "OK";
+"error" = "Error";
+"manual" = "Manual";
+"camera" = "Cámara";
+"photo" = "Foto";

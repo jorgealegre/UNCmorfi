@@ -13,7 +13,8 @@ class InfoCellHeader: UIView {
     let label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = label.font.withSize(20)
+        label.font = .preferredFont(forTextStyle: .title2)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
 
@@ -32,8 +33,6 @@ class InfoCellHeader: UIView {
     }
 
     private func configure() {
-        backgroundColor = .white
-
         addSubview(label)
         NSLayoutConstraint.activate([
             label.heightAnchor.constraint(equalTo: layoutMarginsGuide.heightAnchor),

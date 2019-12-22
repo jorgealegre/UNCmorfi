@@ -7,7 +7,7 @@
 //  LICENSE is at the root of this project's repository.
 //
 
-enum Information: String {
+enum Information: String, CaseIterable {
     case development = "development"
     case design = "design"
     case balanceMenuServingsSource = "balance.menu.servings.source"
