@@ -55,6 +55,7 @@
 		5EE8D7B81F8C440300D18449 /* InfoCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */; };
 		5EE8D7BA1F8CE1B200D18449 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EE8D7B91F8CE1B200D18449 /* Information.swift */; };
 		5EEC7EBB1F8C367A00A5CAE1 /* InfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */; };
+		5EEC8B8923AF1DEA004C0921 /* BarcodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EEC8B8823AF1DEA004C0921 /* BarcodeHandler.swift */; };
 		5EF2A7521F7E635200742BFB /* CounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF2A7511F7E635200742BFB /* CounterView.swift */; };
 /* End PBXBuildFile section */
 
@@ -137,6 +138,7 @@
 		5EE8D7B71F8C440300D18449 /* InfoCellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCellHeader.swift; sourceTree = "<group>"; };
 		5EE8D7B91F8CE1B200D18449 /* Information.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		5EEC7EBA1F8C367A00A5CAE1 /* InfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCell.swift; sourceTree = "<group>"; };
+		5EEC8B8823AF1DEA004C0921 /* BarcodeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeHandler.swift; sourceTree = "<group>"; };
 		5EF2A7511F7E635200742BFB /* CounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -287,6 +289,7 @@
 		5EC4CBD11E91F4DA00E0BE71 /* UNCmorfi */ = {
 			isa = PBXGroup;
 			children = (
+				5EEC8B8723AF1DD2004C0921 /* Protocols */,
 				5E46FAD9237BD9F90098FB16 /* UNCmorfi.entitlements */,
 				5E45C98B1F7DBBC400FA35A2 /* Extensions */,
 				5EA6DEEF1EE33C7300D6E750 /* Models */,
@@ -307,6 +310,14 @@
 				5E768BC523AB11DE00E56C87 /* UserCell.swift */,
 			);
 			path = Widget;
+			sourceTree = "<group>";
+		};
+		5EEC8B8723AF1DD2004C0921 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5EEC8B8823AF1DEA004C0921 /* BarcodeHandler.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		CD922E469514090919B9E750 /* Frameworks */ = {
@@ -506,6 +517,7 @@
 				5ECD1FB01EAF025100508A16 /* UserTableViewController.swift in Sources */,
 				5E2B93DA1EAD6B4E00C9E6FC /* UNCComedor.swift in Sources */,
 				5EC11E731ED4E4C10031843E /* CameraBarcodeScannerViewController.swift in Sources */,
+				5EEC8B8923AF1DEA004C0921 /* BarcodeHandler.swift in Sources */,
 				5E60DE101ED5C9E400DAA93F /* MenuViewController.swift in Sources */,
 				5E69570C1F660EA300713CDA /* InfoViewController.swift in Sources */,
 				5E80C11D1F05114F00B0813F /* MapViewController.swift in Sources */,

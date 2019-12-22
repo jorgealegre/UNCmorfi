@@ -1,10 +1,5 @@
 //
-//  InfoCellHeader.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 09/10/2017.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit

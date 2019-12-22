@@ -1,10 +1,5 @@
 //
-//  CounterView.swift
-//  UNCmorfi
-//
-//  Created by George Alegre on 29/09/2017.
-//
-//  LICENSE is at the root of this project's repository.
+// Copyright © 2019 George Alegre. All rights reserved.
 //
 
 import UIKit
