@@ -35,6 +35,8 @@
 "balance.add.user.text.title" = "Add a new person";
 "balance.add.user.text.description" = "Type the barcode…";
 "balance.add.user.text.confirm" = "Done";
+"user.not.found.title" = "User not found";
+"user.not.found.message" = "The code provided does not match an existing user.";
 
 // # Information
 "development" = "Development";
@@ -42,9 +44,6 @@
 
 "design" = "Design";
 "design.body" = "Thanks to |[Julieta Wiesztort](mailto:juli.nana.07@gmail.com)|, this app has a beautiful icon.";
-//"design.body" = "The app is designed by Nicolas Bacile.
-//He's a graphic design student with a lot of experience with mobile application design although his strengths are photo and video editing and 3D design.
-//You can get an idea of his work by viewing his |[Behance profile](https://www.behance.net/nicobacile)|.";
 
 "balance.menu.servings.source" = "Data sources";
 "balance.menu.servings.source.body" = "We get all the information displayed on this app from servers managed by the UNC (National University of Córdoba). We don't control the source of the information.";
@@ -62,3 +61,10 @@ Both permissions are completely optional and can be disabled from the Settings a
 
 "android" = "Android App";
 "android.body" = "The Android version of this app (details in the Development section) is called the same as this app, UNCmorfi. You can search for it in the Google Play Store. You can also view the |[source code](https://github.com/AIDEA775/UNCmorfi)|.";
+
+"noBarcodeDetected" = "No barcode was found in the selected image. Try again or choose a different image.";
+"ok" = "OK";
+"error" = "Error";
+"manual" = "Manual";
+"camera" = "Camera";
+"photo" = "Photo";

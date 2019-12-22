@@ -8,97 +8,121 @@
 //
 
 import UIKit
-import StoreKit
-import os.log
 
-class UserTableViewController: UITableViewController {
-    // MARK: Properties
-    private var users: [User] = []
-    
+class UserTableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     // MARK: AppRunCount
     private var appRunCount: AppRunCount = AppRunCountImpl()
 
-    // MARK: Setup.
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "balance.nav.label".localized()
-        if #available(iOS 11.0, *) {
-            navigationController!.navigationBar.prefersLargeTitles = true
-        }
-        
+        navigationController!.navigationBar.prefersLargeTitles = true
+
         setupNavigationBarButtons()
-    
-        // Load saved users.
-        if let savedUsers = savedUsers() {
-            users = savedUsers
-        }
         
         // Update all data.
         refreshData()
         
         // Allow updating data.
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
-        
+        refreshControl!.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+
         // Cell setup.
+        tableView.estimatedRowHeight = 70
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.reuseIdentifier)
-        
+
+        // Listen to notifications.
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification, object: nil)
+
         // Check count to request review
         checkForReview()
     }
+
+    @objc private func applicationWillEnterForeground() {
+        UserStore.shared.reloadUsers()
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     
     private func setupNavigationBarButtons() {
-        self.navigationItem.leftBarButtonItem = editButtonItem
-        
-        let addViaCameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(addViaCameraButtonTapped(_:)))
-        let addViaTextButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addViaTextButtonTapped(_:)))
-        self.navigationItem.rightBarButtonItems = [addViaTextButton, addViaCameraButton]
+        navigationItem.leftBarButtonItem = editButtonItem
+
+        let addUserButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
+                                               action: #selector(addUserButtonTapped))
+        navigationItem.rightBarButtonItem = addUserButton
     }
 
-    // MARK: UITableViewDelegate
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 66.5 // 8 for margin, 50 for image, 8 for margin and 0.5 for table separator
-    }
+    // MARK: - UITableViewDataSource
 
-    // MARK: UITableViewDataSource
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        UserStore.shared.users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier, for: indexPath) as? UserCell else {
-            fatalError("The dequeued cell is not an instance of UserCell.")
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseIdentifier,
+                                                 for: indexPath) as! UserCell
 
-        let user = users[indexPath.row]
+        let user = UserStore.shared.users[indexPath.row]
         
         cell.configureFor(user: user)
         
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            users.remove(at: indexPath.row)
+            UserStore.shared.removeUser(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        
-        saveUsers()
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        true
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        let user = users[fromIndexPath.row]
-        users.remove(at: fromIndexPath.row)
-        users.insert(user, at: to.row)
+        UserStore.shared.swapUser(from: fromIndexPath.row, to: to.row)
     }
-    
-    // MARK: Actions
-    @objc private func addViaTextButtonTapped(_ sender: UIBarButtonItem) {
+
+    // MARK: - Actions
+
+    @objc private func addUserButtonTapped() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "manual".localized(), style: .default, handler: { _ in
+            self.addUserViaText()
+        }))
+        alertController.addAction(UIAlertAction(title: "camera".localized(), style: .default, handler: { _ in
+            self.addUserViaCamera()
+        }))
+        alertController.addAction(UIAlertAction(title: "photo".localized(), style: .default, handler: { _ in
+            self.addUserViaPhoto()
+        }))
+        alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
+        present(alertController, animated: true)
+    }
+
+    private func addUserViaPhoto() {
+        if PhotoBarcodeScannerViewController.isSourceTypeAvailable(.photoLibrary) {
+            let imagePickerController = PhotoBarcodeScannerViewController()
+            imagePickerController.barcodeHandler = self
+            present(imagePickerController, animated: true)
+        }
+    }
+
+    private func addUserViaText() {
         let ac = UIAlertController(title: "balance.add.user.text.title".localized(),
                                    message: "balance.add.user.text.description".localized(),
                                    preferredStyle: .alert)
@@ -109,78 +133,52 @@ class UserTableViewController: UITableViewController {
             textField.clearButtonMode = .whileEditing
         }
         ac.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
-        ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [unowned self, ac] _ in
+        ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [ac] _ in
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
-            
-            let user = User(fromCode: text)
-            self.add(user: user)
+
+            self.addNewUser(withCode: text)
         })
         present(ac, animated: true)
     }
     
-    @objc private func addViaCameraButtonTapped(_ sender: UIBarButtonItem) {
-        let bsvc = BarcodeScannerViewController()
-        bsvc.delegate = self
-        navigationController?.pushViewController(bsvc, animated: true)
+    private func addUserViaCamera() {
+        let bsvc = CameraBarcodeScannerViewController()
+        let navigationController = UINavigationController(rootViewController: bsvc)
+        bsvc.barcodeHandler = self
+        present(navigationController, animated: true)
     }
     
-    // MARK: Methods
-    func add(user: User) {
-        // Make sure it doesn't already exist.
-        guard !users.contains(user) else {
-            os_log("User already exists.", log: .default, type: .debug)
-            // TODO: Maybe alert the user?
-            return
-        }
-        users.append(user)
-        os_log("User added successfully.", log: .default, type: .debug)
-        
-        // Add a new user.
-        users.update { users in
-            DispatchQueue.main.async { [unowned self] in
-                self.users = users
+    // MARK: - Methods
+
+    private func addNewUser(withCode code: String) {
+        UserStore.shared.addUser(withCode: code) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success:
                 self.tableView.reloadData()
-                self.saveUsers()
+            case let .failure(error):
+                switch error {
+                case .userNotFound:
+                    let alert = UIAlertController(title: "user.not.found.title".localized(),
+                                                  message: "user.not.found.message".localized(),
+                                                  preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "ok".localized(), style: .default))
+                    self.present(alert, animated: true)
+                default:
+                    break
+                }
             }
-        }
-    }
-    
-    private func saveUsers() {
-        let jsonEncoder = JSONEncoder()
-        do {
-            let data = try jsonEncoder.encode(users)
-            try data.write(to: User.ArchiveURL)
-            os_log("Users successfully saved.", log: .default, type: .debug)
-        } catch {
-            os_log("Failed to save users...", log: .default, type: .error)
-            print("Error: \(error).")
-        }
-    }
-    
-    private func savedUsers() -> [User]? {
-        let jsonDecoder = JSONDecoder()
-        do {
-            let data = try Data(contentsOf: User.ArchiveURL)
-            let users = try jsonDecoder.decode([User].self, from: data)
-            return users
-        } catch {
-            os_log("Failed to load users...", log: .default, type: .error)
-            print("Error: \(error).")
-            return nil
         }
     }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
-        users.update { (users) in
-            DispatchQueue.main.async {
-                self.users = users
-                self.saveUsers()
-                self.tableView.reloadData()
-                refreshControl?.endRefreshing()
-            }
+        UserStore.shared.updateUsers { [unowned self] _ in
+            self.tableView.reloadData()
+            refreshControl?.endRefreshing()
         }
     }
-    
+
     private func checkForReview() {
         if (appRunCount.reachedLimit)  {
             if #available(iOS 10.3, *) {
@@ -188,5 +186,11 @@ class UserTableViewController: UITableViewController {
                 appRunCount.reset()
             }
         }
+    }
+}
+
+extension UserTableViewController: BarcodeHandler {
+    func barcodeDetected(_ barcode: String) {
+        addNewUser(withCode: barcode)
     }
 }

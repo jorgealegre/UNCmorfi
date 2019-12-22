@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let appRunCount: AppRunCount = AppRunCountImpl()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
+
         window = UIWindow(frame: UIScreen.main.bounds)
+        window?.tintColor = .systemOrange
         window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
         
