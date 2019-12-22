@@ -24,6 +24,7 @@ class TabBarController: UITabBarController {
             title: "balance.tab.label".localized(),
             image: balanceImage,
             selectedImage: nil)
+        balance.tabBarItem.accessibilityIdentifier = "balance"
         
         let menu = UINavigationController(rootViewController: MenuViewController())
         let menuImage = UIImage.fontAwesomeIcon(name: .utensils, style: .solid, textColor: .black, size: size)
@@ -31,6 +32,7 @@ class TabBarController: UITabBarController {
             title: "menu.tab.label".localized(),
             image: menuImage,
             selectedImage: nil)
+        menu.tabBarItem.accessibilityIdentifier = "menu"
         
         let map = UINavigationController(rootViewController: MapViewController())
         let mapImage = UIImage.fontAwesomeIcon(name: .map, style: .regular, textColor: .black, size: size)
@@ -38,6 +40,7 @@ class TabBarController: UITabBarController {
             title: "map.tab.label".localized(),
             image: mapImage,
             selectedImage: nil)
+        map.tabBarItem.accessibilityIdentifier = "map"
 
         let counter = UINavigationController(rootViewController: CounterViewController())
         let counterImage = UIImage.fontAwesomeIcon(name: .tachometerAlt, style: .solid, textColor: .black, size: size)
@@ -45,6 +48,7 @@ class TabBarController: UITabBarController {
             title: "counter.tab.label".localized(),
             image: counterImage,
             selectedImage: nil)
+        counter.tabBarItem.accessibilityIdentifier = "counter"
 
         let info = UINavigationController(rootViewController: InfoViewController())
         let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, style: .solid, textColor: .black, size: size)
@@ -52,6 +56,7 @@ class TabBarController: UITabBarController {
             title: "info.tab.label".localized(),
             image: infoImage,
             selectedImage: nil)
+        info.tabBarItem.accessibilityIdentifier = "info"
         
         // Add the view controllers to the tab bar controller view controllers.
         viewControllers = [balance, menu, counter, map, info]
