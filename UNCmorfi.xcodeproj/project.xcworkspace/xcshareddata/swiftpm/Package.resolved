@@ -24,8 +24,17 @@
         "repositoryURL": "https://github.com/thii/FontAwesome.swift",
         "state": {
           "branch": null,
-          "revision": "51f059d794d1435a02c0ec6212a930243e1e40e0",
-          "version": "1.8.2"
+          "revision": "36c0e7737e6735d4df37d1453af6571b4b1e8c92",
+          "version": "1.8.3"
+        }
+      },
+      {
+        "package": "ProgressIndicatorView",
+        "repositoryURL": "https://github.com/georgealegre/ProgressIndicatorView",
+        "state": {
+          "branch": null,
+          "revision": "5e041ce5e12de604b811098899dfb3165e6e5036",
+          "version": "1.0.0"
         }
       },
       {

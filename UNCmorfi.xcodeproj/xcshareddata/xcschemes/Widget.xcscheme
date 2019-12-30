@@ -47,9 +47,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5E768BD023AB5C5A00E56C87"
-               BuildableName = "UNCmorfiUITests.xctest"
-               BlueprintName = "UNCmorfiUITests"
+               BlueprintIdentifier = "5E2420A723B990EA00FE06C2"
+               BuildableName = "UNCmorfiKitTests.xctest"
+               BlueprintName = "UNCmorfiKitTests"
+               ReferencedContainer = "container:UNCmorfi.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5E2420C123B9A0C000FE06C2"
+               BuildableName = "UNCmorfiTests.xctest"
+               BlueprintName = "UNCmorfiTests"
                ReferencedContainer = "container:UNCmorfi.xcodeproj">
             </BuildableReference>
          </TestableReference>

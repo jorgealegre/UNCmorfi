@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import UNCmorfiKit
 
 class UserTableViewController: UITableViewController {
 
@@ -38,7 +39,7 @@ class UserTableViewController: UITableViewController {
     }
 
     @objc private func applicationWillEnterForeground() {
-        UserStore.shared.reloadUsers()
+        Services.userStore.reloadUsers()
 
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -56,14 +57,14 @@ class UserTableViewController: UITableViewController {
     // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        UserStore.shared.users.count
+        Services.userStore.users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseID,
                                                  for: indexPath) as! UserCell
 
-        let user = UserStore.shared.users[indexPath.row]
+        let user = Services.userStore.users[indexPath.row]
         
         cell.configureFor(user: user)
         
@@ -73,7 +74,7 @@ class UserTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,
                             forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            UserStore.shared.removeUser(at: indexPath.row)
+            Services.userStore.removeUser(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -83,7 +84,7 @@ class UserTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-        UserStore.shared.swapUser(from: fromIndexPath.row, to: to.row)
+        Services.userStore.swapUser(from: fromIndexPath.row, to: to.row)
     }
     
     // MARK: - Actions
@@ -140,7 +141,7 @@ class UserTableViewController: UITableViewController {
     // MARK: - Methods
 
     private func addNewUser(withCode code: String) {
-        UserStore.shared.addUser(withCode: code) { [weak self] result in
+        Services.userStore.addUser(withCode: code) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
@@ -162,7 +163,7 @@ class UserTableViewController: UITableViewController {
     }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
-        UserStore.shared.updateUsers { [unowned self] _ in
+        Services.userStore.updateUsers { [unowned self] _ in
             self.tableView.reloadData()
             refreshControl?.endRefreshing()
         }

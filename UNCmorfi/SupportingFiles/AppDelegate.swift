@@ -4,6 +4,7 @@
 
 import UIKit
 import Alamofire
+import UNCmorfiKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
 
         window = UIWindow(frame: UIScreen.main.bounds)
+
+        if Settings.capturingScreenshots {
+            if #available(iOS 13.0, *) {
+                window?.overrideUserInterfaceStyle = .dark
+            }
+        }
+
         window?.tintColor = .systemOrange
         window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()

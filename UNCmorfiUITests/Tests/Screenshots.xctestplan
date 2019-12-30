@@ -1,0 +1,45 @@
+{
+  "configurations" : [
+    {
+      "id" : "6D4C209A-ADF8-4565-9A4D-57DAD6441373",
+      "name" : "English",
+      "options" : {
+        "language" : "en",
+        "region" : "US"
+      }
+    },
+    {
+      "id" : "4DA4C805-2EDF-4231-9F3C-CA0C4196A87F",
+      "name" : "Spanish",
+      "options" : {
+        "language" : "es-419",
+        "region" : "AR"
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "areLocalizationScreenshotsEnabled" : true,
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:UNCmorfi.xcodeproj",
+      "identifier" : "5EC4CBCE1E91F4DA00E0BE71",
+      "name" : "UNCmorfi"
+    },
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : [
+        "Base",
+        "TestCase"
+      ],
+      "target" : {
+        "containerPath" : "container:UNCmorfi.xcodeproj",
+        "identifier" : "5E768BD023AB5C5A00E56C87",
+        "name" : "UNCmorfiUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

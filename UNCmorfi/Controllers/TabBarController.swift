@@ -13,13 +13,13 @@ class TabBarController: UITabBarController {
         // Standard tab bar item image size.
         let size = CGSize(width: 25, height: 25)
 
-        let balance = UINavigationController(rootViewController: UserTableViewController())
-        let balanceImage = UIImage.fontAwesomeIcon(name: .idCard, style: .regular, textColor: .black, size: size)
-        balance.tabBarItem = UITabBarItem(
+        let users = UINavigationController(rootViewController: UserTableViewController())
+        let usersImage = UIImage.fontAwesomeIcon(name: .idCard, style: .regular, textColor: .black, size: size)
+        users.tabBarItem = UITabBarItem(
             title: "balance.tab.label".localized(),
-            image: balanceImage,
+            image: usersImage,
             selectedImage: nil)
-        balance.tabBarItem.accessibilityIdentifier = "balance"
+        users.tabBarItem.accessibilityIdentifier = "users"
         
         let menu = UINavigationController(rootViewController: MenuViewController())
         let menuImage = UIImage.fontAwesomeIcon(name: .utensils, style: .solid, textColor: .black, size: size)
@@ -29,21 +29,21 @@ class TabBarController: UITabBarController {
             selectedImage: nil)
         menu.tabBarItem.accessibilityIdentifier = "menu"
         
-        let map = UINavigationController(rootViewController: MapViewController())
-        let mapImage = UIImage.fontAwesomeIcon(name: .map, style: .regular, textColor: .black, size: size)
-        map.tabBarItem = UITabBarItem(
+        let locations = UINavigationController(rootViewController: LocationsViewController())
+        let locationsImage = UIImage.fontAwesomeIcon(name: .map, style: .regular, textColor: .black, size: size)
+        locations.tabBarItem = UITabBarItem(
             title: "map.tab.label".localized(),
-            image: mapImage,
+            image: locationsImage,
             selectedImage: nil)
-        map.tabBarItem.accessibilityIdentifier = "map"
+        locations.tabBarItem.accessibilityIdentifier = "locations"
 
-        let counter = UINavigationController(rootViewController: CounterViewController())
-        let counterImage = UIImage.fontAwesomeIcon(name: .tachometerAlt, style: .solid, textColor: .black, size: size)
-        counter.tabBarItem = UITabBarItem(
+        let servings = UINavigationController(rootViewController: ServingsViewController())
+        let servingsImage = UIImage.fontAwesomeIcon(name: .tachometerAlt, style: .solid, textColor: .black, size: size)
+        servings.tabBarItem = UITabBarItem(
             title: "counter.tab.label".localized(),
-            image: counterImage,
+            image: servingsImage,
             selectedImage: nil)
-        counter.tabBarItem.accessibilityIdentifier = "counter"
+        servings.tabBarItem.accessibilityIdentifier = "servings"
 
         let info = UINavigationController(rootViewController: InfoViewController())
         let infoImage = UIImage.fontAwesomeIcon(name: .infoCircle, style: .solid, textColor: .black, size: size)
@@ -54,6 +54,6 @@ class TabBarController: UITabBarController {
         info.tabBarItem.accessibilityIdentifier = "info"
         
         // Add the view controllers to the tab bar controller view controllers.
-        viewControllers = [balance, menu, counter, map, info]
+        viewControllers = [users, menu, servings, locations, info]
     }
 }

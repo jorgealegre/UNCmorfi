@@ -4,6 +4,7 @@
 
 import UIKit
 import NotificationCenter
+import UNCmorfiKit
 
 @objc(UserTableViewController)
 class UserTableViewController: UITableViewController, NCWidgetProviding {
@@ -25,13 +26,13 @@ class UserTableViewController: UITableViewController, NCWidgetProviding {
     // MARK: - UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return UserStore.shared.users.count
+        return LocalUserStore.shared.users.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: UserCell.reuseID, for: indexPath) as! UserCell
 
-        let user = UserStore.shared.users[indexPath.row]
+        let user = LocalUserStore.shared.users[indexPath.row]
 
         cell.configureFor(user: user)
 
@@ -48,11 +49,11 @@ class UserTableViewController: UITableViewController, NCWidgetProviding {
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         // Maybe the users we're displaying are out of date.
         // Read latest users from disk.
-        UserStore.shared.reloadUsers()
+        LocalUserStore.shared.reloadUsers()
         tableView.reloadData()
 
         // Try to refresh the users we have.
-        UserStore.shared.updateUsers { [unowned self] _ in
+        LocalUserStore.shared.updateUsers { [unowned self] _ in
             self.tableView.reloadData()
             completionHandler(NCUpdateResult.newData)
         }

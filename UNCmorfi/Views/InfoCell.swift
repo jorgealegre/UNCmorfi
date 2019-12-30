@@ -4,6 +4,7 @@
 
 import UIKit
 import TinyConstraints
+import UNCmorfiKit
 
 class InfoCell: UITableViewCell {
 

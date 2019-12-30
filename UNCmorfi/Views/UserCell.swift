@@ -5,6 +5,7 @@
 import UIKit
 import TinyConstraints
 import AlamofireImage
+import UNCmorfiKit
 
 class UserCell: UITableViewCell {
 
@@ -34,6 +35,7 @@ class UserCell: UITableViewCell {
         imageView.layer.cornerRadius = Constants.photoImageViewWidth / 2
         imageView.layer.masksToBounds = true
         imageView.contentMode = .scaleAspectFill
+        imageView.accessibilityIdentifier = "user-image"
         return imageView
     }()
 
@@ -41,6 +43,7 @@ class UserCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .title2)
         label.adjustsFontForContentSizeCategory = true
+        label.accessibilityIdentifier = "user-name"
         return label
     }()
     
@@ -53,6 +56,7 @@ class UserCell: UITableViewCell {
             label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular)
         }
         label.adjustsFontForContentSizeCategory = true
+        label.accessibilityIdentifier = "user-barcode"
         return label
     }()
 
@@ -65,6 +69,7 @@ class UserCell: UITableViewCell {
             label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .bold)
         }
         label.adjustsFontForContentSizeCategory = true
+        label.accessibilityIdentifier = "user-balance"
         return label
     }()
 

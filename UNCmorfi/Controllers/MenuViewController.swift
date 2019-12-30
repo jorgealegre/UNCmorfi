@@ -3,6 +3,7 @@
 //
 
 import UIKit
+import UNCmorfiKit
 
 class MenuViewController: UITableViewController {
 
@@ -19,6 +20,7 @@ class MenuViewController: UITableViewController {
         } else {
             view = UIActivityIndicatorView(style: .gray)
         }
+        view.accessibilityIdentifier = "activity-indicator"
         return view
     }()
 
@@ -35,7 +37,7 @@ class MenuViewController: UITableViewController {
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
 
         activityIndicator.startAnimating()
-        UNCComedor.shared.getMenu { [weak self] result in
+        URLSession.shared.load(.menu) { [weak self] result in
             guard let self = self else { return }
 
             self.activityIndicator.stopAnimating()
