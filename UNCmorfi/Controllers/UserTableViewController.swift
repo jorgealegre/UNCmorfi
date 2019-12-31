@@ -48,9 +48,11 @@ class UserTableViewController: UITableViewController {
     
     private func setupNavigationBarButtons() {
         navigationItem.leftBarButtonItem = editButtonItem
+        editButtonItem.accessibilityIdentifier = "edit-button"
 
         let addUserButton = UIBarButtonItem(barButtonSystemItem: .add, target: self,
                                                action: #selector(addUserButtonTapped))
+        addUserButton.accessibilityIdentifier = "add-button"
         navigationItem.rightBarButtonItem = addUserButton
     }
 
@@ -91,20 +93,17 @@ class UserTableViewController: UITableViewController {
 
     @objc private func addUserButtonTapped() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "manual".localized(), style: .default, handler: { _ in
-            self.addUserViaText()
-        }))
-        alertController.addAction(UIAlertAction(title: "camera".localized(), style: .default, handler: { _ in
-            self.addUserViaCamera()
-        }))
-        alertController.addAction(UIAlertAction(title: "photo".localized(), style: .default, handler: { _ in
-            self.addUserViaPhoto()
-        }))
-        alertController.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
+
+        let manualAction = UIAlertAction(title: "manual".localized(), style: .default, handler: addUserViaText)
+        let cameraAction = UIAlertAction(title: "camera".localized(), style: .default, handler: addUserViaCamera)
+        let photoAction = UIAlertAction(title: "photo".localized(), style: .default, handler: addUserViaPhoto)
+        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel)
+
+        alertController.addActions(manualAction, cameraAction, photoAction, cancelAction)
         present(alertController, animated: true)
     }
 
-    private func addUserViaPhoto() {
+    private func addUserViaPhoto(_ action: UIAlertAction) {
         if PhotoBarcodeScannerViewController.isSourceTypeAvailable(.photoLibrary) {
             let imagePickerController = PhotoBarcodeScannerViewController()
             imagePickerController.barcodeHandler = self
@@ -112,7 +111,7 @@ class UserTableViewController: UITableViewController {
         }
     }
 
-    private func addUserViaText() {
+    private func addUserViaText(_ action: UIAlertAction) {
         let ac = UIAlertController(title: "balance.add.user.text.title".localized(),
                                    message: "balance.add.user.text.description".localized(),
                                    preferredStyle: .alert)
@@ -131,7 +130,7 @@ class UserTableViewController: UITableViewController {
         present(ac, animated: true)
     }
     
-    private func addUserViaCamera() {
+    private func addUserViaCamera(_ action: UIAlertAction) {
         let bsvc = CameraBarcodeScannerViewController()
         let navigationController = UINavigationController(rootViewController: bsvc)
         bsvc.barcodeHandler = self

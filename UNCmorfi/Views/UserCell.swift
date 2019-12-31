@@ -6,6 +6,7 @@ import UIKit
 import TinyConstraints
 import AlamofireImage
 import UNCmorfiKit
+import UNCmorfiUI
 
 class UserCell: UITableViewCell {
 
@@ -14,15 +15,6 @@ class UserCell: UITableViewCell {
     static let reuseID = "UserCell"
 
     private enum Constants {
-        static let balanceFormatter: NumberFormatter = {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.currencyCode = "ARS"
-            formatter.currencySymbol = "$"
-            formatter.maximumFractionDigits = 0
-            return formatter
-        }()
-
         static let photoImageViewWidth: CGFloat = 50
     }
 
@@ -104,7 +96,7 @@ class UserCell: UITableViewCell {
     // MARK: - Methods
 
     func configureFor(user: User) {
-        balanceLabel.text = Constants.balanceFormatter.string(from: user.balance as NSNumber)
+        balanceLabel.text = NumberFormatter.balanceFormatter.string(from: user.balance as NSNumber)
         nameLabel.text = user.name
         barcodeLabel.text = user.code
 

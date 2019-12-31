@@ -4,17 +4,17 @@
 
 import Foundation
 
-class MockUserStore: UserStore {
+public class MockUserStore: UserStore {
 
     // MARK: - Singleton
 
-    static let shared = MockUserStore()
+    public static let shared = MockUserStore()
 
     private init() {}
 
     // MARK: - UserStore
 
-    var users: [User] {
+    public var users: [User] {
         [User(name: "Jorge Facundo Alegre",
              code: "04756A29333C62D",
              balance: 184,
@@ -23,20 +23,20 @@ class MockUserStore: UserStore {
              type: "Estudiante de Grado")]
     }
 
-    func reloadUsers() {
+    public func reloadUsers() {
     }
 
-    func addUser(withCode code: String, callback: @escaping (Result<Void, UserStoreError>) -> Void) {
+    public func addUser(withCode code: String, callback: @escaping (Result<Void, UserStoreError>) -> Void) {
         callback(.success(()))
     }
 
-    func updateUsers(callback: @escaping (Result<Void, UserStoreError>) -> Void) {
+    public func updateUsers(callback: @escaping (Result<Void, UserStoreError>) -> Void) {
         callback(.success(()))
     }
 
-    func swapUser(from: Int, to: Int) {
+    public func swapUser(from: Int, to: Int) {
     }
 
-    func removeUser(at index: Int) {
+    public func removeUser(at index: Int) {
     }
 }

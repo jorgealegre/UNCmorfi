@@ -4,62 +4,44 @@
 
 import SwiftUI
 import UNCmorfiKit
+import UNCmorfiUI
 
-//import Combine
-//import AlamofireImage
-//extension ImageDownloader {
-//    func image(for url: URL) -> AnyPublisher<UIImage?, Never> {
-//        return Future { promise in
-//            let urlRequest = URLRequest(url: url)
-//            self.download(urlRequest) { response in
-//                promise(.success(response.result.value))
-//            }
-//        }
-//        .eraseToAnyPublisher()
-//    }
-//}
-//
-//struct RemoteImage: View {
-//    let url: URL
-//
-//    @State private var image: UIImage? = nil
-//
-//    init(url: URL) {
-//        ImageDownloader.default.image(for: url).handleEvents(receiveSubscription: { subscription in
-//            subscription.
-//        })
-//    }
-//
-//    var body: some View {
-//        Group {
-//            if image != nil {
-//                Image(uiImage: image!)
-//            } else {
-//                Image(systemName: "person.crop.circle")
-//            }
-//        }
-//    }
-//}
+struct UserRow: View {
+    let user: User
 
-struct BalanceRow: View {
-    let balance: User
+    private var formattedBalance: String {
+        NumberFormatter.balanceFormatter.string(from: user.balance as NSNumber)!
+    }
 
     var body: some View {
-        HStack {
-            Image(systemName: "person.crop.circle")
-            VStack {
-                Text(balance.name)
-                Text(balance.code)
+        HStack(spacing: 10) {
+            RemoteImage(url: user.imageURL)
+                .frame(width: 50, height: 50)
+                .cornerRadius(25)
+
+            VStack(alignment: .leading, spacing: 5) {
+                Text(user.name)
+                    .font(.headline)
+
+                Text(user.code)
+                    .font(Font.body.monospacedDigit())
             }
+
             Spacer()
-            Text("$\(balance.balance)")
+
+            VStack {
+                Spacer()
+                Text(formattedBalance)
+                    .font(Font.headline.monospacedDigit())
+            }
         }
+        .padding(10)
     }
 }
 
-struct BalanceRow_Previews: PreviewProvider {
+struct UserRow_Previews: PreviewProvider {
     static var previews: some View {
-        BalanceRow(balance: users[0])
-            .previewLayout(.fixed(width: 300, height: 70))
+        UserRow(user: userStore.users[0])
+            .previewLayout(.fixed(width: 400, height: 70))
     }
 }

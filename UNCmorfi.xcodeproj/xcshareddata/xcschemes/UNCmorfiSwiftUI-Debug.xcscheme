@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1120"
+   LastUpgradeVersion = "1130"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/bash&#10;&#10;#buildID=${PRODUCT_BUNDLE_IDENTIFIER}&#10;#extId=&quot;Widget&quot;&#10;#&#10;#/usr/libexec/PlistBuddy -c &quot;Set :CFBundleIdentifier $buildID.$extId&quot; &quot;${SRCROOT}/${extId}/Info.plist&quot;&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "5E203A5523B5F5CD00D38BD4"
+                     BuildableName = "UNCmorfiSwiftUI.app"
+                     BlueprintName = "UNCmorfiSwiftUI"
+                     ReferencedContainer = "container:UNCmorfi.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -28,9 +46,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5EC4CBCE1E91F4DA00E0BE71"
-               BuildableName = "UNCmorfi.app"
-               BlueprintName = "UNCmorfi"
+               BlueprintIdentifier = "UNCmorfiUI"
+               BuildableName = "UNCmorfiUI"
+               BlueprintName = "UNCmorfiUI"
+               ReferencedContainer = "container:UNCmorfiUI">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5E203A5523B5F5CD00D38BD4"
+               BuildableName = "UNCmorfiSwiftUI.app"
+               BlueprintName = "UNCmorfiSwiftUI"
                ReferencedContainer = "container:UNCmorfi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -41,47 +73,11 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:UNCmorfiUITests/Tests/Screenshots.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5E768BD023AB5C5A00E56C87"
-               BuildableName = "UNCmorfiUITests.xctest"
-               BlueprintName = "UNCmorfiUITests"
-               ReferencedContainer = "container:UNCmorfi.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5E2420A723B990EA00FE06C2"
-               BuildableName = "UNCmorfiKitTests.xctest"
-               BlueprintName = "UNCmorfiKitTests"
-               ReferencedContainer = "container:UNCmorfi.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5E2420C123B9A0C000FE06C2"
-               BuildableName = "UNCmorfiTests.xctest"
-               BlueprintName = "UNCmorfiTests"
-               ReferencedContainer = "container:UNCmorfi.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -94,9 +90,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5EC4CBCE1E91F4DA00E0BE71"
-            BuildableName = "UNCmorfi.app"
-            BlueprintName = "UNCmorfi"
+            BlueprintIdentifier = "5E203A5523B5F5CD00D38BD4"
+            BuildableName = "UNCmorfiSwiftUI.app"
+            BlueprintName = "UNCmorfiSwiftUI"
             ReferencedContainer = "container:UNCmorfi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -111,9 +107,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5EC4CBCE1E91F4DA00E0BE71"
-            BuildableName = "UNCmorfi.app"
-            BlueprintName = "UNCmorfi"
+            BlueprintIdentifier = "5E203A5523B5F5CD00D38BD4"
+            BuildableName = "UNCmorfiSwiftUI.app"
+            BlueprintName = "UNCmorfiSwiftUI"
             ReferencedContainer = "container:UNCmorfi.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

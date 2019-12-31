@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1120"
+   LastUpgradeVersion = "1130"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -60,6 +60,16 @@
                BlueprintIdentifier = "5E2420C123B9A0C000FE06C2"
                BuildableName = "UNCmorfiTests.xctest"
                BlueprintName = "UNCmorfiTests"
+               ReferencedContainer = "container:UNCmorfi.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5E768BD023AB5C5A00E56C87"
+               BuildableName = "UNCmorfiUITests.xctest"
+               BlueprintName = "UNCmorfiUITests"
                ReferencedContainer = "container:UNCmorfi.xcodeproj">
             </BuildableReference>
          </TestableReference>

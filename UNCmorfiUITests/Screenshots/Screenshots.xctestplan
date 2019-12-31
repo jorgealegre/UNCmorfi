@@ -30,9 +30,15 @@
   "testTargets" : [
     {
       "parallelizable" : true,
-      "skippedTests" : [
-        "Base",
-        "TestCase"
+      "selectedTests" : [
+        "LocationsScreenshot\/testLocations()",
+        "LocationsTests\/testLocations()",
+        "MenuScreenshot\/testMenu()",
+        "MenuTests\/testMenu()",
+        "ServingsScreenshot\/testServings()",
+        "ServingsTests\/testServings()",
+        "UsersScreenshot\/testUsers()",
+        "UsersTests\/testUsers()"
       ],
       "target" : {
         "containerPath" : "container:UNCmorfi.xcodeproj",

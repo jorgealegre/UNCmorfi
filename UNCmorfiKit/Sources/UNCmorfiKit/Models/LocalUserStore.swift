@@ -71,7 +71,13 @@ public class LocalUserStore: UserStore {
     }
 
     public func updateUsers(callback: @escaping ((Result<Void, UserStoreError>) -> Void)) {
-        // Get the user codes needed for the user API.
+        // Exit early if we don't have users.
+        guard !users.isEmpty else {
+            callback(.success(()))
+            return
+        }
+
+        // Get the barcode from each user.
         let userCodes = users.map { $0.code }
 
         // Get the updated users from the API.

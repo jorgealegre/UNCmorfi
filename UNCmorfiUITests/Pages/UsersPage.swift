@@ -5,16 +5,28 @@
 import XCTest
 
 class UsersPage: Page {
+
+    private enum Button: String, Locator {
+        case add = "add-button"
+        case edit = "edit-button"
+    }
+
     @discardableResult
     func user(at index: Int) -> UserUIElement {
         UserUIElement(app.tables.cells.element(boundBy: index))
+    }
+
+    @discardableResult
+    func addUser() -> AddUserOptionsPage {
+        app.buttons[Button.add].tap()
+
+        return AddUserOptionsPage(app: app, testCase: testCase)
     }
 }
 
 class UserUIElement {
 
     enum Element: String, Locator {
-        case photo = "user-photo"
         case name = "user-name"
         case barcode = "user-barcode"
         case balance = "user-balance"
@@ -26,7 +38,7 @@ class UserUIElement {
         self.uiElement = uiElement
     }
 
-    func get(_ element: Element, callback: ((String) -> Void)? = nil) {
-        callback?(uiElement.staticTexts[element].label)
+    func get(_ element: Element) -> XCUIElement {
+        uiElement.staticTexts[element].firstMatch
     }
 }

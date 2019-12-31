@@ -8,7 +8,7 @@ class TestCase: XCTestCase {
 
     // MARK: - Properties
 
-    private let app = XCUIApplication()
+    let app = XCUIApplication()
 
     // MARK: - Pages
 
@@ -21,15 +21,6 @@ class TestCase: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
 
-        app.launchArguments.append("-capturing_screenshots")
         app.launch()
-    }
-
-    func takeScreenshot(name screenshotName: String) {
-        let screenshot = XCUIScreen.main.screenshot()
-        let attach = XCTAttachment(screenshot: screenshot, quality: .original)
-        attach.name = screenshotName
-        attach.lifetime = .keepAlways
-        add(attach)
     }
 }

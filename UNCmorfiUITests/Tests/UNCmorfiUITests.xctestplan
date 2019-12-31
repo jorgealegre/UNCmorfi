@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "9C418DFB-7CEA-43CF-88BB-5663B02F48A1",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testExecutionOrdering" : "random"
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "selectedTests" : [
+        "UsersUITests\/testAddUserManually()",
+        "UsersUITests\/testSomething()"
+      ],
+      "target" : {
+        "containerPath" : "container:UNCmorfi.xcodeproj",
+        "identifier" : "5E768BD023AB5C5A00E56C87",
+        "name" : "UNCmorfiUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

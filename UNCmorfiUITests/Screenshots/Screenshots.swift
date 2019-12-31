@@ -6,17 +6,7 @@ import XCTest
 
 /// Tests are separated into multiple classes so that they can run in parallel.
 
-class LocationsTests: TestCase {
-    func testLocations() {
-        tab.navigateToLocations()
-
-        sleep(5)
-
-        takeScreenshot(name: "locations")
-    }
-}
-
-class UsersTests: TestCase {
+class UsersScreenshot: ScreenshotTestCase {
     func testUsers() {
         tab.navigateToUsers()
 
@@ -24,7 +14,7 @@ class UsersTests: TestCase {
     }
 }
 
-class MenuTests: TestCase {
+class MenuScreenshot: ScreenshotTestCase {
     func testMenu() {
         tab.navigateToMenu()
             .waitForActivityIndicatorToDisappear(timeout: 10)
@@ -33,10 +23,20 @@ class MenuTests: TestCase {
     }
 }
 
-class ServingsTests: TestCase {
+class ServingsScreenshot: ScreenshotTestCase {
     func testServings() {
         tab.navigateToServings()
 
         takeScreenshot(name: "servings")
+    }
+}
+
+class LocationsScreenshot: ScreenshotTestCase {
+    func testLocations() {
+        tab.navigateToLocations()
+
+        sleep(5)
+
+        takeScreenshot(name: "locations")
     }
 }

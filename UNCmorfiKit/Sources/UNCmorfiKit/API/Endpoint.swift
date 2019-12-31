@@ -14,7 +14,7 @@ public struct Endpoint<A: Decodable> {
     }
 
     var urlRequest: URLRequest {
-        let baseURL = URL(string: "https://uncmorfi.georgealegre.com/")!
+        let baseURL = URL(string: "https://uncmorfi.georgealegre.com")!
 
         var components = URLComponents(string: baseURL.appendingPathComponent(path).absoluteString)!
         components.queryItems = queryParameters
@@ -25,7 +25,13 @@ public struct Endpoint<A: Decodable> {
 
 public extension Endpoint {
     static func users(from codes: [String]) -> Endpoint<[User]> {
-        let queryParameters = [URLQueryItem(name: "codes", value: codes.joined(separator: ","))]
+        let queryParameters: [URLQueryItem]
+        if codes.isEmpty {
+            queryParameters = []
+        } else {
+            queryParameters = [URLQueryItem(name: "codes", value: codes.joined(separator: ","))]
+        }
+
         return Endpoint<[User]>(path: "/users", queryParameters: queryParameters)
     }
 
@@ -44,21 +50,28 @@ public extension URLSession {
     func load<A>(_ endpoint: Endpoint<A>, completion: @escaping (Result<A, APIError>) -> Void) {
         dataTask(with: endpoint.urlRequest) { data, response, error in
             guard let data = data else {
-                completion(.failure(.noData))
+                DispatchQueue.main.async {
+                    completion(.failure(.noData))
+                }
                 return
             }
 
             let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
 
             let decodedData: A
             do {
                 decodedData = try decoder.decode(A.self, from: data)
             } catch {
-                completion(.failure(.decodingFailed))
+                DispatchQueue.main.async {
+                    completion(.failure(.decodingFailed))
+                }
                 return
             }
 
-            completion(.success(decodedData))
+            DispatchQueue.main.async {
+                completion(.success(decodedData))
+            }
         }.resume()
     }
 }
@@ -81,6 +94,7 @@ public extension URLSession {
             .mapError { error in
                 APIError.decodingFailed
             }
+            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
 }

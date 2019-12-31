@@ -5,23 +5,13 @@
 import UIKit
 import TinyConstraints
 import UNCmorfiKit
+import UNCmorfiUI
 
 class UserCell: UITableViewCell {
 
     // MARK: - Properties
 
     static let reuseID = "UserCell"
-
-    private enum Constants {
-        static let balanceFormatter: NumberFormatter = {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.currencyCode = "ARS"
-            formatter.currencySymbol = "$"
-            formatter.maximumFractionDigits = 0
-            return formatter
-        }()
-    }
 
     // MARK: - Subviews
 
@@ -68,7 +58,7 @@ class UserCell: UITableViewCell {
     // MARK: - Methods
 
     func configureFor(user: User) {
-        balanceLabel.text = Constants.balanceFormatter.string(from: user.balance as NSNumber)
+        balanceLabel.text = NumberFormatter.balanceFormatter.string(from: user.balance as NSNumber)
         nameLabel.text = user.name
     }
 }
