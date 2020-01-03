@@ -7,7 +7,7 @@ import UNCmorfiUI
 
 class MainNavigator: Navigator {
 
-    enum Destination {
+    enum Destination: Int {
         case users
         case menu
         case servings
@@ -20,6 +20,8 @@ class MainNavigator: Navigator {
     let usersNavigator: UsersNavigator
 
     init(tabBarController: UITabBarController) {
+        tabBarController.restorationIdentifier = "TabBarController"
+
         let usersViewController = UserTableViewController()
         usersNavigator = UsersNavigator(usersViewController: usersViewController)
         usersViewController.navigator = usersNavigator
@@ -27,6 +29,7 @@ class MainNavigator: Navigator {
         // Create all the view controllers for the tab bar controller.
 
         let users = UINavigationController(rootViewController: usersViewController)
+        users.restorationIdentifier = "UsersNavigationController"
         users.tabBarItem = UITabBarItem(
             title: "balance.tab.label".localized(),
             image: TabBarIcon.users.image,
@@ -34,6 +37,7 @@ class MainNavigator: Navigator {
         users.tabBarItem.accessibilityIdentifier = "users"
 
         let menu = UINavigationController(rootViewController: MenuViewController())
+        menu.restorationIdentifier = "MenuNavigationController"
         menu.tabBarItem = UITabBarItem(
             title: "menu.tab.label".localized(),
             image: TabBarIcon.menu.image,
@@ -41,6 +45,7 @@ class MainNavigator: Navigator {
         menu.tabBarItem.accessibilityIdentifier = "menu"
 
         let servings = UINavigationController(rootViewController: ServingsViewController())
+        servings.restorationIdentifier = "ServingsNavigationController"
         servings.tabBarItem = UITabBarItem(
             title: "counter.tab.label".localized(),
             image: TabBarIcon.servings.image,
@@ -48,6 +53,7 @@ class MainNavigator: Navigator {
         servings.tabBarItem.accessibilityIdentifier = "servings"
 
         let locations = UINavigationController(rootViewController: LocationsViewController())
+        locations.restorationIdentifier = "LocationsNavigationController"
         locations.tabBarItem = UITabBarItem(
             title: "map.tab.label".localized(),
             image: TabBarIcon.locations.image,
@@ -55,6 +61,7 @@ class MainNavigator: Navigator {
         locations.tabBarItem.accessibilityIdentifier = "locations"
 
         let info = UINavigationController(rootViewController: InfoViewController())
+        info.restorationIdentifier = "InformationNavigationController"
         info.tabBarItem = UITabBarItem(
             title: "info.tab.label".localized(),
             image: TabBarIcon.information.image,
@@ -68,17 +75,6 @@ class MainNavigator: Navigator {
     }
 
     func navigate(to destination: Destination) {
-        switch destination {
-        case .users:
-            tabBarController.selectedIndex = 0
-        case .menu:
-            tabBarController.selectedIndex = 1
-        case .servings:
-            tabBarController.selectedIndex = 2
-        case .locations:
-            tabBarController.selectedIndex = 3
-        case .information:
-            tabBarController.selectedIndex = 4
-        }
+        tabBarController.selectedIndex = destination.rawValue
     }
 }

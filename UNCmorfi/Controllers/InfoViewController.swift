@@ -11,6 +11,18 @@ class InfoViewController: UITableViewController {
 
     private var data: [(isHidden: Bool, datum: Information)] = Information.allCases.map { (true, $0) }
 
+    // MARK: - Initializers
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+
+        restorationIdentifier = "\(Self.self)"
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - View lifecycle
     
     override func viewDidLoad() {

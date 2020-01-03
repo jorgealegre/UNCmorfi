@@ -13,13 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var navigator: MainNavigator!
 
     func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // The user images don't have the correct Content Type header.
-        DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
-
-        // Configure background fetching. Once every day seems fine.
-        application.setMinimumBackgroundFetchInterval(60 * 60 * 24)
-
+                     willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
 
         // When capturing screenshots, we prefer Dark Mode.
@@ -42,6 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // The user images don't have the correct Content Type header.
+        DataRequest.addAcceptableImageContentTypes(["application/octet-stream"])
+
+        // Configure background fetching. Once every day seems fine.
+        application.setMinimumBackgroundFetchInterval(60 * 60 * 24)
+
+        return true
+    }
+
+    func application(_ application: UIApplication,
                      performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         Services.userStore.updateUsers { _ in
             completionHandler(.newData)
@@ -59,5 +64,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         completionHandler(false)
+    }
+
+    func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
+        true
+    }
+
+    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
+        true
     }
 }

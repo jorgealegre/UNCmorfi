@@ -33,6 +33,18 @@ class LocationsViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     
     private let locationManager = CLLocationManager()
 
+    // MARK: - Initializers
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
+
+        restorationIdentifier = "\(Self.self)"
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - View lifecycle
     
     override func loadView() {
