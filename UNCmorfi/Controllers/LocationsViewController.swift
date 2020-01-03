@@ -12,7 +12,13 @@ class ComedorAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
 
     init(fromComedor comedor: Comedor) {
-        self.title = comedor.name.localized()
+        switch comedor {
+        case .downtown:
+            self.title = .downtown
+        case .university:
+            self.title = .university
+        }
+        
         self.coordinate = CLLocationCoordinate2D(latitude: comedor.location.latitude,
                                                  longitude: comedor.location.longitude)
     }
@@ -54,7 +60,7 @@ class LocationsViewController: UIViewController, MKMapViewDelegate, CLLocationMa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "map.nav.label".localized()
+        navigationItem.title = .locations
         navigationController!.navigationBar.prefersLargeTitles = true
 
         if !Settings.capturingScreenshots {

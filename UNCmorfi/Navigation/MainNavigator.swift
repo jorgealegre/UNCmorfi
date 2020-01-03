@@ -30,42 +30,27 @@ class MainNavigator: Navigator {
 
         let users = UINavigationController(rootViewController: usersViewController)
         users.restorationIdentifier = "UsersNavigationController"
-        users.tabBarItem = UITabBarItem(
-            title: "balance.tab.label".localized(),
-            image: TabBarIcon.users.image,
-            selectedImage: nil)
+        users.tabBarItem = UITabBarItem(title: .balance, image: TabBarIcon.users.image, selectedImage: nil)
         users.tabBarItem.accessibilityIdentifier = "users"
 
         let menu = UINavigationController(rootViewController: MenuViewController())
         menu.restorationIdentifier = "MenuNavigationController"
-        menu.tabBarItem = UITabBarItem(
-            title: "menu.tab.label".localized(),
-            image: TabBarIcon.menu.image,
-            selectedImage: nil)
+        menu.tabBarItem = UITabBarItem(title: .menu, image: TabBarIcon.menu.image, selectedImage: nil)
         menu.tabBarItem.accessibilityIdentifier = "menu"
 
         let servings = UINavigationController(rootViewController: ServingsViewController())
         servings.restorationIdentifier = "ServingsNavigationController"
-        servings.tabBarItem = UITabBarItem(
-            title: "counter.tab.label".localized(),
-            image: TabBarIcon.servings.image,
-            selectedImage: nil)
+        servings.tabBarItem = UITabBarItem(title: .servings, image: TabBarIcon.servings.image, selectedImage: nil)
         servings.tabBarItem.accessibilityIdentifier = "servings"
 
         let locations = UINavigationController(rootViewController: LocationsViewController())
         locations.restorationIdentifier = "LocationsNavigationController"
-        locations.tabBarItem = UITabBarItem(
-            title: "map.tab.label".localized(),
-            image: TabBarIcon.locations.image,
-            selectedImage: nil)
+        locations.tabBarItem = UITabBarItem(title: .locations, image: TabBarIcon.locations.image, selectedImage: nil)
         locations.tabBarItem.accessibilityIdentifier = "locations"
 
         let info = UINavigationController(rootViewController: InfoViewController())
         info.restorationIdentifier = "InformationNavigationController"
-        info.tabBarItem = UITabBarItem(
-            title: "info.tab.label".localized(),
-            image: TabBarIcon.information.image,
-            selectedImage: nil)
+        info.tabBarItem = UITabBarItem(title: .information, image: TabBarIcon.information.image, selectedImage: nil)
         info.tabBarItem.accessibilityIdentifier = "info"
 
         // Add the view controllers to the tab bar controller view controllers.

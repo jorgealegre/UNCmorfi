@@ -38,6 +38,17 @@ class UserCell: UITableViewCell {
         label.accessibilityIdentifier = "user-name"
         return label
     }()
+
+    private let expirationDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.adjustsFontForContentSizeCategory = true
+        label.accessibilityIdentifier = "user-expiration-date"
+        if #available(iOS 13.0, *) {
+            label.textColor = UIColor.secondaryLabel
+        }
+        return label
+    }()
     
     private let barcodeLabel: UILabel = {
         let label = UILabel()
@@ -71,17 +82,23 @@ class UserCell: UITableViewCell {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
 
         // Hierarchy
-        contentView.addSubviews(nameLabel, barcodeLabel, balanceLabel, photoImageView)
+        let labelStack = UIStackView(arrangedSubviews: [nameLabel, expirationDateLabel, barcodeLabel])
+        labelStack.axis = .vertical
+        labelStack.alignment = .leading
+        labelStack.spacing = 2
+        labelStack.setCustomSpacing(5, after: nameLabel)
+        contentView.addSubviews(labelStack, balanceLabel, photoImageView)
 
         // Layout
         let margin = contentView.layoutMarginsGuide
-        photoImageView.edges(to: margin, excluding: .right)
-        nameLabel.leadingToTrailing(of: photoImageView, offset: 10)
-        nameLabel.trailing(to: margin)
-        nameLabel.top(to: margin)
-        barcodeLabel.leading(to: nameLabel)
-        barcodeLabel.topToBottom(of: nameLabel, relation: .equalOrGreater)
-        barcodeLabel.bottom(to: margin)
+        photoImageView.leading(to: margin)
+        photoImageView.centerY(to: margin)
+        photoImageView.top(to: margin, relation: .equalOrGreater)
+        photoImageView.bottom(to: margin, relation: .equalOrLess)
+        labelStack.leadingToTrailing(of: photoImageView, offset: 10)
+        labelStack.trailing(to: margin)
+        labelStack.top(to: margin)
+        labelStack.bottom(to: margin)
         balanceLabel.trailing(to: margin)
         balanceLabel.bottom(to: margin)
 
@@ -96,8 +113,12 @@ class UserCell: UITableViewCell {
     // MARK: - Methods
 
     func configureFor(user: User) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+
         balanceLabel.text = NumberFormatter.balanceFormatter.string(from: user.balance as NSNumber)
         nameLabel.text = user.name
+        expirationDateLabel.text = "\(String.expires): \(dateFormatter.string(from: user.expirationDate))"
         barcodeLabel.text = user.code
 
         if let imageURL = user.imageURL {

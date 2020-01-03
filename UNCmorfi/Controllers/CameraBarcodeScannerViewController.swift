@@ -20,7 +20,7 @@ class CameraBarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "barcodescanner.nav.label".localized()
+        navigationItem.title = .scanning
 
         let captureDevice = AVCaptureDevice.default(for: .video)
         

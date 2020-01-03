@@ -43,7 +43,7 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "menu.nav.label".localized()
+        navigationItem.title = .thisWeeksMenu
         navigationController!.navigationBar.prefersLargeTitles = true
         
         tableView.backgroundView = activityIndicator

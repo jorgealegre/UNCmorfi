@@ -48,7 +48,7 @@ class InfoCell: UITableViewCell {
     // MARK: - Methods
 
     func configureFor(info: Information) {
-        let string = info.rawValue.appending(".body").localized()
+        let string = NSLocalizedString(info.rawValue.appending(".body"), comment: "")
         let components = string.components(separatedBy: "|")
         let attributedString = NSMutableAttributedString()
 

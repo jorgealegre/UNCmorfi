@@ -34,7 +34,7 @@ class UserTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "balance.nav.label".localized()
+        navigationItem.title = .balance
         navigationController!.navigationBar.prefersLargeTitles = true
 
         setupNavigationBarButtons()
@@ -115,10 +115,10 @@ class UserTableViewController: UITableViewController {
     @objc private func addUserButtonTapped() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        let manualAction = UIAlertAction(title: "manual".localized(), style: .default, handler: addUserViaText)
-        let cameraAction = UIAlertAction(title: "camera".localized(), style: .default, handler: addUserViaCamera)
-        let photoAction = UIAlertAction(title: "photo".localized(), style: .default, handler: addUserViaPhoto)
-        let cancelAction = UIAlertAction(title: "cancel".localized(), style: .cancel)
+        let manualAction = UIAlertAction(title: .manual, style: .default, handler: addUserViaText)
+        let cameraAction = UIAlertAction(title: .camera, style: .default, handler: addUserViaCamera)
+        let photoAction = UIAlertAction(title: .photo, style: .default, handler: addUserViaPhoto)
+        let cancelAction = UIAlertAction(title: .cancel, style: .cancel)
 
         alertController.addActions(manualAction, cameraAction, photoAction, cancelAction)
         present(alertController, animated: true)
@@ -129,17 +129,15 @@ class UserTableViewController: UITableViewController {
     }
 
     private func addUserViaText(_ action: UIAlertAction) {
-        let ac = UIAlertController(title: "balance.add.user.text.title".localized(),
-                                   message: "balance.add.user.text.description".localized(),
-                                   preferredStyle: .alert)
+        let ac = UIAlertController(title: .addNewPerson, message: .typeBarcode, preferredStyle: .alert)
 
         ac.addTextField { textField in
             textField.enablesReturnKeyAutomatically = true
             textField.autocapitalizationType = .allCharacters
             textField.clearButtonMode = .whileEditing
         }
-        ac.addAction(UIAlertAction(title: "cancel".localized(), style: .cancel))
-        ac.addAction(UIAlertAction(title: "balance.add.user.text.confirm".localized(), style: .default) { [ac] _ in
+        ac.addAction(UIAlertAction(title: .cancel, style: .cancel))
+        ac.addAction(UIAlertAction(title: .add, style: .default) { [ac] _ in
             guard let text = ac.textFields!.first!.text?.uppercased() else { return }
 
             self.addNewUser(withCode: text)
@@ -166,10 +164,10 @@ class UserTableViewController: UITableViewController {
             case let .failure(error):
                 switch error {
                 case .userNotFound:
-                    let alert = UIAlertController(title: "user.not.found.title".localized(),
-                                                  message: "user.not.found.message".localized(),
+                    let alert = UIAlertController(title: .userNotFound,
+                                                  message: .codeProvidedDoesntMatchExistingUser,
                                                   preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "ok".localized(), style: .default))
+                    alert.addAction(UIAlertAction(title: .ok, style: .default))
                     self.feedbackGenerator.notificationOccurred(.warning)
                     self.present(alert, animated: true)
                 default:

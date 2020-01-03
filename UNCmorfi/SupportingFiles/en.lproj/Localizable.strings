@@ -7,37 +7,6 @@
   LICENSE is at the root of this project's repository.
 */
 
-// TabBarItem Titles
-"balance.tab.label" = "Balance";
-"menu.tab.label" = "Menu";
-"counter.tab.label" = "Servings";
-"map.tab.label" = "Locations";
-"info.tab.label" = "Information";
-
-// Navigation Titles
-"balance.nav.label" = "Balance";
-"menu.nav.label" = "This Week's Menu";
-"counter.nav.label" = "Meals Served";
-"map.nav.label" = "Locations";
-"info.nav.label" = "Information";
-"barcodescanner.nav.label" = "Scanning…";
-
-// Map Annotations
-"university.annotation.title" = "University";
-"downtown.annotation.title" = "Downtown";
-
-// Basic
-"cancel" = "Cancel";
-"loading" = "Loading…";
-
-// #  Balance
-// ## Add User via AlertController
-"balance.add.user.text.title" = "Add a new person";
-"balance.add.user.text.description" = "Type the barcode…";
-"balance.add.user.text.confirm" = "Done";
-"user.not.found.title" = "User not found";
-"user.not.found.message" = "The code provided does not match an existing user.";
-
 // # Information
 "development" = "Development";
 "development.body" = "This app is made by me, Jorge Facundo Alegre. I copied the idea from a friend's Android app. We both study Computer Science together. His name is |[Alejandro Ismael Silva](mailto:alex.sai95@gmail.com)|.";
@@ -61,10 +30,3 @@ Both permissions are completely optional and can be disabled from the Settings a
 
 "android" = "Android App";
 "android.body" = "The Android version of this app (details in the Development section) is called the same as this app, UNCmorfi. You can search for it in the Google Play Store. You can also view the |[source code](https://github.com/AIDEA775/UNCmorfi)|.";
-
-"noBarcodeDetected" = "No barcode was found in the selected image. Try again or choose a different image.";
-"ok" = "OK";
-"error" = "Error";
-"manual" = "Manual";
-"camera" = "Camera";
-"photo" = "Photo";

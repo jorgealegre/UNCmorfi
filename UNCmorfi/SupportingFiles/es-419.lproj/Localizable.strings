@@ -7,36 +7,24 @@
   LICENSE is at the root of this project's repository.
 */
 
-// TabBarItem Titles
-"balance.tab.label" = "Saldo";
-"menu.tab.label" = "Menú";
-"counter.tab.label" = "Raciones";
-"map.tab.label" = "Comedores";
-"info.tab.label" = "Información";
+"Balance" = "Saldo";
+"Menu" = "Menú";
+"Servings" = "Raciones";
+"Locations" = "Comedores";
+"Information" = "Información";
+"This Week's Menu" = "Menú de la Semana";
+"Meals Served" = "Menús Servidos";
+"Scanning" = "Escaneando";
+"University" = "Ciudad Universitaria";
+"Downtown" = "Centro";
+"Cancel" = "Cancelar";
+"Loading" = "Cargando";
 
-// Navigation Titles
-"balance.nav.label" = "Saldo";
-"menu.nav.label" = "Menú de la Semana";
-"counter.nav.label" = "Menús Servidos";
-"map.nav.label" = "Comedores";
-"info.nav.label" = "Información";
-"barcodescanner.nav.label" = "Escaneando…";
-
-// Map Annotations
-"university.annotation.title" = "Ciudad Universitaria";
-"downtown.annotation.title" = "Centro";
-
-// Basic
-"cancel" = "Cancelar";
-"loading" = "Cargando…";
-
-// #  Balance:
-// ## Add User via AlertController
-"balance.add.user.text.title" = "Agregar una persona nueva";
-"balance.add.user.text.description" = "Escriba el código de barras…";
-"balance.add.user.text.confirm" = "Agregar";
-"user.not.found.title" = "Usuario no existe";
-"user.not.found.message" = "No existe ningún usuario que coincida con el código ingresado.";
+"Add a new person" = "Agregar una persona nueva";
+"Type the barcode" = "Escriba el código de barras…";
+"Add" = "Agregar";
+"User not found" = "Usuario no existe";
+"The code provided does not match an existing user." = "No existe ningún usuario que coincida con el código ingresado.";
 
 // # Information
 "development" = "Desarrollo";
@@ -62,9 +50,11 @@ Ambos permisos son completamente opcionales y pueden ser deshabilitados desde Aj
 "android" = "Versión en Android";
 "android.body" = "La versión en Android de esta app (detalles en la sección de Desarrollo) se llama igual que esta, UNCmorfi. La podes encontrar buscando en el Play Store. También puedes ver el |[código fuente](https://github.com/AIDEA775/UNCmorfi)|.";
 
-"noBarcodeDetected" = "No se detectó un código de barra en la imagen seleccionada. Intente de nuevo o elija otra imagen.";
-"ok" = "OK";
-"error" = "Error";
-"manual" = "Manual";
-"camera" = "Cámara";
-"photo" = "Foto";
+"No barcode was found in the selected image. Try again or choose a different image." = "No se detectó un código de barra en la imagen seleccionada. Intente de nuevo o elija otra imagen.";
+"OK" = "OK";
+"Error" = "Error";
+"Manual" = "Manual";
+"Camera" = "Cámara";
+"Photo" = "Foto";
+
+"Expires" = "Vencimiento";

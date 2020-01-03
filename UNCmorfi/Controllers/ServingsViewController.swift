@@ -93,7 +93,7 @@ class ServingsViewController: UIViewController {
         } else {
             view.backgroundColor = .white
         }
-        navigationItem.title = "counter.nav.label".localized()
+        navigationItem.title = .mealsServed
         navigationController!.navigationBar.prefersLargeTitles = true
     }
 

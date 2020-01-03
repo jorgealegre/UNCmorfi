@@ -28,7 +28,7 @@ class InfoViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = NSLocalizedString("info.nav.label", comment: "Information")
+        navigationItem.title = .information
         navigationController!.navigationBar.prefersLargeTitles = true
 
         // Cell setup.

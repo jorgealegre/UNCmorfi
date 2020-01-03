@@ -40,6 +40,6 @@ class InfoCellHeader: UITableViewHeaderFooterView {
     // MARK: - Methods
 
     func configureFor(info: Information) {
-        label.text = info.rawValue.localized()
+        label.text = NSLocalizedString(info.rawValue, comment: "")
     }
 }

@@ -38,9 +38,8 @@ class PhotoBarcodeScannerViewController: UIImagePickerController, UIImagePickerC
             let observations = request.results as! [VNBarcodeObservation]
 
             guard let detectedBarcode = observations.first(where: { $0.symbology == .Code39 })?.payloadStringValue else {
-                let alert = UIAlertController(title: "error".localized(),
-                                              message: "noBarcodeDetected".localized(), preferredStyle: .alert)
-                alert.addAction(.init(title: "ok".localized(), style: .default))
+                let alert = UIAlertController(title: .error, message: .noBarcodeDetected, preferredStyle: .alert)
+                alert.addAction(.init(title: .ok, style: .default))
                 self.present(alert, animated: true)
                 return
             }
