@@ -34,6 +34,9 @@ class UserTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground),
                                                name: UIApplication.willEnterForegroundNotification, object: nil)
 
+        NotificationCenter.default.addObserver(self, selector: #selector(usersUpdated),
+                                               name: .usersUpdated, object: nil)
+
         // Update all data.
         refreshData()
     }
@@ -42,7 +45,7 @@ class UserTableViewController: UITableViewController {
         Services.userStore.reloadUsers()
 
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.usersUpdated()
         }
     }
     
@@ -163,9 +166,13 @@ class UserTableViewController: UITableViewController {
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
         Services.userStore.updateUsers { [unowned self] _ in
-            self.tableView.reloadData()
+            self.usersUpdated()
             refreshControl?.endRefreshing()
         }
+    }
+
+    @objc private func usersUpdated() {
+        tableView.reloadData()
     }
 }
 

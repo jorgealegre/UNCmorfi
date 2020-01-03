@@ -94,6 +94,8 @@ public class LocalUserStore: UserStore {
                 self.users = users
                 self.saveUsers()
 
+                NotificationCenter.default.post(name: .usersUpdated, object: nil)
+                
                 DispatchQueue.main.async {
                     callback(.success(()))
                 }
