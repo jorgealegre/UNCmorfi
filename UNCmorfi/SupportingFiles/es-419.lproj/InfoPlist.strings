@@ -9,3 +9,4 @@
 
 NSCameraUsageDescription = "El uso de la cámara es requerido para poder escanear el código de barras de su tarjeta.";
 NSLocationWhenInUseUsageDescription = "Su ubicación es opcional en case de que desee conocer su cercanía a los comedores.";
+"Scan Barcode" = "Escanear Código";

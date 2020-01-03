@@ -26,6 +26,17 @@
 	<string>Access to the camera is required for scanning the card's barcode.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is optional, in case you want to see how far you are from a lunch hall.</string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Scan Barcode</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).scanbarcode</string>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

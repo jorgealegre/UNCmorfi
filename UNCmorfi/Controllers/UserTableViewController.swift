@@ -11,6 +11,10 @@ class UserTableViewController: UITableViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
+    // MARK: - Properties
+
+    weak var navigator: UsersNavigator?
+
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
@@ -107,11 +111,7 @@ class UserTableViewController: UITableViewController {
     }
 
     private func addUserViaPhoto(_ action: UIAlertAction) {
-        if PhotoBarcodeScannerViewController.isSourceTypeAvailable(.photoLibrary) {
-            let imagePickerController = PhotoBarcodeScannerViewController()
-            imagePickerController.barcodeHandler = self
-            present(imagePickerController, animated: true)
-        }
+        navigator?.navigate(to: .photoPicker)
     }
 
     private func addUserViaText(_ action: UIAlertAction) {
@@ -134,10 +134,7 @@ class UserTableViewController: UITableViewController {
     }
     
     private func addUserViaCamera(_ action: UIAlertAction) {
-        let bsvc = CameraBarcodeScannerViewController()
-        let navigationController = UINavigationController(rootViewController: bsvc)
-        bsvc.barcodeHandler = self
-        present(navigationController, animated: true)
+        navigator?.navigate(to: .barcodeScanner)
     }
     
     // MARK: - Methods

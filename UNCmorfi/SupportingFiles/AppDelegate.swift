@@ -10,6 +10,8 @@ import UNCmorfiKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
+    var navigator: MainNavigator!
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // The user images don't have the correct Content Type header.
@@ -30,9 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Apply a system wide orange tint color.
         window?.tintColor = .systemOrange
 
-        window?.rootViewController = TabBarController()
+        let tabBarController = UITabBarController()
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-        
+
+        navigator = MainNavigator(tabBarController: tabBarController)
+
         return true
     }
 
@@ -41,5 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Services.userStore.updateUsers { _ in
             completionHandler(.newData)
         }
+    }
+
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem,
+                     completionHandler: @escaping (Bool) -> Void) {
+        if shortcutItem.type.contains("scanbarcode") {
+            navigator.navigate(to: .users)
+            navigator.usersNavigator.navigate(to: .barcodeScanner)
+
+            completionHandler(true)
+            return
+        }
+
+        completionHandler(false)
     }
 }
