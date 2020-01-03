@@ -43,6 +43,8 @@ class ServingsViewController: UIViewController {
 
     private var timer: Timer!
 
+    private let feedbackGenerator = UINotificationFeedbackGenerator()
+
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
@@ -84,14 +86,17 @@ class ServingsViewController: UIViewController {
     }
 
     private func updateServings() {
+        feedbackGenerator.prepare()
+
         URLSession.shared.load(.servings) { result in
             switch result {
             case let .success(servings):
                 DispatchQueue.main.async {
                     self.servings = servings.servings
+                    self.feedbackGenerator.notificationOccurred(.success)
                 }
             case .failure:
-                return
+                self.feedbackGenerator.notificationOccurred(.error)
             }
         }
     }

@@ -11,6 +11,8 @@ class MenuViewController: UITableViewController {
 
     private var menu: [Date: [String]]?
 
+    private let feedbackGenerator = UINotificationFeedbackGenerator()
+
     // MARK: - Views
 
     private let activityIndicator: UIActivityIndicatorView = {
@@ -37,6 +39,7 @@ class MenuViewController: UITableViewController {
         tableView.register(FoodCell.self, forCellReuseIdentifier: FoodCell.reuseIdentifier)
 
         activityIndicator.startAnimating()
+        feedbackGenerator.prepare()
         URLSession.shared.load(.menu) { [weak self] result in
             guard let self = self else { return }
 
@@ -46,7 +49,9 @@ class MenuViewController: UITableViewController {
             case let .success(menu):
                 self.menu = menu.menu
                 self.tableView.reloadData()
+                self.feedbackGenerator.notificationOccurred(.success)
             case let .failure(error):
+                self.feedbackGenerator.notificationOccurred(.error)
                 print(error)
             }
         }

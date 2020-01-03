@@ -15,6 +15,8 @@ class UserTableViewController: UITableViewController {
 
     weak var navigator: UsersNavigator?
 
+    private let feedbackGenerator = UINotificationFeedbackGenerator()
+
     // MARK: - View lifecycle
 
     override func viewDidLoad() {
@@ -140,12 +142,15 @@ class UserTableViewController: UITableViewController {
     // MARK: - Methods
 
     private func addNewUser(withCode code: String) {
+        feedbackGenerator.prepare()
+
         Services.userStore.addUser(withCode: code) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success:
                 self.tableView.reloadData()
+                self.feedbackGenerator.notificationOccurred(.success)
             case let .failure(error):
                 switch error {
                 case .userNotFound:
@@ -153,18 +158,26 @@ class UserTableViewController: UITableViewController {
                                                   message: "user.not.found.message".localized(),
                                                   preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "ok".localized(), style: .default))
+                    self.feedbackGenerator.notificationOccurred(.warning)
                     self.present(alert, animated: true)
                 default:
-                    break
+                    self.feedbackGenerator.notificationOccurred(.error)
                 }
             }
         }
     }
     
     @objc private func refreshData(_ refreshControl: UIRefreshControl? = nil) {
+        guard !Services.userStore.users.isEmpty else {
+            refreshControl?.endRefreshing()
+            return
+        }
+
+        feedbackGenerator.prepare()
         Services.userStore.updateUsers { [unowned self] _ in
             self.usersUpdated()
             refreshControl?.endRefreshing()
+            self.feedbackGenerator.notificationOccurred(.success)
         }
     }
 
