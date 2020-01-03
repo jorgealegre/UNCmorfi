@@ -7,38 +7,42 @@ import UNCmorfiKit
 import Combine
 
 struct UsersView: View {
-    @ObservedObject var userStore: ObservableUserStore
+    @ObservedObject private var userStore: ObservableUserStore
 
-    @State private var showingAddUserOption = false
+    @State private var showAddUserOptions = false
 
-    @State private var showingManualUserInput = false
+    @State private var showManualUserInputForm = false
+
+    init(userStore: ObservableUserStore) {
+        self.userStore = userStore
+    }
 
     var body: some View {
         List {
-            ForEach(userStore.users) { user in
-                UserRow(user: user)
-            }
-            .onMove(perform: move)
-            .onDelete(perform: delete)
+            ForEach(userStore.users, content: UserRow.init)
+                .onMove(perform: move)
+                .onDelete(perform: delete)
         }
         .navigationBarItems(leading: EditButton(), trailing: addButton)
-        .actionSheet(isPresented: $showingAddUserOption, content: { actionSheet })
-        .alert(isPresented: $showingManualUserInput, content: { alert })
+        .actionSheet(isPresented: $showAddUserOptions, content: { actionSheet })
+        .alert(isPresented: $showManualUserInputForm, content: { alert })
         .navigationBarTitle("Balance")
     }
 
     private var addButton: some View {
         Button(action: {
-            self.showingAddUserOption = true
+            self.showAddUserOptions = true
         }) {
-            Image(systemName: "plus").imageScale(.large)
+            Image(systemName: "plus")
+                .imageScale(.large)
+                .padding()
         }
     }
 
     private var actionSheet: ActionSheet {
         ActionSheet(title: Text("Chose an input method"), message: nil, buttons: [
             .default(Text("Manual")) {
-                self.showingManualUserInput = true
+                self.showManualUserInputForm = true
             },
             .default(Text("Camera")) {
                 print("camera")
@@ -59,22 +63,32 @@ struct UsersView: View {
         }))
     }
 
-    func move(from source: IndexSet, to destination: Int) {
+    private func move(from source: IndexSet, to destination: Int) {
         userStore.swapUser(from: source.first!, to: destination)
     }
 
-    func delete(at offsets: IndexSet) {
+    private func delete(at offsets: IndexSet) {
         userStore.removeUser(at: offsets.first!)
     }
 }
 
 struct UsersView_Previews: PreviewProvider {
     static var previews: some View {
-        TabView {
-            NavigationView {
-                UsersView(userStore: userStore)
+        Group {
+            TabView {
+                NavigationView {
+                    UsersView(userStore: ObservableUserStore(backingStore: LocalUserStore.shared))
+                }
             }
+            .accentColor(.orange)
+
+//            TabView {
+//                NavigationView {
+//                    UsersView(userStore: ObservableUserStore(backingStore: LocalUserStore.shared))
+//                }
+//            }
+//            .accentColor(.orange)
+//            .environment(\.locale, Locale(identifier: "es_AR"))
         }
-        .accentColor(.orange)
     }
 }

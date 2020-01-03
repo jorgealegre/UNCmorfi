@@ -43,7 +43,7 @@ public class ObservableUserStore: UserStore, ObservableObject {
 
     // MARK: - Initializers
 
-    public init(backingStore: UserStore) {
+    public init(backingStore: UserStore = Services.userStore) {
         self.backingStore = backingStore
     }
 

@@ -4,9 +4,6 @@
 
 import UIKit
 import SwiftUI
-import UNCmorfiKit
-
-let userStore = ObservableUserStore(backingStore: LocalUserStore.shared)
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -15,7 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         let contentView = ContentView()
-            .environmentObject(userStore)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

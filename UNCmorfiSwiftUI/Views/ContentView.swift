@@ -10,7 +10,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             NavigationView {
-                UsersView(userStore: userStore)
+                UsersView(userStore: ObservableUserStore())
             }
             .tabItem {
                 Image(uiImage: TabBarIcon.users.image)

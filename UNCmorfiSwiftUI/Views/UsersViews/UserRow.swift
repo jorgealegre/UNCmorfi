@@ -41,7 +41,7 @@ struct UserRow: View {
 
 struct UserRow_Previews: PreviewProvider {
     static var previews: some View {
-        UserRow(user: userStore.users[0])
+        UserRow(user: MockUserStore.shared.users[0])
             .previewLayout(.fixed(width: 400, height: 70))
     }
 }
