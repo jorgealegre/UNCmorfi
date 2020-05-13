@@ -53,7 +53,7 @@ class UserCell: UITableViewCell {
     private let barcodeLabel: UILabel = {
         let label = UILabel()
         let fontSize = UIFont.preferredFont(forTextStyle: .body).pointSize
-        if #available(iOS 12.0, *) {
+        if #available(iOS 13.0, *) {
             label.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
         } else {
             label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .regular)
@@ -66,7 +66,7 @@ class UserCell: UITableViewCell {
     private let balanceLabel: UILabel = {
         let label = UILabel()
         let fontSize = UIFont.preferredFont(forTextStyle: .headline).pointSize
-        if #available(iOS 12.0, *) {
+        if #available(iOS 13.0, *) {
             label.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .bold)
         } else {
             label.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .bold)

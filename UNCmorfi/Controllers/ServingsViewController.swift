@@ -131,7 +131,7 @@ class ServingsViewController: UIViewController {
 
     private func setProgressLabelFont() {
         let fontSize = UIFont.preferredFont(forTextStyle: .title1).pointSize
-        if #available(iOS 12.0, *) {
+        if #available(iOS 13.0, *) {
             progressLabel.font = UIFont.monospacedSystemFont(ofSize: fontSize, weight: .bold)
         } else {
             progressLabel.font = UIFont.monospacedDigitSystemFont(ofSize: fontSize, weight: .bold)

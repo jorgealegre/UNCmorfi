@@ -14,7 +14,7 @@ public struct Endpoint<A: Decodable> {
     }
 
     var urlRequest: URLRequest {
-        let baseURL = URL(string: "https://uncmorfi.georgealegre.com")!
+        let baseURL = URL(string: "https://uncmorfi.alegre.dev")!
 
         var components = URLComponents(string: baseURL.appendingPathComponent(path).absoluteString)!
         components.queryItems = queryParameters
