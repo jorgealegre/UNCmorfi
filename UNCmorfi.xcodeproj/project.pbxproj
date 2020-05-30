@@ -1151,7 +1151,7 @@
 				MARKETING_VERSION = 2.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi.Widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfiSwiftUI.Widget;
 				PRODUCT_NAME = Widget;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1181,7 +1181,7 @@
 				);
 				MARKETING_VERSION = 2.0.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfi.Widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.georgealegre.UNCmorfiSwiftUI.Widget;
 				PRODUCT_NAME = Widget;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
