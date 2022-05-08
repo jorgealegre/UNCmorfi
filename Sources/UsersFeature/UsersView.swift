@@ -1,30 +1,6 @@
 import ComposableArchitecture
+import SharedModels
 import SwiftUI
-
-public struct User: Identifiable, Equatable {
-    public let balance: Int
-    public let expirationDate: Date
-    public let id: String
-    public let imageURL: URL?
-    public let name: String
-    public let type: String
-
-    public init(
-        balance: Int = 0,
-        expirationDate: Date,
-        id: String,
-        imageURL: URL? = nil,
-        name: String,
-        type: String
-    ) {
-        self.balance = balance
-        self.expirationDate = expirationDate
-        self.id = id
-        self.imageURL = imageURL
-        self.name = name
-        self.type = type
-    }
-}
 
 public struct UsersState: Equatable {
     var users: [User]
@@ -37,6 +13,7 @@ public struct UsersState: Equatable {
 }
 
 public enum UsersAction: Equatable {
+    case addButtonTapped
     case fetchUser(code: String)
     case onAppear
 }
@@ -48,8 +25,13 @@ public struct UsersEnvironment {
     }
 }
 
-public let usersReducer: Reducer<UsersState, UsersAction, UsersEnvironment> = Reducer { state, action, environment in
+public let usersReducer: Reducer<
+    UsersState, UsersAction, UsersEnvironment
+> = Reducer { state, action, environment in
     switch action {
+    case .addButtonTapped:
+        return .none
+
     case let .fetchUser(code):
         return .none
 
@@ -71,11 +53,21 @@ public struct UsersView: View {
         NavigationView {
             List {
                 ForEach(viewStore.users) { user in
-                    Text(user.name)
+                    UserView(user: user)
                 }
             }
             .listStyle(PlainListStyle())
             .navigationTitle("Users")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        viewStore.send(.addButtonTapped)
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+
         }
         .onAppear { viewStore.send(.onAppear) }
     }
@@ -83,34 +75,34 @@ public struct UsersView: View {
 
 struct UsersView_Previews: PreviewProvider {
     static var previews: some View {
-        UsersView(
-            store: .init(
-                initialState: .init(
-                    users: [
-                        User(
-                            balance: 132,
-                            expirationDate: Date().addingTimeInterval(4 * 24 * 60 * 60),
-                            id: "04756A29333C62D",
-                            imageURL: URL(string: "https://asiruws.unc.edu.ar/foto/fbb431f8-5e63-48f8-afac-bdf1de79966f")!,
-
-                            name: "Jorge Facundo Alegre",
-                            type: "Estudiante de Grado"
-                        ),
-                        User(
-                            balance: 132,
-                            expirationDate: Date().addingTimeInterval(4 * 24 * 60 * 60),
-                            id: "04756A29333C62D",
-                            imageURL: URL(string: "https://asiruws.unc.edu.ar/foto/fbb431f8-5e63-48f8-afac-bdf1de79966f")!,
-
-                            name: "Jorge Facundo Alegre",
-                            type: "Estudiante de Grado"
-                        )
-                    ]
-                ),
-                reducer: usersReducer,
-                environment: UsersEnvironment()
+        Group {
+            UsersView(
+                store: .init(
+                    initialState: .init(
+                        users: [
+                            .mock1,
+                            .mock2
+                        ]
+                    ),
+                    reducer: usersReducer,
+                    environment: UsersEnvironment()
+                )
             )
-        )
+
+            UsersView(
+                store: .init(
+                    initialState: .init(
+                        users: [
+                            .mock1,
+                            .mock2
+                        ]
+                    ),
+                    reducer: usersReducer,
+                    environment: UsersEnvironment()
+                )
+            )
             .preferredColorScheme(.dark)
+        }
+        .tint(.orange)
     }
 }
