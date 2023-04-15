@@ -8,7 +8,7 @@ func routes(_ app: Application) throws {
 
     app.get("users") { req -> [User] in
         let userCodes: [String]? = req.query["codes"]
-        guard let userCodes = userCodes else { return [] }
+        guard let userCodes = userCodes?.filter({ !$0.isEmpty }) else { return [] }
 
         return try await UNCComedor().getUsers(from: userCodes)
     }

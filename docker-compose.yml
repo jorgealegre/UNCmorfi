@@ -16,10 +16,11 @@ version: '3.7'
 
 x-shared_environment: &shared_environment
   LOG_LEVEL: ${LOG_LEVEL:-debug}
-  
+
 services:
   app:
     image: uncmorfi:latest
+    platform: linux/amd64
     build:
       context: .
     environment:

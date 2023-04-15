@@ -4,13 +4,19 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            UsersView(
-                store: .init(
-                    initialState: UsersState(),
-                    reducer: usersReducer,
-                    environment: UsersEnvironment()
+            NavigationView {
+                UsersView(
+                    store: .init(
+                        initialState: UsersState(),
+                        reducer: usersReducer,
+                        environment: UsersEnvironment(
+                            presentCamera: {
+                                
+                            }
+                        )
+                    )
                 )
-            )
+            }
             .tabItem {
                 Image(systemName: "person.crop.circle")
                 Text("Users")

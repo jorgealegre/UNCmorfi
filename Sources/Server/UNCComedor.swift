@@ -26,6 +26,7 @@ struct UNCComedor {
 
         case menuUnparseable
         case userUnparseable
+        case userNotFound
         case servingDateUnparseable
         case servingCountUnparseable
     }
@@ -51,7 +52,7 @@ struct UNCComedor {
         do {
             let doc = try SwiftSoup.parse(dataString)
             elements = try doc.select("div[class='field-item even']")
-            monthYear = try elements.select("div[class='tabla_title']").text().components(separatedBy: "-")[1]
+            monthYear = try elements.select("div[class='tabla_title']").text().components(separatedBy: "-")[1].trimmingCharacters(in: .whitespacesAndNewlines)
         } catch {
             throw APIError.menuUnparseable
         }
@@ -67,6 +68,8 @@ struct UNCComedor {
         // For each day, parse the menu.
         do {
             for (day, list) in zip(try elements.select("p strong"), try elements.select("ul")) {
+                print(try! day.text())
+                print(try! list.text())
                 let dayNumber = try day.text()
                     .components(separatedBy:CharacterSet.decimalDigits.inverted)
                     .joined(separator: "")
@@ -77,7 +80,11 @@ struct UNCComedor {
                     .compactMap { try? $0.text() }
                     .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
 
-                let date = formatter.date(from: "\(monthYear) \(dayNumber)")!
+                print(monthYear)
+                print(dayNumber)
+                guard let date = formatter.date(from: "\(monthYear) \(dayNumber)") else {
+                    throw APIError.menuUnparseable
+                }
                 menu[date] = foodList
             }
         } catch {
@@ -113,6 +120,8 @@ struct UNCComedor {
             throw APIError.dataDecodingError
         }
 
+        guard !dataString.contains("rows: []") else { throw APIError.userNotFound }
+
         // Parse the data.
         let preffix = "rows: [{c: ["
         let suffix = "]}]}});"
@@ -125,17 +134,38 @@ struct UNCComedor {
         }
         let components = dataString[preffixIndex..<suffixIndex].components(separatedBy: "},{")
 
-        var _16 = components[16]
-        _16 = String(_16[_16.index(_16.startIndex, offsetBy: 4)..._16.index(_16.startIndex, offsetBy: _16.count - 2)])
+        let firstName: String?
+        let _16 = components[16]
+        if _16 == "v: null" {
+            firstName = nil
+        } else {
+            firstName = String(_16[_16.index(_16.startIndex, offsetBy: 4)..._16.index(_16.startIndex, offsetBy: _16.count - 2)])
+        }
 
-        var _17 = components[17]
-        _17 = String(_17[_17.index(_17.startIndex, offsetBy: 4)..._17.index(_17.startIndex, offsetBy: _17.count - 2)])
+        let lastName: String?
+        let _17 = components[17]
+        if _17 == "v: null" {
+            lastName = nil
+        } else {
+            lastName = String(_17[_17.index(_17.startIndex, offsetBy: 4)..._17.index(_17.startIndex, offsetBy: _17.count - 2)])
+        }
 
-        var _5 = components[5]
-        _5 = String(_5[_5.index(_5.startIndex, offsetBy: 3)..._5.index(_5.startIndex, offsetBy: _5.count - 1)])
+        let balance: Int?
+        let _5 = components[5]
+        if _5 == "v: null" {
+            balance = nil
+        } else {
+            balance = Int(String(_5[_5.index(_5.startIndex, offsetBy: 3)..._5.index(_5.startIndex, offsetBy: _5.count - 1)]))
+        }
 
-        var _24 = components[24]
-        _24 = String(_24[_24.index(_24.startIndex, offsetBy: 4)..._24.index(_24.startIndex, offsetBy: _24.count - 2)])
+        let imageURL: URL?
+        let _24 = components[24]
+        if _24 == "v: null" {
+            imageURL = nil
+        } else {
+            let temp = String(_24[_24.index(_24.startIndex, offsetBy: 4)..._24.index(_24.startIndex, offsetBy: _24.count - 2)])
+            imageURL = UNCComedor.baseImageURL.appendingPathComponent(temp)
+        }
 
         var _8 = components[8]
         _8 = String(_8[_8.index(_8.startIndex, offsetBy: 4)..._8.index(_8.endIndex, offsetBy: -2)])
@@ -144,10 +174,8 @@ struct UNCComedor {
         _4 = String(_4[_4.index(_4.startIndex, offsetBy: 12)..._4.index(_4.endIndex, offsetBy: -2)])
         _4 = _4.components(separatedBy: ", ").joined(separator: "-") + "T00:00:00Z"
 
-        let name = "\(_16) \(_17)"
-        let balance = Int(_5)!
+        let name = "\(firstName ?? "") \(lastName ?? "")".trimmingCharacters(in: .whitespacesAndNewlines)
         let type = _8
-        let imageURL = UNCComedor.baseImageURL.appendingPathComponent(_24)
 
         let dateFormatter = ISO8601DateFormatter()
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
@@ -155,7 +183,7 @@ struct UNCComedor {
         let expirationDate = dateFormatter.date(from: _4)!
 
         let user = User(
-            balance: balance,
+            balance: balance ?? 0,
             expirationDate: expirationDate,
             id: code,
             imageURL: imageURL,
