@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.7
 import PackageDescription
 
 // MARK: - Shared
@@ -6,7 +6,7 @@ import PackageDescription
 var package = Package(
     name: "UNCmorfi",
     platforms: [
-        .iOS(.v15), .macOS(.v12)
+        .iOS(.v15), .macOS(.v13)
     ],
     products: [
         .library(name: "SharedModels", targets: ["SharedModels"])

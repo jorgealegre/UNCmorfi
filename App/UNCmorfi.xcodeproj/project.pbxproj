@@ -10,6 +10,7 @@
 		CF2A240327CF337300F362D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF2A23FF27CF337300F362D1 /* Assets.xcassets */; };
 		CF2A240427CF337300F362D1 /* UNCmorfiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2A240027CF337300F362D1 /* UNCmorfiApp.swift */; };
 		CF2A240527CF337300F362D1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2A240127CF337300F362D1 /* ContentView.swift */; };
+		CFB309C429F1DC2B00FCE5BE /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = CFB309C329F1DC2B00FCE5BE /* SwiftSoup */; };
 		CFC6060C27CF358700DCD9C2 /* UsersFeature in Frameworks */ = {isa = PBXBuildFile; productRef = CFC6060B27CF358700DCD9C2 /* UsersFeature */; };
 /* End PBXBuildFile section */
 
@@ -18,6 +19,7 @@
 		CF2A240027CF337300F362D1 /* UNCmorfiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNCmorfiApp.swift; sourceTree = "<group>"; };
 		CF2A240127CF337300F362D1 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CF2D27E627CF34E5004B71D7 /* uncmorfi */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = uncmorfi; path = ..; sourceTree = "<group>"; };
+		CF76CD0429F1DA43008C8F71 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playground.playground; path = ../Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CFC6405727CF2A0900BD3FE1 /* UNCmorfi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UNCmorfi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -27,6 +29,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CFC6060C27CF358700DCD9C2 /* UsersFeature in Frameworks */,
+				CFB309C429F1DC2B00FCE5BE /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +56,7 @@
 		CFC6404A27CF2A0900BD3FE1 = {
 			isa = PBXGroup;
 			children = (
+				CF76CD0429F1DA43008C8F71 /* Playground.playground */,
 				CF2A23FD27CF337300F362D1 /* iOS */,
 				CF2D27E627CF34E5004B71D7 /* uncmorfi */,
 				CFC6405827CF2A0900BD3FE1 /* Products */,
@@ -86,6 +90,7 @@
 			name = UNCmorfi;
 			packageProductDependencies = (
 				CFC6060B27CF358700DCD9C2 /* UsersFeature */,
+				CFB309C329F1DC2B00FCE5BE /* SwiftSoup */,
 			);
 			productName = "UNCmorfi (iOS)";
 			productReference = CFC6405727CF2A0900BD3FE1 /* UNCmorfi.app */;
@@ -115,6 +120,9 @@
 				Base,
 			);
 			mainGroup = CFC6404A27CF2A0900BD3FE1;
+			packageReferences = (
+				CFB309C229F1DC2B00FCE5BE /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = CFC6405827CF2A0900BD3FE1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -343,7 +351,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		CFB309C229F1DC2B00FCE5BE /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		CFB309C329F1DC2B00FCE5BE /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFB309C229F1DC2B00FCE5BE /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		CFC6060B27CF358700DCD9C2 /* UsersFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UsersFeature;

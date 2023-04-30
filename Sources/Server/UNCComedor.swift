@@ -65,27 +65,39 @@ struct UNCComedor {
         formatter.dateFormat = "MMMM yyyy dd"
         formatter.locale = Locale(identifier: "es_AR")
 
-        // For each day, parse the menu.
+        // Try to parse the menu.
         do {
-            for (day, list) in zip(try elements.select("p strong"), try elements.select("ul")) {
-                print(try! day.text())
-                print(try! list.text())
-                let dayNumber = try day.text()
-                    .components(separatedBy:CharacterSet.decimalDigits.inverted)
-                    .joined(separator: "")
+            var lastDay: Date?
+            var currentElement = try? elements.select("p u strong").first()?.parent()?.parent()
 
-                let listItems: [Element] = try list.select("li").array()
+            while currentElement != nil {
+                let element = currentElement!
 
-                let foodList = listItems
-                    .compactMap { try? $0.text() }
-                    .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+                if try element.select("p u strong").first() != nil {
+                    guard
+                        let dayNumber = try? element.text().split(separator: " ").last,
+                        let date = formatter.date(from: "\(monthYear) \(dayNumber)")
+                    else {
+                        throw APIError.menuUnparseable
+                    }
+                    lastDay = date
+                    menu[date] = []
+                } else if try element.select("ul").first() != nil {
+                    let food: [String] = try element.select("li").array()
+                        .compactMap { try? $0.text() }
+                        .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
 
-                print(monthYear)
-                print(dayNumber)
-                guard let date = formatter.date(from: "\(monthYear) \(dayNumber)") else {
-                    throw APIError.menuUnparseable
+                    guard let lastDay else { continue }
+                    menu[lastDay]?.append(contentsOf: food)
+                } else if try element.select("br").first() != nil {
+                    let food: [String] = try element.outerHtml().split(separator: "<br>").map {
+                        try SwiftSoup.parseBodyFragment(String($0)).text()
+                    }
+                    guard let lastDay else { continue }
+                    menu[lastDay]?.append(contentsOf: food)
                 }
-                menu[date] = foodList
+
+                currentElement = try? currentElement?.nextElementSibling()
             }
         } catch {
             throw APIError.menuUnparseable
